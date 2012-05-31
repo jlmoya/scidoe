@@ -5,6 +5,11 @@
 // Scidoe Toolbox
 // ====================================================================
 
-tbx_build_macros(TOOLBOX_NAME, get_absolute_file_path("buildmacros.sce"));
+function buildmacros()
+  macros_path = get_absolute_file_path("buildmacros.sce");
+  tbx_build_macros(TOOLBOX_NAME, macros_path);
+endfunction
 
-clear tbx_build_macros;
+buildmacros();
+clear buildmacros; // remove buildmacros on stack
+

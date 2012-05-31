@@ -4,11 +4,6 @@
 // This file is released into the public domain
 // ====================================================================
 
-// Copyright (C) 2008 - INRIA
-// Copyright (C) 2009-2011 - DIGITEO
-
-// This file is released under the 3-cluase BSD licence. See COPYING-BSD
-
 mode(-1);
 lines(0);
 
