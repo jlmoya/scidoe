@@ -32,7 +32,7 @@ function retval = randperm(n)
 
 if (nargin == 1 & isscalar(n) & floor (n) == n) then
   if (n >= 0) then
-    [junk, retval] = sort(rand (1, n));
+    [junk, retval] = gsort(rand (1, n));
   else
     error ("randperm: argument must be non-negative");
   end

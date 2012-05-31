@@ -14,8 +14,8 @@ lines(0);
 
 function main_builder()
 
-  TOOLBOX_NAME = "toolbox_skeleton";
-  TOOLBOX_TITLE = "Toolbox Skeleton";
+  TOOLBOX_NAME = "Scidoe";
+  TOOLBOX_TITLE = "Scidoe";
   toolbox_dir = get_absolute_file_path("builder.sce");
 
 // Check Scilab's version
@@ -24,13 +24,14 @@ function main_builder()
   try
      v = getversion("scilab");
   catch
-     error(gettext("Scilab 5.3 or more required."));
+     error(gettext("Scilab 5.4 or more required."));
   end
 
-  if v(2) < 3 then
-     //new API in Scilab 5.3
-     error(gettext('Scilab 5.3 or more is required.'));
+  if v(2) < 4 then
+     //new API in Scilab 5.4
+     error(gettext('Scilab 5.4 or more is required.'));
   end
+clear v;
 
 //Check modules_manager module availability
 //=============================================================================

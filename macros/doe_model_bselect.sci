@@ -75,7 +75,7 @@ for i=1:nb_var
     list_index_op = [list_index_op strindex(model_old,' ')];
     list_index_op = [list_index_op size(list_index_op,1)];
 
-    list_index_op = sort(list_index_op)
+    list_index_op = gsort(list_index_op)
     list_index_x  = strindex(model_old,'x' + repchar(string(0),size_index - length(string(i))) + string(i));
     for j=1:size(list_index_x,1)
       Index = 1;

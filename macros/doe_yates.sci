@@ -88,7 +88,7 @@ if (nargout>1) then
   end
   if (sort_eff) then // secret option 
     // Sort effects
-    [id, ind] = sortrows(fliplr(id));
+    [id, ind] = gsort(fliplr(id),'c');
     id = fliplr(id);
     ef(2:$,:) = ef(ind+1,:);   
   end

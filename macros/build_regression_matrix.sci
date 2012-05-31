@@ -28,7 +28,7 @@ for i=1:size(ListOfTokens,1)
   end
 end
 
-Monom_Index = -sort(-Monom_Index);
+Monom_Index = -gsort(-Monom_Index);
 Monom_Index = unique(Monom_Index);
 
 if (size(H,2)==1) then
