@@ -7,7 +7,7 @@
 mode(-1);
 lines(0);
 
-function main_builder()
+function builder_main()
 
   TOOLBOX_NAME = "Scidoe";
   TOOLBOX_TITLE = "Scidoe";
@@ -26,7 +26,8 @@ function main_builder()
      //new API in Scilab 5.4
      error(gettext('Scilab 5.4 or more is required.'));
   end
-clear v;
+
+//clear v;
 
 //Check modules_manager module availability
 //=============================================================================
@@ -35,18 +36,16 @@ if ~isdef('tbx_build_loader') then
   error(msprintf(gettext('%s module not installed."), 'modules_manager'));
 end
 
-//Action
-//=============================================================================
 
 tbx_builder_macros(toolbox_dir);
-tbx_builder_src(toolbox_dir);
-tbx_builder_gateway(toolbox_dir);
+//tbx_builder_src(toolbox_dir);
+//tbx_builder_gateway(toolbox_dir);
 tbx_builder_help(toolbox_dir);
-tbx_builder_loader(TOOLBOX_NAME,toolbox_dir);
-tbx_builder_cleaner(TOOLBOX_NAME, toolbox_dir);
+tbx_build_loader(TOOLBOX_NAME,toolbox_dir);
+tbx_build_cleaner(TOOLBOX_NAME, toolbox_dir);
 
-end function
+endfunction
 //=============================================================================
-main_builder();
-clear main_builder; // remove main_builder on stack
+builder_main()
+clear builder_main;
 //=============================================================================
