@@ -1,0 +1,151 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>crossvalidate</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="comp_ssd_r_value_crit.html">&lt;&lt; comp_ssd_r_value_crit</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cvplot.html">cvplot &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Scidoe</a> &gt;&gt; <a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a> &gt; crossvalidate</span>
+
+    <br /><br />
+    <div class="info"></div>
+
+  <div class="refnamediv"><h1 class="refname">crossvalidate</h1>
+
+    <p class="refpurpose">Perform K-fold cross validation on a function.</p></div>
+
+  <div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+    <div class="synopsis"><pre><span class="default">[</span><span class="default">s_opt</span><span class="default">,</span><span class="default">b_opt</span><span class="default">,</span><span class="default">res_mean</span><span class="default">,</span><span class="default">res_std</span><span class="default">] = </span><span class="functionid">crossvalidate</span><span class="default">(</span><span class="default">fun</span><span class="default">,</span><span class="default">K</span><span class="default">,</span><span class="default">steps</span><span class="default">,</span><span class="default">X</span><span class="default">,</span><span class="default">y</span><span class="default">,</span><span class="default">varargin</span><span class="default">)</span></pre></div></div>
+
+  <div class="refsection"><h3 class="title">Parameters</h3>
+
+    <dl><dt><span class="term">fun</span>
+
+        <dd><p class="para">the function on which we will perform the cross
+          validation</p></dd></dt>
+
+      <dt><span class="term">K</span>
+
+        <dd><p class="para">the number of sets sampled</p></dd></dt>
+
+      <dt><span class="term">steps</span>
+
+        <dd><p class="para">the number of equidistant positions along fun at which the sum
+          of squared residuals (SSR) is measured. Typically this is some large
+          number to ensure sufficent accuracy.</p></dd></dt>
+
+      <dt><span class="term">X</span>
+
+        <dd><p class="para">the data matrix used as input to fun.</p></dd></dt>
+
+      <dt><span class="term">y</span>
+
+        <dd><p class="para">the response.</p></dd></dt>
+
+      <dt><span class="term">varargin</span>
+
+        <dd><p class="para">an arbitrary number of parameters sent to fun.</p></dd></dt>
+
+      <dt><span class="term">s_opt</span>
+
+        <dd><p class="para">0 &lt; s_opt &lt;= 1, determines the optimal model
+          position.</p></dd></dt>
+
+      <dt><span class="term">b_opt</span>
+
+        <dd><p class="para">the optimal parameter.</p></dd></dt>
+
+      <dt><span class="term">res_mean</span>
+
+        <dd><p class="para">the mean SSR curve.</p></dd></dt>
+
+      <dt><span class="term">res_std</span>
+
+        <dd><p class="para">the standard deviations of the SSR curve.</p></dd></dt></dl></div>
+
+  <div class="refsection"><h3 class="title">Description</h3>
+
+    <p class="para">Performs simple K-fold cross validation on function fun.</p>
+
+    <p class="para">Note: This is merely a simple implementation that has been tested
+    with the lars function only. Use cautiously.</p></div>
+
+  <div class="refsection"><h3 class="title">Examples</h3>
+
+    <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><a class="scilabmacro" href="scilab://loadmatfile">loadmatfile</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0039;</span><span class="scilabstring">diabetes.mat</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">X</span> <span class="scilaboperator">=</span> <span class="scilabid">diabetes</span><span class="scilaboperator">.</span><span class="scilabfield">x</span><span class="scilabdefault">;</span> <a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span>
+<span class="scilabid">X</span> <span class="scilaboperator">=</span> <span class="scilabid">normalize</span><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">y</span> <span class="scilaboperator">=</span> <span class="scilabid">diabetes</span><span class="scilaboperator">.</span><span class="scilabfield">y</span><span class="scilabdefault">;</span>
+<span class="scilabid">y</span> <span class="scilaboperator">=</span> <a class="scilabmacro" href="scilab://center">center</a><span class="scilabopenclose">(</span><span class="scilabid">y</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabopenclose">[</span><span class="scilabid">n</span> <span class="scilabid">p</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">b1</span> <span class="scilaboperator">=</span> <span class="scilabid">lars</span><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabdefault">,</span> <span class="scilabid">y</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">lasso</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span> <span class="scilabnumber">1</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">s1</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://sum">sum</a><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://abs">abs</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabopenclose">)</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabopenclose">)</span><span class="scilaboperator">/</span><a class="scilabcommand" href="scilab://sum">sum</a><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://abs">abs</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">)</span><span class="scilabdefault">,</span><span class="scilabspecial">:</span><span class="scilabopenclose">)</span><span class="scilabopenclose">)</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<a class="scilabmacro" href="scilab://plot">plot</a><span class="scilabopenclose">(</span><span class="scilabid">s1</span><span class="scilabdefault">,</span> <span class="scilabid">b1</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">-</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<a class="scilabmacro" href="scilab://plot">plot</a><span class="scilabopenclose">(</span><span class="scilabid">s1</span><span class="scilabdefault">,</span> <span class="scilabid">b1</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">ro</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<a class="scilabcommand" href="scilab://xtitle">xtitle</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0039;</span><span class="scilabstring">LARS</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span><span class="scilabstring">&#0039;</span><span class="scilabstring">lambda</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span><span class="scilabstring">&#0039;</span><span class="scilabstring">param</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabopenclose">[</span><span class="scilabid">s_opt</span><span class="scilabdefault">,</span> <span class="scilabid">b_opt</span><span class="scilabdefault">,</span> <span class="scilabid">res_mean</span><span class="scilabdefault">,</span> <span class="scilabid">res_std</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">crossvalidate</span><span class="scilabopenclose">(</span><span class="scilabid">lars</span><span class="scilabdefault">,</span> <span class="scilabnumber">10</span><span class="scilabdefault">,</span> <span class="scilabnumber">1000</span><span class="scilabdefault">,</span> <span class="scilabid">X</span><span class="scilabdefault">,</span> <span class="scilabid">y</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">lasso</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">cvplot</span><span class="scilabopenclose">(</span><span class="scilabid">s_opt</span><span class="scilabdefault">,</span> <span class="scilabid">res_mean</span><span class="scilabdefault">,</span> <span class="scilabid">res_std</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+  <div class="refsection"><h3 class="title">See Also</h3>
+
+    <ul class="itemizedlist"><li class="member"><a href="lars.html" class="link">lars</a></li>
+
+      <li class="member"><a href="cvplot.html" class="link">cvplot</a></li></ul></div>
+
+  <div class="refsection"><h3 class="title">Authors</h3>
+
+    <ul class="itemizedlist"><li class="member">Y. Collette (ycollet@freesurf.fr)</li>
+
+      <li class="member">K. Skoglund (kas@imm.dtu.dk)</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="comp_ssd_r_value_crit.html">&lt;&lt; comp_ssd_r_value_crit</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="cvplot.html">cvplot &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

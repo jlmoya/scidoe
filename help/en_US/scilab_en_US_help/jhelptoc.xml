@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN" "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<toc version="1.0">
+<tocitem target="index" text="Scidoe">
+<tocitem target="section_bfd9954ffc83b99da66b57d29dffe5fe" text="Scidoe">
+<tocitem target="build_regression_matrix" text="build_regression_matrix"/>
+<tocitem target="comp_CL2_crit" text="comp_CL2_crit"/>
+<tocitem target="comp_WD2_crit" text="comp_WD2_crit"/>
+<tocitem target="comp_a_opti_crit" text="comp_a_opti_crit"/>
+<tocitem target="comp_d_opti_crit" text="comp_d_opti_crit"/>
+<tocitem target="comp_g_opti_crit" text="comp_g_opti_crit"/>
+<tocitem target="comp_o_opti_crit" text="comp_o_opti_crit"/>
+<tocitem target="comp_ssd_a_value_crit" text="comp_ssd_a_value_crit"/>
+<tocitem target="comp_ssd_ave_khi2_crit" text="comp_ssd_ave_khi2_crit"/>
+<tocitem target="comp_ssd_d_value_crit" text="comp_ssd_d_value_crit"/>
+<tocitem target="comp_ssd_max_khi2_crit" text="comp_ssd_max_khi2_crit"/>
+<tocitem target="comp_ssd_r_value_crit" text="comp_ssd_r_value_crit"/>
+<tocitem target="crossvalidate" text="crossvalidate"/>
+<tocitem target="cvplot" text="cvplot"/>
+<tocitem target="doe_a_opti" text="doe_a_opti"/>
+<tocitem target="doe_box_benkhen" text="doe_box_benkhen"/>
+<tocitem target="doe_composite" text="doe_composite"/>
+<tocitem target="doe_d_opti" text="doe_d_opti"/>
+<tocitem target="doe_diff" text="doe_diff"/>
+<tocitem target="doe_factorial" text="doe_factorial"/>
+<tocitem target="doe_faure" text="doe_faure"/>
+<tocitem target="doe_g_opti" text="doe_g_opti"/>
+<tocitem target="doe_halton" text="doe_halton"/>
+<tocitem target="doe_hammersley" text="doe_hammersley"/>
+<tocitem target="doe_lhs" text="doe_lhs"/>
+<tocitem target="doe_merge" text="doe_merge"/>
+<tocitem target="doe_model_bselect" text="doe_model_bselect"/>
+<tocitem target="doe_model_fselect" text="doe_model_fselect"/>
+<tocitem target="doe_o_opti" text="doe_o_opti"/>
+<tocitem target="doe_opti_permut" text="doe_opti_permut"/>
+<tocitem target="doe_poly_model" text="doe_poly_model"/>
+<tocitem target="doe_prbs" text="doe_prbs"/>
+<tocitem target="doe_prime" text="doe_prime"/>
+<tocitem target="doe_repeat_center" text="doe_repeat_center"/>
+<tocitem target="doe_ryates" text="doe_ryates"/>
+<tocitem target="doe_scramble" text="doe_scramble"/>
+<tocitem target="doe_star" text="doe_star"/>
+<tocitem target="doe_test_mean" text="doe_test_mean"/>
+<tocitem target="doe_test_significance" text="doe_test_significance"/>
+<tocitem target="doe_test_var" text="doe_test_var"/>
+<tocitem target="doe_union" text="doe_union"/>
+<tocitem target="doe_yates" text="doe_yates"/>
+<tocitem target="hadamard" text="hadamard"/>
+<tocitem target="kurtosis" text="kurtosis"/>
+<tocitem target="lars" text="lars"/>
+<tocitem target="normalize" text="normalize"/>
+<tocitem target="plot_model" text="plot_model"/>
+<tocitem target="skewness" text="skewness"/>
+<tocitem target="standardize" text="standardize"/>
+<tocitem target="unnorm_regression_matrix" text="unnorm_doe_matrix"/>
+<tocitem target="var_regression_matrix" text="var_regression_matrix"/>
+<tocitem target="section_489958d926f0b364c5e8cc18ac837896" text="tmp">
+<tocitem target="doe_alias_analysis" text="doe_alias_analysis"/>
+<tocitem target="doe_alias_report" text="doe_alias_report"/>
+<tocitem target="doe_list_table" text="doe_list_table"/>
+<tocitem target="doe_sobol" text="doe_sobol"/>
+</tocitem>
+</tocitem>
+</tocitem>
+</toc>

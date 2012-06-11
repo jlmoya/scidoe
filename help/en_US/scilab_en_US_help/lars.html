@@ -1,0 +1,161 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>lars</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="kurtosis.html">&lt;&lt; kurtosis</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="normalize.html">normalize &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Scidoe</a> &gt;&gt; <a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a> &gt; lars</span>
+
+    <br /><br />
+    <div class="info"></div>
+
+  <div class="refnamediv"><h1 class="refname">lars</h1>
+
+    <p class="refpurpose">The LARS algorithm for performing LAR or LASSO.</p></div>
+
+  <div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+
+    <div class="synopsis"><pre><span class="default">beta</span><span class="default"> = </span><span class="functionid">lars</span><span class="default">(</span><span class="default">X</span><span class="default">,</span><span class="default">y</span><span class="default">,</span><span class="default">method</span><span class="default">,</span><span class="default">stop</span><span class="default">,</span><span class="default">usegram</span><span class="default">,</span><span class="default">gram</span><span class="default">,</span><span class="default">trace</span><span class="default">)</span></pre></div></div>
+
+  <div class="refsection"><h3 class="title">Parameters</h3>
+
+    <dl><dt><span class="term">X</span>
+
+        <dd><p class="para">the input data set (a npoints x nvars matrix)</p></dd></dt>
+
+      <dt><span class="term">y</span>
+
+        <dd><p class="para">the output measures data set (a npoints x 1 matrix)</p></dd></dt>
+
+      <dt><span class="term">method</span>
+
+        <dd><p class="para">the method used (optional parameter). Can be:</p>
+
+          <ul class="itemizedlist"><li><p class="para">&#0039;lars&#0039;: to select the least angle regression</p></li>
+
+            <li><p class="para">&#0039;lasso&#0039;: to select the lasso regression</p></li></ul></dd></dt>
+
+      <dt><span class="term">stop</span>
+
+        <dd><p class="para">the early stopping criterion (optional parameter). If stop is
+          positive, stop corresponds to an upper bound on the L1-norm of the
+          beta coefficients. If stop is negative, stop is an integer that
+          determines the desired number of variables</p></dd></dt>
+
+      <dt><span class="term">usegram</span>
+
+        <dd><p class="para">specifies whether the Gram matrix X&#0039;X should be calculated
+          (usegram = 1) or not (usegram = 0) (optional parameter). Calculation
+          of the Gram matrix is suitable for low-dimensional problems. By
+          default, the Gram matrix is calculated.</p></dd></dt>
+
+      <dt><span class="term">gram</span>
+
+        <dd><p class="para">makes it possible to supply a pre-computed Gram matrix
+          (optional parameter). Set usegram to 1 to enable. If no Gram matrix
+          is available, exclude argument or set gram = [].</p></dd></dt>
+
+      <dt><span class="term">trace</span>
+
+        <dd><p class="para">with nonzero trace will print the adding and subtracting of
+          variables as all lars / lasso solutions are found (optional
+          parameter).</p></dd></dt>
+
+      <dt><span class="term">beta</span>
+
+        <dd><p class="para">each row of beta contains the predictor coefficients of one
+          iteration. A suitable row is chosen using e.g. cross-validation,
+          possibly including interpolation to achieve sub-iteration
+          accuracy.</p></dd></dt></dl></div>
+
+  <div class="refsection"><h3 class="title">Description</h3>
+
+    <p class="para">beta = lars(X, Y) performs least angle regression on the variables
+    in X to approximate the response Y.</p>
+
+    <p class="para">Variables X are assumed to be normalized (zero mean, unit length),
+    the response Y is assumed to be centered.</p></div>
+
+  <div class="refsection"><h3 class="title">Examples</h3>
+
+    <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><a class="scilabmacro" href="scilab://loadmatfile">loadmatfile</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0039;</span><span class="scilabstring">diabetes.mat</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">X</span> <span class="scilaboperator">=</span> <span class="scilabid">diabetes</span><span class="scilaboperator">.</span><span class="scilabfield">x</span><span class="scilabdefault">;</span> <a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span>
+<span class="scilabid">X</span> <span class="scilaboperator">=</span> <span class="scilabid">normalize</span><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">y</span> <span class="scilaboperator">=</span> <span class="scilabid">diabetes</span><span class="scilaboperator">.</span><span class="scilabfield">y</span><span class="scilabdefault">;</span>
+<span class="scilabid">y</span> <span class="scilaboperator">=</span> <a class="scilabmacro" href="scilab://center">center</a><span class="scilabopenclose">(</span><span class="scilabid">y</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabopenclose">[</span><span class="scilabid">n</span> <span class="scilabid">p</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">b1</span> <span class="scilaboperator">=</span> <span class="scilabid">lars</span><span class="scilabopenclose">(</span><span class="scilabid">X</span><span class="scilabdefault">,</span> <span class="scilabid">y</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">lasso</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span> <span class="scilabnumber">1</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">s1</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://sum">sum</a><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://abs">abs</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabopenclose">)</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabopenclose">)</span><span class="scilaboperator">/</span><a class="scilabcommand" href="scilab://sum">sum</a><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://abs">abs</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabopenclose">(</span><a class="scilabcommand" href="scilab://size">size</a><span class="scilabopenclose">(</span><span class="scilabid">b1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">)</span><span class="scilabdefault">,</span><span class="scilabspecial">:</span><span class="scilabopenclose">)</span><span class="scilabopenclose">)</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<a class="scilabmacro" href="scilab://plot">plot</a><span class="scilabopenclose">(</span><span class="scilabid">s1</span><span class="scilabdefault">,</span> <span class="scilabid">b1</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">-</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<a class="scilabmacro" href="scilab://plot">plot</a><span class="scilabopenclose">(</span><span class="scilabid">s1</span><span class="scilabdefault">,</span> <span class="scilabid">b1</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">ro</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<a class="scilabcommand" href="scilab://xtitle">xtitle</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0039;</span><span class="scilabstring">LARS</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span><span class="scilabstring">&#0039;</span><span class="scilabstring">lambda</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span><span class="scilabstring">&#0039;</span><span class="scilabstring">param</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabopenclose">[</span><span class="scilabid">s_opt</span><span class="scilabdefault">,</span> <span class="scilabid">b_opt</span><span class="scilabdefault">,</span> <span class="scilabid">res_mean</span><span class="scilabdefault">,</span> <span class="scilabid">res_std</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">crossvalidate</span><span class="scilabopenclose">(</span><span class="scilabid">lars</span><span class="scilabdefault">,</span> <span class="scilabnumber">10</span><span class="scilabdefault">,</span> <span class="scilabnumber">1000</span><span class="scilabdefault">,</span> <span class="scilabid">X</span><span class="scilabdefault">,</span> <span class="scilabid">y</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0039;</span><span class="scilabstring">lasso</span><span class="scilabstring">&#0039;</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabdefault">,</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span> <span class="scilabnumber">0</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+
+<span class="scilabid">cvplot</span><span class="scilabopenclose">(</span><span class="scilabid">s_opt</span><span class="scilabdefault">,</span> <span class="scilabid">res_mean</span><span class="scilabdefault">,</span> <span class="scilabid">res_std</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+  <div class="refsection"><h3 class="title">See Also</h3>
+
+    <ul class="itemizedlist"><li class="member"><a href="normalize.html" class="link">normalize</a></li>
+
+      <li class="member"><a href="crossvalidate.html" class="link">crossvalidate</a></li></ul></div>
+
+  <div class="refsection"><h3 class="title">Authors</h3>
+
+    <ul class="itemizedlist"><li class="member">Y. Collette (ycollet@freesurf.fr)</li>
+
+      <li class="member">K. Skoglund (kas@imm.dtu.dk)</li></ul></div>
+
+  <div class="refsection"><h3 class="title">Bibliography</h3>
+
+    <p class="para">&#0039;Least Angle Regression&#0039; by Bradley Efron et al, 2003.</p></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="kurtosis.html">&lt;&lt; kurtosis</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_bfd9954ffc83b99da66b57d29dffe5fe.html">Scidoe</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="normalize.html">normalize &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

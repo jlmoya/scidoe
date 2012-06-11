@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+<!--Begin Entities-->
+<!ENTITY a8657fb8b561be2287d0667b6ef7646d7 SYSTEM "/home/m/doe/help/en_US/build_regression_matrix.xml">
+<!ENTITY abde43f86eb24e3d9dfe5aca826b3990d SYSTEM "/home/m/doe/help/en_US/comp_CL2_crit.xml">
+<!ENTITY a5a84d98da86eb1547a483ce1acbab9cb SYSTEM "/home/m/doe/help/en_US/comp_WD2_crit.xml">
+<!ENTITY a78a43cc3bec20e6275a4b84228ba77e4 SYSTEM "/home/m/doe/help/en_US/comp_a_opti_crit.xml">
+<!ENTITY a1e77baa85344c449e691693869416e64 SYSTEM "/home/m/doe/help/en_US/comp_d_opti_crit.xml">
+<!ENTITY a4b075cd410b450fe4fc08df211e62c66 SYSTEM "/home/m/doe/help/en_US/comp_g_opti_crit.xml">
+<!ENTITY a595c025680ff5acad71c537e817cb082 SYSTEM "/home/m/doe/help/en_US/comp_o_opti_crit.xml">
+<!ENTITY a8523b5d88112c166fe3fa858a84cf523 SYSTEM "/home/m/doe/help/en_US/comp_ssd_a_value_crit.xml">
+<!ENTITY ab15da716552101911ed43af2bc88badd SYSTEM "/home/m/doe/help/en_US/comp_ssd_ave_khi2_crit.xml">
+<!ENTITY a79d6f17f4990bf40e4b2eb7b2bf57e66 SYSTEM "/home/m/doe/help/en_US/comp_ssd_d_value_crit.xml">
+<!ENTITY a48aa1bf68dc38c453a2a22baeae3a09c SYSTEM "/home/m/doe/help/en_US/comp_ssd_max_khi2_crit.xml">
+<!ENTITY afcfe51bf8292501702551bca81844a44 SYSTEM "/home/m/doe/help/en_US/comp_ssd_r_value_crit.xml">
+<!ENTITY a37a2f8a5c0ce56ae1dd8a5fe59e32162 SYSTEM "/home/m/doe/help/en_US/crossvalidate.xml">
+<!ENTITY a617ad8f018b2a2258c720057762f0f1b SYSTEM "/home/m/doe/help/en_US/cvplot.xml">
+<!ENTITY a578288ee5134f4df4547adc9b2c85f5d SYSTEM "/home/m/doe/help/en_US/doe_a_opti.xml">
+<!ENTITY ad1e95a38d1f37e01c90b51ba7d5ec9a2 SYSTEM "/home/m/doe/help/en_US/doe_box_benkhen.xml">
+<!ENTITY a95804f93bb960cf750a24aa5d4b6b7ab SYSTEM "/home/m/doe/help/en_US/doe_composite.xml">
+<!ENTITY a6c62ee6230e2ef952ab55d7529c36800 SYSTEM "/home/m/doe/help/en_US/doe_d_opti.xml">
+<!ENTITY af1f65333c65c66c1b2ef3f0d21f5ebc5 SYSTEM "/home/m/doe/help/en_US/doe_diff.xml">
+<!ENTITY acc49c1b64f1a2f69c2433e9e7cc6380a SYSTEM "/home/m/doe/help/en_US/doe_factorial.xml">
+<!ENTITY a1bce92f6ec857c0cd64b4767f784ac53 SYSTEM "/home/m/doe/help/en_US/doe_faure.xml">
+<!ENTITY a1bb5cf5edd06d7e7b5556cf0ad1aa29b SYSTEM "/home/m/doe/help/en_US/doe_g_opti.xml">
+<!ENTITY a261fafc78004543fe31dc8d7718606c6 SYSTEM "/home/m/doe/help/en_US/doe_halton.xml">
+<!ENTITY a30d08215e443eb454231a8e6448bf9cf SYSTEM "/home/m/doe/help/en_US/doe_hammersley.xml">
+<!ENTITY a0e3adfa53f0a77814cd06cc0e773a2c1 SYSTEM "/home/m/doe/help/en_US/doe_lhs.xml">
+<!ENTITY a4172884832f3bd2fc777615755c145db SYSTEM "/home/m/doe/help/en_US/doe_merge.xml">
+<!ENTITY ae462b6b96181a2c1128eb80ad407e5d9 SYSTEM "/home/m/doe/help/en_US/doe_model_bselect.xml">
+<!ENTITY a982ff3f7dbf348f3ddffa8b3a5b53873 SYSTEM "/home/m/doe/help/en_US/doe_model_fselect.xml">
+<!ENTITY affd46ba9b09af31eb8d402ba1cea1495 SYSTEM "/home/m/doe/help/en_US/doe_o_opti.xml">
+<!ENTITY a18186371fca146ad56ce17572a8b4900 SYSTEM "/home/m/doe/help/en_US/doe_opti_permut.xml">
+<!ENTITY a299063ce0dc606c9604461a5bb1827aa SYSTEM "/home/m/doe/help/en_US/doe_poly_model.xml">
+<!ENTITY aa71380aa14a6d2e26e150fc0d094b083 SYSTEM "/home/m/doe/help/en_US/doe_prbs.xml">
+<!ENTITY a0822db75a58bda2aa5b416c2f8ed170f SYSTEM "/home/m/doe/help/en_US/doe_prime.xml">
+<!ENTITY a68b116461dbba039c843b7988c9923f2 SYSTEM "/home/m/doe/help/en_US/doe_repeat_center.xml">
+<!ENTITY a34bdea904b17b810d35e16ba6efe8500 SYSTEM "/home/m/doe/help/en_US/doe_ryates.xml">
+<!ENTITY aef03e8a1e13db66368e03e621c5fd858 SYSTEM "/home/m/doe/help/en_US/doe_scramble.xml">
+<!ENTITY a693bdf3d20e95a13eb7330ddd01e713d SYSTEM "/home/m/doe/help/en_US/doe_star.xml">
+<!ENTITY a865e0769a9d5388d61c8493143faa130 SYSTEM "/home/m/doe/help/en_US/doe_test_mean.xml">
+<!ENTITY ae8ddb2db23ea9343c36ef79c42d1c92f SYSTEM "/home/m/doe/help/en_US/doe_test_significance.xml">
+<!ENTITY a911bdbe772770b1b3319af7277a64cd4 SYSTEM "/home/m/doe/help/en_US/doe_test_var.xml">
+<!ENTITY a4f636229d098b0bacbbb9195f230e647 SYSTEM "/home/m/doe/help/en_US/doe_union.xml">
+<!ENTITY ad97527a281db8c95e5a7c5e74279b2da SYSTEM "/home/m/doe/help/en_US/doe_yates.xml">
+<!ENTITY adda14070bcdb63079e68a05310135c96 SYSTEM "/home/m/doe/help/en_US/hadamard.xml">
+<!ENTITY ab5827a29134945dff575d25b19031ad6 SYSTEM "/home/m/doe/help/en_US/kurtosis.xml">
+<!ENTITY a62013d8724c3a989dc238ff5faf89660 SYSTEM "/home/m/doe/help/en_US/lars.xml">
+<!ENTITY a00fc1c369e730a5b02bf0bd1b880996e SYSTEM "/home/m/doe/help/en_US/normalize.xml">
+<!ENTITY a26b90611aea4b59243f20da893c0fba3 SYSTEM "/home/m/doe/help/en_US/plot_model.xml">
+<!ENTITY a0f17eacbfe3f723a9db24aa359961c0e SYSTEM "/home/m/doe/help/en_US/skewness.xml">
+<!ENTITY aecf385c1544229cc96726101e7759b00 SYSTEM "/home/m/doe/help/en_US/standardize.xml">
+<!ENTITY a0928aff94d77e329a076f233fdf8804c SYSTEM "/home/m/doe/help/en_US/unnorm_regression_matrix.xml">
+<!ENTITY accada537f3682053ad67b761053a33f3 SYSTEM "/home/m/doe/help/en_US/var_regression_matrix.xml">
+<!ENTITY a4a2a058d52142fae841f26f7630a67e6 SYSTEM "/home/m/doe/help/en_US/tmp/doe_alias_analysis.xml">
+<!ENTITY ad24506b41bc2e856c409cea8aa709620 SYSTEM "/home/m/doe/help/en_US/tmp/doe_alias_report.xml">
+<!ENTITY a7256eb7ad32060edb1345567d51a0b34 SYSTEM "/home/m/doe/help/en_US/tmp/doe_list_table.xml">
+<!ENTITY a6144bd9cc8013378727f3976733d2037 SYSTEM "/home/m/doe/help/en_US/tmp/doe_sobol.xml">
+<!--End Entities-->
+]>
+<book version="5.0-subset Scilab" xml:lang="en_US"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info xml:id='scidoe_manual'>
+    <title>Scidoe</title>
+  </info>
+
+<part xml:id='section_bfd9954ffc83b99da66b57d29dffe5fe'>
+<title>Scidoe</title>
+&a8657fb8b561be2287d0667b6ef7646d7;
+&abde43f86eb24e3d9dfe5aca826b3990d;
+&a5a84d98da86eb1547a483ce1acbab9cb;
+&a78a43cc3bec20e6275a4b84228ba77e4;
+&a1e77baa85344c449e691693869416e64;
+&a4b075cd410b450fe4fc08df211e62c66;
+&a595c025680ff5acad71c537e817cb082;
+&a8523b5d88112c166fe3fa858a84cf523;
+&ab15da716552101911ed43af2bc88badd;
+&a79d6f17f4990bf40e4b2eb7b2bf57e66;
+&a48aa1bf68dc38c453a2a22baeae3a09c;
+&afcfe51bf8292501702551bca81844a44;
+&a37a2f8a5c0ce56ae1dd8a5fe59e32162;
+&a617ad8f018b2a2258c720057762f0f1b;
+&a578288ee5134f4df4547adc9b2c85f5d;
+&ad1e95a38d1f37e01c90b51ba7d5ec9a2;
+&a95804f93bb960cf750a24aa5d4b6b7ab;
+&a6c62ee6230e2ef952ab55d7529c36800;
+&af1f65333c65c66c1b2ef3f0d21f5ebc5;
+&acc49c1b64f1a2f69c2433e9e7cc6380a;
+&a1bce92f6ec857c0cd64b4767f784ac53;
+&a1bb5cf5edd06d7e7b5556cf0ad1aa29b;
+&a261fafc78004543fe31dc8d7718606c6;
+&a30d08215e443eb454231a8e6448bf9cf;
+&a0e3adfa53f0a77814cd06cc0e773a2c1;
+&a4172884832f3bd2fc777615755c145db;
+&ae462b6b96181a2c1128eb80ad407e5d9;
+&a982ff3f7dbf348f3ddffa8b3a5b53873;
+&affd46ba9b09af31eb8d402ba1cea1495;
+&a18186371fca146ad56ce17572a8b4900;
+&a299063ce0dc606c9604461a5bb1827aa;
+&aa71380aa14a6d2e26e150fc0d094b083;
+&a0822db75a58bda2aa5b416c2f8ed170f;
+&a68b116461dbba039c843b7988c9923f2;
+&a34bdea904b17b810d35e16ba6efe8500;
+&aef03e8a1e13db66368e03e621c5fd858;
+&a693bdf3d20e95a13eb7330ddd01e713d;
+&a865e0769a9d5388d61c8493143faa130;
+&ae8ddb2db23ea9343c36ef79c42d1c92f;
+&a911bdbe772770b1b3319af7277a64cd4;
+&a4f636229d098b0bacbbb9195f230e647;
+&ad97527a281db8c95e5a7c5e74279b2da;
+&adda14070bcdb63079e68a05310135c96;
+&ab5827a29134945dff575d25b19031ad6;
+&a62013d8724c3a989dc238ff5faf89660;
+&a00fc1c369e730a5b02bf0bd1b880996e;
+&a26b90611aea4b59243f20da893c0fba3;
+&a0f17eacbfe3f723a9db24aa359961c0e;
+&aecf385c1544229cc96726101e7759b00;
+&a0928aff94d77e329a076f233fdf8804c;
+&accada537f3682053ad67b761053a33f3;
+<chapter xml:id='section_489958d926f0b364c5e8cc18ac837896'>
+<title>tmp</title>
+&a4a2a058d52142fae841f26f7630a67e6;
+&ad24506b41bc2e856c409cea8aa709620;
+&a7256eb7ad32060edb1345567d51a0b34;
+&a6144bd9cc8013378727f3976733d2037;
+</chapter>
+</part>
+</book>

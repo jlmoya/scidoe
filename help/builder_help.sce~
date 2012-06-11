@@ -1,10 +1,12 @@
 // ====================================================================
-// Yann COLLETTE
 // Copyright 2009
 // This file is released into the public domain
 // ====================================================================
 
+tbx_builder_help_lang(["en_US"]);
+			get_absolute_file_path("builder_help.sce"));
 
+//help_dir = get_absolute_file_path('builder_help.sce');
+//tbx_builder_help_lang("en_US", help_dir);
 
-tbx_build_help(TOOLBOX_TITLE, get_absolute_file_path("build_help.sce"));
-
+//clear help_dir;
