@@ -44,7 +44,7 @@ end
 // Reverse yates algorithm:
 y      = ef*(n/2);
 y(1,:) = y(1,:)*2;
-if (nargout>1) then
+if (argn(1)>1) then
   [y,id] = doe_yates(flipud(y));
 else
   y = doe_yates(flipud(y));

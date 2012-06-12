@@ -69,7 +69,7 @@ ind1 = 1:2:n-1;
 for ix=1:k
   ef = [ef(ind2,:)+ef(ind1,:); ef(ind2,:)-ef(ind1,:)];
 end
-ef = ef*(2/n);
+ef = ef*(2/n); //changed 2
 ef(1,:) = ef(1,:)/2;
 
 if (nargout>1) then
@@ -88,7 +88,7 @@ if (nargout>1) then
   end
   if (sort_eff) then // secret option 
     // Sort effects
-    [id, ind] = gsort(fliplr(id),'c');
+    [id, ind] = gsort(fliplr(id),'c','i');
     id = fliplr(id);
     ef(2:$,:) = ef(ind+1,:);   
   end
@@ -118,7 +118,7 @@ nc = size(x,2);
 y = x (:, nc:-1:1);
 endfunction
 
-function y = flipud(x)
+ function y = flipud(x)
 
 [nargout, nargin] = argn();
 
@@ -132,4 +132,4 @@ end
 
 nr = size(x,1);
 y  = x(nr:-1:1, :);
-endfunction
+endfunction 
