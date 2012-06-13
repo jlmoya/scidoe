@@ -12,8 +12,8 @@ function H = doetbx_simple_lin_reg(X,Y) // X,Y are row vectors
     
     
     // Check input arguments using apifun_checkvecrow.sci
-    apifun_checkvecrow("doetbx_least_squares",X,"X",1,length(X));
-    apifun_checkvecrow("doetbx_least_squares",Y,"Y",1,length(Y));
+    apifun_checkvecrow("doetbx_simple_lin_reg",X,"X",1,length(X));
+    apifun_checkvecrow("doetbx_simple_lin_reg",Y,"Y",1,length(Y));
     
     
     //Initialise and define matrices A and B of A*X=B
@@ -23,10 +23,6 @@ function H = doetbx_simple_lin_reg(X,Y) // X,Y are row vectors
     
     A = [X',A];
     B = [Y'];
-    
-    // Check whether the system is undetermined.
-    // TODO - det(A) cannot be used since A is not a square matrix.
-    
     
     //We use backslash operator to solve the equation A*x=B
     

@@ -1,0 +1,9 @@
+Design of Experiments Toolbox Changelog
+
+
+ * added doetbx_rsquared.sci
+ * added doetbx_least_squares.sci
+ * renamed doetbx_least_squares.sci to doetbx_simple_lin_reg.sci
+ * added doetbx_multi_lin_reg.sci
+ * updated the builder.sce, no errors shown, but outputs warnings
+ * filled in readme.txt
