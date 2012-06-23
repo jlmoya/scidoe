@@ -10,3 +10,4 @@ Design of Experiments Toolbox Changelog
  * added test_simple_lin_reg.tst,test_simple_lin_reg.dia.ref, test_multi_lin_reg.tst and test_multi_lin_reg.dia.ref in /unit_tests
  * added dependency on the 'Assert Toolbox' in readme.txt and project description
  * changed builder_help.sce file, to load without problem
+ * removed doe_yates,doe_ryates, i4_bit_lo0,i4_bithi1,i4_xor
