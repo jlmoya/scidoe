@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Add some comments about XML file
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en_US" xml:id="doetbx_fullfact">
+  <info>
+    <pubdate>$LastChangedDate: 29-06-2012 $</pubdate>
+  </info>
+  <refnamediv>
+    <refname>doetbx_fullfact</refname>
+    <refpurpose>Add short description here. </refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>B = doetbx_fullfact(levels)</synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>levels</term>
+        <listitem>
+          <para>
+            A row vector containing the number of levels of each input factor.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>B</term>
+        <listitem>
+          <para>
+            The computed full factorial design.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>
+          The user inputs a row vector, where each element represents
+          the levels of each input factors.
+          Length of (levels) is the number of factors of the experiment.
+          B is the full factorial design, representing all permutations 
+          of the levels.
+    </para>
+    <para>With a latex expression
+          <latex>
+            \begin{eqnarray}
+    f(x,a,r) = \frac{1}{r^{-a}\Gamma(a)} \int_0^x t^{a-1} \exp\left(-rt\right) dt
+    \end{eqnarray}
+    </latex>
+    </para>
+  </refsection>
+  <refsection>
+    <title>More information</title>
+    <note><para>A note about foo</para></note>
+    <caution><para>(levels) is a row vector with maximum accepted length 32.</para></caution>
+    <warning><para>A warning about foo</para></warning>
+    <important><para>An important about foo</para></important>
+    <tip><para>A tip about foo</para></tip>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+        levels = [2 3];B = doetbx_fullfact(levels)
+    ]]></programlisting>
+  </refsection>
+  <refsection>
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="add a reference name" >add a reference</link>
+      </member>
+      <member>
+        <link linkend="add a reference name">add a reference</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>Authors</title>
+    <simplelist type="vert">
+      <member>Michael Baudin(michael.baudin@contrib.scilab.org)</member>
+      <member>add another author name and it's reference</member>
+    </simplelist>
+  </refsection>
+  <refsection>
+     <title>Bibliography</title>
+       <para>
+         Add here the function bibliography
+       </para>
+     </refsection>
+    <refsection>
+       <title>History</title>
+      <revhistory>
+        <revision>
+          <revnumber>X.Y</revnumber>
+          <revdescription>Function foo added</revdescription>
+        </revision>
+      </revhistory>
+    </refsection>
+  <refsection>
+     <title>Used Functions</title>
+       <para>
+         Add here the Scilab, C,... used code references
+       </para>
+     </refsection>
+</refentry>
