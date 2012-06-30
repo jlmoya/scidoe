@@ -2,7 +2,7 @@ function B = doetbx_fullfact(levels)
     
      //Check number of input arguments
     [lhs,rhs] = argn();
-    apifun_checkrhs("doetbx_fullfact",rhs,1:32); // 1:32 is the 
+    apifun_checkrhs("doetbx_fullfact",rhs,1);
     apifun_checklhs("doetbx_fullfact",lhs,1);
     
     //Check type of input arguments
