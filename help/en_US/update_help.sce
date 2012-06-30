@@ -15,6 +15,8 @@ mprintf("Updating library\n");
 funarray = [
   "scidoe_ff2n"
   "scidoe_fullfact"
+  "scidoe_multilinreg"
+  "scidoe_simplelinreg"
   ];
 helpdir = fullfile(cwd);
 macrosdir = fullfile(cwd ,"..","..","macros");

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_simplelinreg.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_simplelinreg" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_simplelinreg</refname><refpurpose>Univariate linear regression</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   H = scidoe_simplelinreg(X,Y)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>H :</term>
+      <listitem><para> a 1-by-2 matrix of doubles, where a=H(1) is the slope and b=H(2) is the intercept</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+This function fits data in linear model y=a*x+b,
+where a is the slope and b is the y-intercept.
+   </para>
+   <para>
+The coefficients a and b are so that they
+are the best fit of the data in the least squares sense.
+   </para>
+   <para>
+We use Scilab's backslash operator, which uses Gaussian Elimination,
+making it faster than using x = inv(A)*B.
+   </para>
+   <para>
+Our system should be overdetermined, meaning having more
+equations than unknowns, otherwise the system doesn't have a solution.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+TODO
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   </simplelist>
+</refsection>
+</refentry>

@@ -1,6 +1,6 @@
 Design of Experiments Toolbox Changelog
 
-
+scidoe (not released yet)
  * added doetbx_rsquared.sci
  * added doetbx_least_squares.sci
  * renamed doetbx_least_squares.sci to doetbx_simple_lin_reg.sci
@@ -11,3 +11,8 @@ Design of Experiments Toolbox Changelog
  * added dependency on the 'Assert Toolbox' in readme.txt and project description
  * changed builder_help.sce file, to load without problem
  * removed doe_yates,doe_ryates, i4_bit_lo0,i4_bithi1,i4_xor
+ * Massive cleanup
+ * Fixed building and comments of doetbx_ff2n
+ * Fixed building and comments of doetbx_fullfact
+ * Fixed building and comments of scidoe_simplelinreg
+ * Fixed building and comments of scidoe_multilinreg

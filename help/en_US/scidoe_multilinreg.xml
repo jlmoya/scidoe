@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_multilinreg.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_multilinreg" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_multilinreg</refname><refpurpose>Multivariate linear regression</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   H = scidoe_multilinreg(X,Y)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>X :</term>
+      <listitem><para> a m-by-n matrix of doubles, the inputs, where m is the number of observations and n is the number of variables.</para></listitem></varlistentry>
+   <varlistentry><term>Y :</term>
+      <listitem><para> a m-by-1 matrix of doubles, the responses.</para></listitem></varlistentry>
+   <varlistentry><term>H :</term>
+      <listitem><para> a n-by-1 matrix of doubles, the coefficients of the linear model.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+This function computes a
+linear model with n independent variables x1, x2, ..., xn
+which best fit the data in the least squares sense.
+   </para>
+   <para>
+The linear model we compute is
+   </para>
+   <para>
+Y = h1*x1 + h2*x2 +...+ hn*xn.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+TODO
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   </simplelist>
+</refsection>
+</refentry>
