@@ -13,10 +13,10 @@ mprintf("Working dir = %s\n",cwd);
 //
 mprintf("Updating library\n");
 funarray = [
-  "doetbx_ff2n"
+  "scidoe_ff2n"
   ];
 helpdir = fullfile(cwd);
 macrosdir = fullfile(cwd ,"..","..","macros");
 demosdir = [];
-modulename = "distfun";
+modulename = "scidoe";
 helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t );

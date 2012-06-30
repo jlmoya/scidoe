@@ -7,11 +7,11 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function B = doetbx_ff2n(n)
+function B = scidoe_ff2n(n)
     // Full factorial design with 2 levels
     //
     // Calling Sequence
-    //   B=doetbx_ff2n(n)
+    //   B=scidoe_ff2n(n)
     //
     // Parameters
     //   n : a 1-by-1 matrix of doubles, integer value, positive, the number of levels for each factor
@@ -21,9 +21,9 @@ function B = doetbx_ff2n(n)
     // Computes a full factorial design with 2 levels for each factor.
     //
     // Examples
-    // B=doetbx_ff2n(2)
-    // B=doetbx_ff2n(3)
-    // B=doetbx_ff2n(4)
+    // B=scidoe_ff2n(2)
+    // B=scidoe_ff2n(3)
+    // B=scidoe_ff2n(4)
     //
     // Authors
 	// Copyright (C) 2012 - Michael Baudin
@@ -32,18 +32,18 @@ function B = doetbx_ff2n(n)
 	//
     // Check number of input arguments
     [lhs,rhs] = argn();
-    apifun_checkrhs("doetbx_ff2n",rhs,1);
-    apifun_checklhs("doetbx_ff2n",lhs,1);
+    apifun_checkrhs("scidoe_ff2n",rhs,1);
+    apifun_checklhs("scidoe_ff2n",lhs,1);
 	//
     // Check type
-    apifun_checktype("doetbx_ff2n",n,"n",1,["constant"]);
+    apifun_checktype("scidoe_ff2n",n,"n",1,["constant"]);
 	//
     // Check size
-    apifun_checkscalar("doetbx_ff2n",n,"n",1);
+    apifun_checkscalar("scidoe_ff2n",n,"n",1);
 	//
     // Check content
-    apifun_checkflint("doetbx_ff2n",n,"n",1);
-    apifun_checkgreq("doetbx_ff2n",n,"n",1,1);
+    apifun_checkflint("scidoe_ff2n",n,"n",1);
+    apifun_checkgreq("scidoe_ff2n",n,"n",1,1);
 	//
 	// Proceed...
     B = specfun_combinerepeat ( [0,1] , n)'

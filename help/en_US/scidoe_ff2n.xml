@@ -2,11 +2,11 @@
 
 <!--
  *
- * This help file was generated from doetbx_ff2n.sci using help_from_sci().
+ * This help file was generated from scidoe_ff2n.sci using help_from_sci().
  *
  -->
 
-<refentry version="5.0-subset Scilab" xml:id="doetbx_ff2n" xml:lang="en"
+<refentry version="5.0-subset Scilab" xml:id="scidoe_ff2n" xml:lang="en"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           xmlns:svg="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>doetbx_ff2n</refname><refpurpose>Full factorial design with 2 levels</refpurpose>
+    <refname>scidoe_ff2n</refname><refpurpose>Full factorial design with 2 levels</refpurpose>
   </refnamediv>
 
 
@@ -24,7 +24,7 @@
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   B=doetbx_ff2n(n)
+   B=scidoe_ff2n(n)
    
    </synopsis>
 </refsynopsisdiv>
@@ -51,9 +51,9 @@ Computes a full factorial design with 2 levels for each factor.
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
-B=doetbx_ff2n(2)
-B=doetbx_ff2n(3)
-B=doetbx_ff2n(4)
+B=scidoe_ff2n(2)
+B=scidoe_ff2n(3)
+B=scidoe_ff2n(4)
 
    ]]></programlisting>
 </refsection>

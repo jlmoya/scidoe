@@ -1,4 +1,4 @@
-function H = doetbx_multi_lin_reg(X,Y)
+function H = scidoe_multilinreg(X,Y)
 
     // Description
     // This function applies the backslash operator and computes a linear model with many independent variables x1 x2 ..xn. 
@@ -9,7 +9,7 @@ function H = doetbx_multi_lin_reg(X,Y)
     // Y is a m-by-1 column vector, containing the responses.
 
 
-    apifun_checkveccol("doetbx_multi_lin_reg",Y,"Y",1,length(Y));
+    apifun_checkveccol("scidoe_multilinreg",Y,"Y",1,length(Y));
 
     H=[];
     A=ones(size(X,'r'),1);
@@ -17,7 +17,5 @@ function H = doetbx_multi_lin_reg(X,Y)
     B=Y;
 
     H = A\B;
-
-    return H;    
 
 endfunction
