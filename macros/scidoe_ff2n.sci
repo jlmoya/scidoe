@@ -21,8 +21,15 @@ function B = scidoe_ff2n(n)
     // Computes a full factorial design with 2 levels for each factor.
     //
     // Examples
+	// // Create a full factorial design with :
+	// // 2 levels for the first factor
+	// // 2 levels for the second factor
     // B=scidoe_ff2n(2)
+	//
+	// // For three factors
     // B=scidoe_ff2n(3)
+	//
+	// // For four factors
     // B=scidoe_ff2n(4)
     //
     // Authors

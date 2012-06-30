@@ -25,6 +25,7 @@ Dependencies
  * This module depends on the helptbx module (to update the help pages).
  * This module depends on the apifun module (>= v0.3).
  * This module depends on the assert module.
+ * This module depends on the specfun module (>=v0.2).
 
 Authors
 -------

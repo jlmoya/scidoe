@@ -14,6 +14,7 @@ mprintf("Working dir = %s\n",cwd);
 mprintf("Updating library\n");
 funarray = [
   "scidoe_ff2n"
+  "scidoe_fullfact"
   ];
 helpdir = fullfile(cwd);
 macrosdir = fullfile(cwd ,"..","..","macros");

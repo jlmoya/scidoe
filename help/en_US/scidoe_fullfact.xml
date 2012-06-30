@@ -2,11 +2,11 @@
 
 <!--
  *
- * This help file was generated from scidoe_ff2n.sci using help_from_sci().
+ * This help file was generated from scidoe_fullfact.sci using help_from_sci().
  *
  -->
 
-<refentry version="5.0-subset Scilab" xml:id="scidoe_ff2n" xml:lang="en"
+<refentry version="5.0-subset Scilab" xml:id="scidoe_fullfact" xml:lang="en"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           xmlns:svg="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_ff2n</refname><refpurpose>Full factorial design with 2 levels</refpurpose>
+    <refname>scidoe_fullfact</refname><refpurpose>Full factorial design with 2 levels</refpurpose>
   </refnamediv>
 
 
@@ -24,7 +24,7 @@
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   B=scidoe_ff2n(n)
+   B = scidoe_fullfact(levels)
    
    </synopsis>
 </refsynopsisdiv>
@@ -32,17 +32,20 @@
 <refsection>
    <title>Parameters</title>
    <variablelist>
-   <varlistentry><term>n :</term>
-      <listitem><para> a 1-by-1 matrix of doubles, integer value, positive, the number of levels for each factor</para></listitem></varlistentry>
+   <varlistentry><term>levels :</term>
+      <listitem><para> a n-by-1 or 1-by-n matrix of doubles, integer value, positive, the number of levels for each factor i, for i=1,2,...,n</para></listitem></varlistentry>
    <varlistentry><term>B :</term>
-      <listitem><para> a m-by-n matrix of doubles, the experiments, where m=n*n</para></listitem></varlistentry>
+      <listitem><para> a m-by-n matrix of doubles, the experiments, where m=prod(levels)</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
 <refsection>
    <title>Description</title>
    <para>
-Computes a full factorial design with 2 levels for each factor.
+Computes a full factorial design with prescribed number of
+levels for each factor.
+In other words, for each factor i, the number of levels is
+levels(i), for i=1,2,...,n.
    </para>
    <para>
 </para>
@@ -53,14 +56,14 @@ Computes a full factorial design with 2 levels for each factor.
    <programlisting role="example"><![CDATA[
 // Create a full factorial design with :
 // 2 levels for the first factor
-// 2 levels for the second factor
-B=scidoe_ff2n(2)
+// 3 levels for the second factor
+B=scidoe_fullfact([2 3])
 
-// For three factors
-B=scidoe_ff2n(3)
-
-// For four factors
-B=scidoe_ff2n(4)
+// Create a full factorial design with :
+// 2 levels for the first factor
+// 3 levels for the second factor
+// 4 levels for the third factor
+B=scidoe_fullfact([2 3 4])
 
    ]]></programlisting>
 </refsection>
