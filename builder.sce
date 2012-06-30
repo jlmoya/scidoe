@@ -4,12 +4,9 @@
 // This file is released into the public domain
 // ====================================================================
 
-mode(-1);
-lines(0);
-
 function builder_main()
 
-    TOOLBOX_NAME = "Scidoe";
+    TOOLBOX_NAME = "scidoe";
     TOOLBOX_TITLE = "Scidoe";
     toolbox_dir = get_absolute_file_path("builder.sce");
 
