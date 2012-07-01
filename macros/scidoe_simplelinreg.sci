@@ -58,6 +58,7 @@ function B = scidoe_simplelinreg(X,Y)
     //     294.  
     // ]
     // B = scidoe_simplelinreg(X,Y)
+	// expected = [4.8222564  1.9671389]
 	// // Visually check the result:
     // scf();
     // plot(X,Y,"bo");
@@ -89,7 +90,7 @@ function B = scidoe_simplelinreg(X,Y)
 	// [B,B]
 	// scf();
 	// plot(X,Y,"bo");
-	// L = B(1)*X+B(2);
+	// L = B(1)+B(2)*X;
 	// plot(X,L,"r-")
 	// legend(["Data","Linear Fit"]);
 	// xtitle("Linear Regression","X","Y");
