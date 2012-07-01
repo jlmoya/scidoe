@@ -64,9 +64,8 @@ B = [
 1829.15146461355
 ];
 
-H = scidoe_multilinreg(X,Y)
+H = scidoe_multilinreg(X,Y);
 
-// Error Assertion failed --TODO
 assert_checkalmostequal(H,B,[],[],"element");
 
 

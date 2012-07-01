@@ -16,11 +16,11 @@ function H = scidoe_simplelinreg(X,Y)
     // Parameters
     // X is a m-by-1 matrix of doubles, the inputs, where m is the number of observations
     // Y is a m-by-1 matrix of doubles, the responses
-	// H : a 1-by-2 matrix of doubles, where H(1) is the slope and H(2) is the intercept
+	// H : a 1-by-2 matrix of doubles, where H(1) is the intercept and H(2) is the slope
     //
 	// Description    
-    // This function fits data in linear model y=H(1)*x+H(2), 
-	// where H(1) is the slope and H(2) is the y-intercept.
+    // This function fits data in linear model y=H(1)+H(2)*x, 
+	// where H(1) is the y-intercept and H(2) is the slope.
 	//
 	// The coefficients H are so that they 
     // are the best fit of the data in the least squares sense.
@@ -32,7 +32,66 @@ function H = scidoe_simplelinreg(X,Y)
 	// equations than unknowns, otherwise the system doesn't have a solution.
     //
     // Examples
-    // TODO
+    // X = [
+    //     57.   
+    //     64.   
+    //     69.   
+    //     82.   
+    //     92.   
+    //     111.  
+    //     114.  
+    //     132.  
+    //     144.  
+    //     146.  
+    // ]
+    // Y = [
+    //     121.  
+    //     129.  
+    //     140.  
+    //     164.  
+    //     188.  
+    //     217.  
+    //     231.  
+    //     264.  
+    //     289.  
+    //     294.  
+    // ]
+    // H = scidoe_simplelinreg(X,Y)
+	// // Visually check the result:
+    // scf();
+    // plot(X,Y,"bo");
+    // L = H(1)+H(2)*X;
+    // plot(X,L,"r-")
+    // legend(["Data","Linear Fit"]);
+    // xtitle("Linear Regression","X","Y");
+	//
+	// // Create a dataset
+	// grand("setsd",0);
+	// // The number of observations
+	// N = 100;
+	// // The exact coefficients
+	// B = [2;3]
+	// // The input
+	// Xmin = 50;
+	// Xmax = 150;
+	// X=grand(N,1,"uin",Xmin,Xmax);
+	// X=gsort(X,"g","i");
+	// // Compute the ouput from the input
+	// Y = B(1)+B(2)*X;
+	// // Add a normal noise to the output
+	// sigma = 5;
+	// e = grand(N,1,"nor",0,sigma);
+	// Y = int(Y + e);
+	// // Linear regression
+	// H = scidoe_simplelinreg(X,Y)
+	// // Compare B (exact) with H (estimate)
+	// [B,H]
+	// scf();
+	// plot(X,Y,"bo");
+	// L = H(1)*X+H(2);
+	// plot(X,L,"r-")
+	// legend(["Data","Linear Fit"]);
+	// xtitle("Linear Regression","X","Y");
     //
     // Authors
 	// Copyright (C) 2012 - Michael Baudin
@@ -59,6 +118,6 @@ function H = scidoe_simplelinreg(X,Y)
 	Y = Y(:)
     A=ones(length(X),1)
     B=zeros(length(Y),1)
-    A = [X,A]
+    A = [A,X]
     H=A\Y
 endfunction

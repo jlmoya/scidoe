@@ -52,7 +52,7 @@ which best fit the data in the least squares sense.
 The linear model we compute is
    </para>
    <para>
-Y = h1*x1 + h2*x2 +...+ hn*xn.
+Y = H(1)*x1 + H(2)*x2 +...+ H(n)*xn.
    </para>
    <para>
 </para>
