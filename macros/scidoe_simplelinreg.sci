@@ -1,5 +1,6 @@
 // Copyright (C) 2012 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou 
+// Copyright (C) 2009 - Yann Collette
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,22 +8,22 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function H = scidoe_simplelinreg(X,Y)
+function B = scidoe_simplelinreg(X,Y)
     // Univariate linear regression
     //
     // Calling Sequence
-    //   H = scidoe_simplelinreg(X,Y)
+    //   B = scidoe_simplelinreg(X,Y)
     //
     // Parameters
     // X is a m-by-1 matrix of doubles, the inputs, where m is the number of observations
     // Y is a m-by-1 matrix of doubles, the responses
-	// H : a 1-by-2 matrix of doubles, where H(1) is the intercept and H(2) is the slope
+	// B : a 1-by-2 matrix of doubles, where B(1) is the intercept and B(2) is the slope
     //
 	// Description    
-    // This function fits data in linear model y=H(1)+H(2)*x, 
-	// where H(1) is the y-intercept and H(2) is the slope.
+    // This function fits data in linear model y=B(1)+B(2)*x, 
+	// where B(1) is the y-intercept and B(2) is the slope.
 	//
-	// The coefficients H are so that they 
+	// The coefficients B are so that they 
     // are the best fit of the data in the least squares sense.
 	//
     // We use Scilab's backslash operator, which uses Gaussian Elimination
@@ -56,11 +57,11 @@ function H = scidoe_simplelinreg(X,Y)
     //     289.  
     //     294.  
     // ]
-    // H = scidoe_simplelinreg(X,Y)
+    // B = scidoe_simplelinreg(X,Y)
 	// // Visually check the result:
     // scf();
     // plot(X,Y,"bo");
-    // L = H(1)+H(2)*X;
+    // L = B(1)+B(2)*X;
     // plot(X,L,"r-")
     // legend(["Data","Linear Fit"]);
     // xtitle("Linear Regression","X","Y");
@@ -83,12 +84,12 @@ function H = scidoe_simplelinreg(X,Y)
 	// e = grand(N,1,"nor",0,sigma);
 	// Y = int(Y + e);
 	// // Linear regression
-	// H = scidoe_simplelinreg(X,Y)
-	// // Compare B (exact) with H (estimate)
-	// [B,H]
+	// B = scidoe_simplelinreg(X,Y)
+	// // Compare B (exact) with B (estimate)
+	// [B,B]
 	// scf();
 	// plot(X,Y,"bo");
-	// L = H(1)*X+H(2);
+	// L = B(1)*X+B(2);
 	// plot(X,L,"r-")
 	// legend(["Data","Linear Fit"]);
 	// xtitle("Linear Regression","X","Y");
@@ -96,6 +97,7 @@ function H = scidoe_simplelinreg(X,Y)
     // Authors
 	// Copyright (C) 2012 - Michael Baudin
 	// Copyright (C) 2012 - Maria Christopoulou 
+	// Copyright (C) 2009 - Yann Collette
 
     // Check number of input arguments
     [lhs,rhs] = argn();
@@ -119,5 +121,5 @@ function H = scidoe_simplelinreg(X,Y)
     A=ones(length(X),1)
     B=zeros(length(Y),1)
     A = [A,X]
-    H=A\Y
+    B=A\Y
 endfunction

@@ -1,5 +1,6 @@
 // Copyright (C) 2012 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou 
+// Copyright (C) 2009 - Yann Collette
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,16 +8,16 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function H = scidoe_multilinreg(X,Y)
+function B = scidoe_multilinreg(X,Y)
     // Multivariate linear regression
     //
     // Calling Sequence
-    //   H = scidoe_multilinreg(X,Y)
+    //   B = scidoe_multilinreg(X,Y)
     //
     // Parameters
     // X : a m-by-n matrix of doubles, the inputs, where m is the number of observations and n is the number of variables.
     // Y : a m-by-1 matrix of doubles, the responses.
-	// H : a n-by-1 matrix of doubles, the coefficients of the linear model.
+	// B : a n-by-1 matrix of doubles, the coefficients of the linear model.
     //
     // Description
     // This function computes a 
@@ -25,7 +26,7 @@ function H = scidoe_multilinreg(X,Y)
 	//
     // The linear model we compute is 
 	//
-	// Y = H(1)*x1 + H(2)*x2 +...+ H(n)*xn.
+	// Y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
     //
     // Examples
     // grand("setsd",0);
@@ -52,10 +53,10 @@ function H = scidoe_multilinreg(X,Y)
     // e = grand(N,1,"nor",0,sigma);
     // Y = int(Y + e);
     // // Linear regression
-    // H = scidoe_multilinreg(X,Y)
-    // // Compare B (exact) with H (estimate)
-    // [B,H]
-    // L = H(1)+H(2)*X(:,1)+H(3)*X(:,2);
+    // B = scidoe_multilinreg(X,Y)
+    // // Compare B (exact) with B (estimate)
+    // [B,B]
+    // L = B(1)+B(2)*X(:,1)+B(3)*X(:,2);
     // // Check visually
     // scf();
     // plot(Y,L,"bo");
@@ -65,6 +66,7 @@ function H = scidoe_multilinreg(X,Y)
     // Authors
 	// Copyright (C) 2012 - Michael Baudin
 	// Copyright (C) 2012 - Maria Christopoulou 
+	// Copyright (C) 2009 - Yann Collette
 
     // Check number of input arguments
     [lhs,rhs] = argn();
@@ -87,8 +89,8 @@ function H = scidoe_multilinreg(X,Y)
 	// Workaround for the lack of accuracy of backslash
 	// See http://bugzilla.scilab.org/show_bug.cgi?id=11379
 	// We should use :
-    // H = A\Y
+    // B = A\Y
 	// but 
-	H = pinv(A)*Y
+	B = pinv(A)*Y
 	// is more accurate.
 endfunction
