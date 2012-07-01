@@ -108,8 +108,8 @@ function H = scidoe_simplelinreg(X,Y)
 	//
     // Check size
     [m,n] = size(X)
-    apifun_checkdims("scidoe_multilinreg",X,"X",1,[m 1]);
-    apifun_checkdims("scidoe_multilinreg",Y,"Y",2,[m 1]);
+    apifun_checkdims("scidoe_simplelinreg",X,"X",1,[m 1]);
+    apifun_checkdims("scidoe_simplelinreg",Y,"Y",2,[m 1]);
 	//
     // Check content : nothing to do
 	//
