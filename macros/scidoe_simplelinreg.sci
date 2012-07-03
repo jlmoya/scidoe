@@ -171,8 +171,8 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
     apifun_checkscalar("scidoe_simplelinreg",level,"level",3);
 	//
     // Check content
-    apifun_checkgreq("scidoe_multilinreg",m,"m",1,2);
-    apifun_checkrange("scidoe_multilinreg",level,"level",3,0,0.5);
+    apifun_checkgreq("scidoe_simplelinreg",m,"m",1,2);
+    apifun_checkrange("scidoe_simplelinreg",level,"level",3,0,0.5);
 	//
 	// Proceed...
 	X = X(:)
