@@ -8,13 +8,14 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [B,bint,r] = scidoe_simplelinreg(varargin)
+function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
     // Univariate linear regression
     //
     // Calling Sequence
     //   B = scidoe_simplelinreg(X,Y)
     //   B = scidoe_simplelinreg(X,Y,level)
-    //   [B,bint) = scidoe_simplelinreg(...)
+    //   [B,bint] = scidoe_simplelinreg(...)
+    //   [B,bint,r] = scidoe_simplelinreg(...)
     //
     // Parameters
     // X is a m-by-1 or 1-by-m matrix of doubles, the inputs, where m is the number of observations. m must be greater than 2.
@@ -23,13 +24,19 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
 	// B : a 1-by-2 matrix of doubles, where B(1) is the intercept and B(2) is the slope
 	// bint : a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.
 	// r : a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x
+	// stats : a struct, the statistics. stats.SSR is the sum of squares of the residuals, stats.sigma2 is the estimate the variance of the random normal error, stats.R2 is the coefficient of determination.
     //
 	// Description    
-    // This function fits data in linear model y=B(1)+B(2)*x, 
-	// where B(1) is the y-intercept and B(2) is the slope.
+    // This function fits data in linear model 
+	//
+	// Y=B(1)+B(2)*X + e
+	//
+	// where B(1) is the y-intercept, B(2) is the slope and 
+	// e is a random normal error with mean zero and variance 
+	// sigma2.
 	//
 	// The coefficients B are so that they 
-    // are the best fit of the data in the least squares sense.
+    // are the best fit of the data in the least squares sense. 
 	//
     // The system should be overdetermined, meaning having more 
 	// equations than unknowns, otherwise the system doesn't have a solution. 
@@ -39,7 +46,30 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
 	// The entries in bint are a confidence interval for the 
 	// entries in B.
 	// In other words, B(1) in [bint(1,1),bint(1,2)] with probability 1-level and 
-	// B(2) in [bint(2,1),bint(2,2)] with probability 1-level.
+	// B(2) in [bint(2,1),bint(2,2)] with probability 1-level. 
+	//
+	// On output, the sum of squares of the residuals stats.SSR 
+	// is such that 
+	//
+	// stats.SSR == sum(r.^2)
+	//
+	// where the residual r is 
+	//
+	// r == Y-(B(1)+B(2)*X)
+	//
+	// On output, the coefficient of determination stats.R2 
+	// measures the proportion of the variation in the response variables 
+	// that is explained by the different input values. 
+	// A value of stats.R2 near 1 indicates a good fit, while 
+	// a value near zero indicates a poor fit. 
+	//
+	// The standardized residuals are 
+	//
+	// r/sqrt(stats.sigma2)
+	//
+	// When the model is correct, the standardized residuals 
+	// are approximately randomly distributed with mean zero and 
+	// 95% of their values in the range [-1.96,1.96].
     //
     // Examples
     // X = [
@@ -76,7 +106,9 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
     // legend(["Data","Linear Fit"]);
     // xtitle("Linear Regression","X","Y");
 	//
-	// // Computed a 95% confidence interval
+	// // Compute a 95% confidence interval.
+	// // Visually check the results. 
+	// // Visually check the residuals. 
 	// // Reference :
 	// // http://en.wikipedia.org/wiki/Simple_linear_regression
 	// Height = [
@@ -100,17 +132,27 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
 	// ];
 	// // Visually check the result:
     // scf();
-    // plot(X,Y,"bo");
-    // L = B(1)+B(2)*X;
-    // plot(X,L,"r-")
+	// Height = Height(:);
+	// Mass = Mass();
+    // plot(Height,Mass,"bo");
+    // L = B(1)+B(2)*Height;
+    // plot(Height,L,"r-")
     // legend(["Data","Linear Fit"]);
     // xtitle("Linear Regression","Height","Mass");
 	// // Compute the residuals
 	// [B,bint,r] = scidoe_simplelinreg(Height,Mass);
 	// // Visually see the residuals
     // scf();
-    // plot(X,r,"bo");
+    // plot(Height,r,"bo");
     // xtitle("Linear Regression","Height","Residuals");
+	// // A quadratic fit would be better:
+	// // we see a quadratic pattern in the residuals. 
+	// // See the standardized residuals
+	// [B,bint,r,stats] = scidoe_simplelinreg(Height,Mass);
+	// disp(stats)
+	// scf();
+	// plot(Height,r/sqrt(stats.sigma2),"bo");
+    // xtitle("Linear Regression","Height","Standard Residuals");
 	//
 	// // Create a dataset
 	// grand("setsd",0);
@@ -153,7 +195,7 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
     // Check number of input arguments
     [lhs,rhs] = argn();
     apifun_checkrhs("scidoe_simplelinreg",rhs,2:3);
-    apifun_checklhs("scidoe_simplelinreg",lhs,1:3);
+    apifun_checklhs("scidoe_simplelinreg",lhs,1:4);
 	//
 	X = varargin(1)
 	Y = varargin(2)
@@ -178,21 +220,31 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
 	X = X(:)
 	Y = Y(:)
 	n = size(X,"*")
-    A=ones(n,1)
     B=zeros(n,1)
-    A = [A,X]
+    A = [ones(n,1),X]
     B=A\Y
 	// Compute confidence intervals
 	r = Y-B(1)-B(2).*X
 	SSR = sum(r.^2)
-	level = 0.05
 	P = 1-level/2
 	Q = level/2
 	T=cdft("T",n-2,P,Q)
-	xmean = mean(X)
-	Sxx = sum((X-xmean).^2)
-	Bsig(1) = T*sqrt(SSR*sum(X.^2)/n/(n-2)/Sxx)
-	Bsig(2) = T*sqrt(SSR/(n-2)/Sxx)
+	Xmean = mean(X)
+	Ymean = mean(Y)
+	SXX = sum((X-Xmean).^2)
+	SYY = sum((Y-Ymean).^2)
+	Bsig(1) = T*sqrt(SSR*sum(X.^2)/n/(n-2)/SXX)
+	Bsig(2) = T*sqrt(SSR/(n-2)/SXX)
 	bint(:,1) = B-Bsig
 	bint(:,2) = B+Bsig
+	// Store SSR:
+	// the sum of squares of the residuals
+	stats.SSR = SSR
+	// Compute R-squared :
+	// the coefficient of determination.
+	stats.R2 = 1-SSR/SYY
+	// Compute sigma2:
+	// an estimate of the variance of the 
+	// normal(0,sigma2) error
+	stats.sigma2 = SSR/(n-2)
 endfunction
