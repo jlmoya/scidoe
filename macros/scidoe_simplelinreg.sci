@@ -165,16 +165,10 @@ function [B,bint,r] = scidoe_simplelinreg(varargin)
     apifun_checktype("scidoe_simplelinreg",level,"level",3,"constant");
 	//
     // Check size
-<<<<<<< HEAD
-    [m,n] = size(X)
-    apifun_checkdims("scidoe_simplelinreg",X,"X",1,[m 1]);
-    apifun_checkdims("scidoe_simplelinreg",Y,"Y",2,[m 1]);
-=======
     m = size(X,"*")
-    apifun_checkvector("scidoe_multilinreg",X,"X",1,m);
-    apifun_checkvector("scidoe_multilinreg",Y,"Y",2,m);
-    apifun_checkscalar("scidoe_multilinreg",level,"level",3);
->>>>>>> 9c75588ed52d85b36806c6a64c2aa92e28dd8e27
+    apifun_checkvector("scidoe_simplelinreg",X,"X",1,m);
+    apifun_checkvector("scidoe_simplelinreg",Y,"Y",2,m);
+    apifun_checkscalar("scidoe_simplelinreg",level,"level",3);
 	//
     // Check content
     apifun_checkgreq("scidoe_multilinreg",m,"m",1,2);
