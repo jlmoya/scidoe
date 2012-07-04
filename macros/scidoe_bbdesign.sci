@@ -56,10 +56,7 @@ function H = scidoe_bbdesign(varargin)
     //
     //First, we compute a two level factorial doe with 2 parameters.
     //
-    L = scidoe_ff2n(2);
-    // Flip the matrix
-    F=[0 1;1 0];
-    H_fact = L*F;
+    H_fact = [-1 -1;1 -1;-1 1;1 1];
     
     // We populate the real doe with this doe
     // TODO : Check for possible vectorization...    
@@ -74,7 +71,7 @@ function H = scidoe_bbdesign(varargin)
       end
     end
     
-    H = [H' doe_repeat_center(nb_var, nb_center)']';
+    H = [H' zeros(nb_center, nb_var)']';
     
     return H;
 endfunction
