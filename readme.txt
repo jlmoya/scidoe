@@ -15,6 +15,10 @@ Factorial Design
  * scidoe_fullfact
  * scidoe_ff2n
 
+Response Surface Designs
+
+ * scidoe_bbdesign
+
 Polynomial Regression
  * scidoe_multilinreg
  * scidoe_simplelinreg
