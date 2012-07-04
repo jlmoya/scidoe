@@ -12,11 +12,7 @@
 // The Dataset used are provided by NIST in 
 // http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Norris.dat
 // Norris.dat contains 1 response variable y, 1 predictor variable  and 36 observations.
-// The model used is Y = B1*X + B0.
-// We use the function assert_checkalmostequal() of the Assert toolbox.   
-
-// Known Inputs and Outputs
-
+// The model used is Y = B(1) + B(2)*X.
 X = [
     0.2    
     337.4  
@@ -94,14 +90,61 @@ Y = [
     449.2  
     0.2    
 ];
-
 expected = [
 -0.262323073774029
 1.00211681802045
 ];
-
 B = scidoe_simplelinreg(X,Y);
 assert_checkalmostequal(B,expected,[],[],"element");
+// Check more data
+[B,bint,r,stats] = scidoe_simplelinreg(X,Y);
+Bintexpected = [
+  -0.7354667    0.2108205  
+   1.0012434    1.0029903  
+];
+assert_checkalmostequal(bint,Bintexpected,1.e-6,[],"element");
+Rexpected = [
+   0.1618997  
+   0.9481087  
+  -0.0878848  
+   1.7897859  
+  -0.6590568  
+   1.3828638  
+   1.0518872  
+   0.3533373  
+  -0.1872815  
+   0.5175555  
+   0.0807153  
+   0.1614763  
+  -0.2389470  
+   1.2207307  
+   0.7506171  
+   0.8468386  
+   0.7150470  
+  -0.5622320  
+   0.7853723  
+  -0.0205231  
+   0.3543957  
+  -0.4165646  
+  -0.5921185  
+   0.2616880  
+   0.5616880  
+  -0.1163212  
+  -0.2554899  
+  -0.8157179  
+  -2.3523781  
+  -1.4866782  
+  -0.6611736  
+  -0.6880965  
+  -0.5228516  
+  -1.8540399  
+  -0.3879165  
+  -0.0387353  
+];
+assert_checkalmostequal(r,Rexpected,1.e-6,[],"element");
+assert_checkalmostequal(stats.R2,0.999993745883712,1.e-15);
+assert_checkalmostequal(stats.SSR,26.6173985294224,1.e-13);
+assert_checkalmostequal(stats.sigma2,0.782864662630069,1.e-13);
 
 //
 // "Introduction to probability and statistics for engineers and scientists.", 
@@ -129,11 +172,6 @@ Y = [
 19.8
 ];
 [B,bint] = scidoe_simplelinreg(X,Y);
-if (%f) then
-scf();
-plot(X,Y,"bo")
-xtitle("","Speed","Miles per Gallon")
-end
 Bintexpected = [
    29.094968   35.647889  
   -0.2217218  -0.1139925  
@@ -142,6 +180,13 @@ Bexpected = [
    32.371429  
   -0.1678571  
 ];
+assert_checkalmostequal(B,Bexpected,1.e-6,[],"element");
+assert_checkalmostequal(bint,Bintexpected,1.e-6,[],"element");
+if (%f) then
+scf();
+plot(X,Y,"bo")
+xtitle("","Speed","Miles per Gallon")
+end
 
 // http://en.wikipedia.org/wiki/Simple_linear_regression
 // "Okun's law in macroeconomics is an example of the simple 
