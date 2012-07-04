@@ -1,3 +1,4 @@
+// Copyright (C) 2012 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou
 // Copyright (C) 2009 - Yann Collette
 //
@@ -27,6 +28,7 @@ function H = scidoe_bbdesign(varargin)
     //    H = scidoe_bbdesign(3,2);
     //
     // Authors:
+    // Copyright (C) 2012 - Michael Baudin
     // Copyright (C) 2012 - Maria Christopoulou
     // Copyright (C) 2009 - Yann Collette
 
@@ -57,21 +59,21 @@ function H = scidoe_bbdesign(varargin)
     //First, we compute a two level factorial doe with 2 parameters.
     //
     H_fact = [-1 -1;1 -1;-1 1;1 1];
-    
+    C = zeros(nb_center,nb_var);
+    nb_lines = nb_var*4;
+    H = zeros(nb_lines,nb_var);
     // We populate the real doe with this doe
     // TODO : Check for possible vectorization...    
-    Index = 0;
-    nb_lines = nb_var*size(H_fact,1);
-    H        = zeros(nb_lines,nb_var);
+    Index = 0;    
     for i=1:nb_var-1
       for j=i+1:nb_var
         Index = Index + 1;
-        H(max([1 ((Index-1)*size(H_fact,1)+1)]):(Index)*size(H_fact,1),i) = H_fact(:,1);
-        H(max([1 ((Index-1)*size(H_fact,1)+1)]):(Index)*size(H_fact,1),j) = H_fact(:,2);
+        rows = max([1 ((Index-1)*4+1)]):Index*4;
+        H(rows,i) = H_fact(:,1);
+        H(rows,j) = H_fact(:,2);
       end
     end
     
-    H = [H' zeros(nb_center, nb_var)']';
+    H = [H' C']';
     
-    return H;
 endfunction
