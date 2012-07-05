@@ -2,7 +2,12 @@
 <!--
  * Add some comments about XML file
 -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en_US" xml:id="scidoe_bbdesign">
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab"
+          xml:lang="en_US" xml:id="scidoe_bbdesign">
   <info>
     <pubdate>$LastChangedDate: 05-07-2012 $</pubdate>
   </info>
@@ -27,7 +32,7 @@
       <varlistentry><term> nb_center :</term>
         <listitem><para> a 1-by-1 matrix of doubles, positive integer. Default value nb_center=1. The number of repetitions of the central point in the design. </para></listitem></varlistentry>
     </variablelist><term> H :</term>
-        <listitem><para> The created Box Benhken Design of Experiments.
+        <listitem><para> The created Box Benhken Design of Experiments.</para></listitem></varlistentry>
         
   </refsection>
   
