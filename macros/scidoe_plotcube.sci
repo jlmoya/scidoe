@@ -4,8 +4,7 @@
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 
-function scidoe_plotcube(d)
-    
+function scidoe_plotcube(d)   
     // Description:
     //    Plots a d dimensions cube in [-1,1]
     //
@@ -13,7 +12,7 @@ function scidoe_plotcube(d)
     //    scidoe_plotcube(d)
     //
     // Parameters:
-    //    d : dimensions of cube. It can be either 2 or 3.
+    //    d : a 1-by-1 matrix of doubles, the number of dimensions of the cube. It can be either 2 or 3.
     //
     // Examples:
     // // Plot a 2D cube:
