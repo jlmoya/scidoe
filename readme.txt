@@ -45,3 +45,13 @@ This toolbox is released under the CeCILL_V2 licence :
 
 http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+TODO
+----
+ * Extend scidoe_multilinreg to manage other types of regressions.
+   Split the stats output argument into stats vector (as in Octave) 
+   and fullstats.
+   Once done, remove scidoe_simplelinreg and rename it regress.
+   Move the print of the analysis of variance table into a 
+   separate scidoe_regressprint function to keep the 
+   options simple.
+ 
