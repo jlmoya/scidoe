@@ -5,25 +5,27 @@
 
 
 function scidoe_plotcube(d)   
-    // Description:
-    //    Plots a d dimensions cube in [-1,1]
-    //
-    // Calling Sequence:
+    // Plots a d dimensions cube in [-1,1].
+	//
+    // Calling Sequence
     //    scidoe_plotcube(d)
     //
-    // Parameters:
-    //    d : a 1-by-1 matrix of doubles, the number of dimensions of the cube. It can be either 2 or 3.
+    // Parameters
+    //    d : a 1-by-1 matrix of doubles, the number of dimensions of the cube. The available values are d=2 or d=3.
     //
-    // Examples:
+    // Description
+    //    Plots a d dimensions cube in [-1,1].
+    //
+    // Examples
     // // Plot a 2D cube:
-    //    scf();
-    //    scidoe_plotcube(2)
+    // scf();
+    // scidoe_plotcube(2)
     //
     // // Plot a 3D cube:
-    //    scf();
-    //    scidoe_plotcube(3)
+    // scf();
+    // scidoe_plotcube(3)
     //
-    // Authors:
+    // Authors
     // Copyright (C) 2012 - Michael Baudin
     // Copyright (C) 2012 - Maria Christopoulou
     //
