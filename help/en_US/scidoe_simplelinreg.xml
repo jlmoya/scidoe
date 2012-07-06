@@ -44,7 +44,7 @@
    <varlistentry><term>r :</term>
       <listitem><para> a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x</para></listitem></varlistentry>
    <varlistentry><term>stats :</term>
-      <listitem><para> a struct, the statistics. stats.SSR is the sum of squares of the residuals, stats.sigma2 is the estimate the variance of the random normal error, stats.R2 is the coefficient of determination.</para></listitem></varlistentry>
+      <listitem><para> a struct, the statistics, see below for details.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -78,6 +78,18 @@ In other words, B(1) in [bint(1,1),bint(1,2)] with probability 1-level and
 B(2) in [bint(2,1),bint(2,2)] with probability 1-level.
    </para>
    <para>
+The fields in <literal>stats</literal> are :
+   </para>
+   <para>
+stats.SSR : the sum of squares of the residuals,
+   </para>
+   <para>
+stats.sigma2 : the estimate the variance of the random normal error,
+   </para>
+   <para>
+stats.R2 : the coefficient of determination.
+   </para>
+   <para>
 On output, the sum of squares of the residuals stats.SSR
 is such that
    </para>
@@ -88,9 +100,10 @@ stats.SSR == sum(r.^2)
 where the residual r is
    </para>
    <para>
-r == Y-(B(1)+B(2)*X)
+r == Y-X*B
    </para>
    <para>
+The statistics stats.R2 is in the range [0,1].
 On output, the coefficient of determination stats.R2
 measures the proportion of the variation in the response variables
 that is explained by the different input values.

@@ -24,7 +24,7 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// B : a 1-by-2 matrix of doubles, where B(1) is the intercept and B(2) is the slope
 	// bint : a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.
 	// r : a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x
-	// stats : a struct, the statistics. stats.SSR is the sum of squares of the residuals, stats.sigma2 is the estimate the variance of the random normal error, stats.R2 is the coefficient of determination.
+	// stats : a struct, the statistics, see below for details. 
     //
 	// Description    
     // This function fits data in linear model 
@@ -48,6 +48,14 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// In other words, B(1) in [bint(1,1),bint(1,2)] with probability 1-level and 
 	// B(2) in [bint(2,1),bint(2,2)] with probability 1-level. 
 	//
+	// The fields in <literal>stats</literal> are :
+	// 
+	// stats.SSR : the sum of squares of the residuals, 
+	// 
+	// stats.sigma2 : the estimate the variance of the random normal error, 
+	// 
+	// stats.R2 : the coefficient of determination.
+	//
 	// On output, the sum of squares of the residuals stats.SSR 
 	// is such that 
 	//
@@ -55,8 +63,9 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	//
 	// where the residual r is 
 	//
-	// r == Y-(B(1)+B(2)*X)
+	// r == Y-X*B
 	//
+    // The statistics stats.R2 is in the range [0,1]. 
 	// On output, the coefficient of determination stats.R2 
 	// measures the proportion of the variation in the response variables 
 	// that is explained by the different input values. 
@@ -220,11 +229,16 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	X = X(:)
 	Y = Y(:)
 	n = size(X,"*")
-    B=zeros(n,1)
     A = [ones(n,1),X]
-    B=A\Y
+	// Workaround for the lack of accuracy of backslash
+	// See http://bugzilla.scilab.org/show_bug.cgi?id=11379
+	// We should use :
+    // B = A\Y
+	// but pinv (which uses the SVD) is more 
+	// accurate in some cases.
+	B = pinv(A)*Y
 	// Compute confidence intervals
-	r = Y-B(1)-B(2).*X
+	r = Y-A*B
 	SSR = sum(r.^2)
 	P = 1-level/2
 	Q = level/2
@@ -237,6 +251,8 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	Bsig(2) = T*sqrt(SSR/(n-2)/SXX)
 	bint(:,1) = B-Bsig
 	bint(:,2) = B+Bsig
+	// Create stats
+	stats = struct()
 	// Store SSR:
 	// the sum of squares of the residuals
 	stats.SSR = SSR

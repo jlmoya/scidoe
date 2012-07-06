@@ -10,8 +10,10 @@
 // <-- JVM NOT MANDATORY -->
 
 
-// We use dataset provided by NIST in http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
-// Longley.dat contains 1 Response Variable y, 6 Predictor Variables x and 16 Observations.
+// We use dataset provided by NIST in
+// http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
+// Longley.dat contains 1 Response Variable y, 6 Predictor Variables x 
+// and 16 Observations.
 // The model used is Y = B0 + B1*x1 + B2*x2 +...Bn*xn
 
 // Known Inputs and Outputs
@@ -54,7 +56,7 @@ Y = [
 70551
 ];
 
-B = [
+Bexpected = [
 -3482258.63459582
 15.0618722713733
 -0.358191792925910E-01
@@ -64,8 +66,75 @@ B = [
 1829.15146461355
 ];
 
-H = scidoe_multilinreg(X,Y);
+[B,bint,r,rint,stats] = scidoe_multilinreg(Y,X);
 
-assert_checkalmostequal(H,B,[],[],"element");
+assert_checkalmostequal(B,Bexpected,[],[],"element");
+assert_checkalmostequal(stats.ResidualSS,836424.055505915,1.e-12);
+assert_checkalmostequal(stats.ResidualMean,92936.0061673238,1.e-12);
+assert_checkalmostequal(stats.R2,0.995479004577296,1.e-12);
+assert_checkalmostequal(stats.F,330.285339234588,1.e-12);
 
-
+Bstddev = [
+ 890420.383607373
+ 84.9149257747669
+  0.334910077722432E-01
+ 0.488399681651699
+ 0.214274163161675
+  0.226073200069370
+ 455.478499142212
+];
+assert_checkalmostequal(stats.Bstddev,Bstddev,1.e-11,[],"element");
+// From Octave
+bintExpected = [
+  -5.49652952410773e+006  -1.46798774508794e+006
+  -1.77029035472034e+002  2.07152780015145e+002
+  -1.11581103448723e-001  3.99427448634332e-002
+  -3.12506665777324e+000  -9.15392949861547e-001
+  -1.51794870314301e+000  -5.48505031204308e-001
+  -5.62517216321774e-001  4.60309005014385e-001
+  7.98787494414885e+002  2.85951543481429e+003
+];
+assert_checkalmostequal(bint,bintExpected,1.e-7,[],"element");
+// From Octave
+r = [
+   267.3400297742810
+   -94.0139424102454
+    46.2871677852954
+  -410.1146218869235
+   309.7145908192254
+  -249.3112153014389
+  -164.0489563733436
+   -13.1803568473570
+    14.3047726139057
+   455.3940946034481
+   -17.2689271119352
+   -39.0550424934590
+  -155.5499736160615
+   -85.6713080029167
+   341.9315139497885
+  -206.7578251754712
+];
+assert_checkalmostequal(bint,bintExpected,1.e-7,[],"element");
+// From Octave
+pval = 4.98403096571565e-010;
+assert_checkalmostequal(stats.pval,pval,1.e-7);
+// From Octave:
+rintExpected = [
+  -244.6904259157840   779.3704854643460
+  -570.5619235811749   382.5340387606842
+  -536.7580890136342   629.3324245842250
+  -887.9131822669657    67.6839384931187
+   -70.2273505111387   689.6565321495893
+  -794.7841638236241   296.1617332207463
+  -668.8593450087005   340.7614322620133
+  -527.8793936365845   501.5186799418706
+  -524.5183995528589   553.1279447806703
+   -19.4607653506776   930.2489545575738
+  -602.3286761383787   567.7908219145082
+  -564.0035361036099   485.8934511166918
+  -720.6070519869496   409.5071047548266
+  -724.5371104370828   553.1944944312494
+  -168.7032503675583   852.5662782671352
+  -579.9292931086839   166.4136427577415
+];
+assert_checkalmostequal(rint,rintExpected,1.e-7,[],"element");
