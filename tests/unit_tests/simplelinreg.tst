@@ -9,7 +9,7 @@
 
 // <-- JVM NOT MANDATORY -->
 
-// The Dataset used are provided by NIST in 
+// The Dataset used is provided by NIST in 
 // http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Norris.dat
 // Norris.dat contains 1 response variable y, 1 predictor variable  and 36 observations.
 // The model used is Y = B(1) + B(2)*X.
@@ -680,3 +680,37 @@ Bintexpected = [
 ];
 assert_checkalmostequal(B,Bexpected,[],1.e-2,"element");
 assert_checkalmostequal(bint,Bintexpected,[],1.e-1,"element");
+//
+//
+// "Introduction to probability and statistics for engineers and scientists.", 
+// Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
+// Example 9.2a
+// X : Relative Humidity
+// Y : Moisture Content
+X = [46 53 29 61 36 39 47 49 52 38 55 32 57 54 44];
+Y = [12 15 7 17 10 11 11 12 14 9 16 8 18 14 12];
+[B,bint] = scidoe_simplelinreg(X,Y);
+Bexpected = [
+-2.51
+-0.32
+];
+Bintexpected = [
+-6.240 1.238
+0.263 0.383
+];
+[flag,errormsg]=assert_checkalmostequal(B,Bexpected,1.e-2,[],"element");
+[flag,errormsg]=assert_checkalmostequal(bint,Bintexpected,1.e-2,[],"element");
+//
+//
+// The previous example with column vectors:
+[B,bint]=scidoe_simplelinreg(X',Y');
+Bexpected = [
+-2.51
+-0.32
+];
+Bintexpected = [
+-6.240 1.238
+0.263 0.383
+];
+[flag,errormsg]=assert_checkalmostequal(B,Bexpected,1.e-2,[],"element");
+[flag,errormsg]=assert_checkalmostequal(bint,Bintexpected,1.e-2,[],"element");
