@@ -33,14 +33,14 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>d :</term>
-      <listitem><para> a 1-by-1 matrix of doubles, the number of dimensions of the cube. It can be either 2 or 3.</para></listitem></varlistentry>
+      <listitem><para> a 1-by-1 matrix of doubles, the number of dimensions of the cube. The available values are d=2 or d=3.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
 <refsection>
    <title>Description</title>
    <para>
-Plots a d dimensions cube in [-1,1]
+Plots a d dimensions cube in [-1,1].
    </para>
    <para>
 </para>
