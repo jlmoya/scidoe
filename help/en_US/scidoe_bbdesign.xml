@@ -1,91 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
- * Add some comments about XML file
--->
-<refentry xmlns="http://docbook.org/ns/docbook"
+ *
+ * This help file was generated from scidoe_bbdesign.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_bbdesign" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab"
-          xml:lang="en_US" xml:id="scidoe_bbdesign">
-  <info>
-    <pubdate>$LastChangedDate: 05-07-2012 $</pubdate>
-  </info>
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
   <refnamediv>
-    <refname>scidoe_bbdesign</refname>
-    <refpurpose>Creates a Box-Benkhen Design of Experiments. </refpurpose>
+    <refname>scidoe_bbdesign</refname><refpurpose></refpurpose>
   </refnamediv>
-  <refsynopsisdiv>
-    <title>Calling Sequences</title>
-    <synopsis>
-    H = scidoe_bbdesign(nb_var)
-    H = scidoe_bbdesign(nb_var,nb_center)
-    
-    </synopsis>
-  </refsynopsisdiv>
-  
-  <refsection>
-    <title>Parameters</title>
-    <variablelist>
-      <varlistentry><term>nb_var :</term>
-        <listitem><para> a 1-by-1 matrix of doubles, positive integer, with nb_var > 2. The number of variables of the experiment. </para></listitem></varlistentry>
-      <varlistentry><term> nb_center :</term>
-        <listitem><para> a 1-by-1 matrix of doubles, positive integer. Default value nb_center=1. The number of repetitions of the central point in the design. </para></listitem></varlistentry>
-    </variablelist><term> H :</term>
-        <listitem><para> The created Box Benhken Design of Experiments.</para></listitem></varlistentry>
-        
-  </refsection>
-  
-  <refsection>
-    <title>Description</title>
-    <para>
-          Creates a Box Benhken design of experiments,
-          with nb_var variables (the factors of the experiment),
-          and a center point repeated nb_center times in the design. 
-          
-    </para>
-  </refsection>
-  <refsection>
-    <title>Examples</title>
-    <programlisting role="example"><![CDATA[
-        // Create a Box Benkhen deisgn with 3 variables
-        // and one repetition of the center point.
-        H = scidoe_bbdesign(3)
-        //
-        // Create a Box Benkhen design with 5 variables,
-        // and 3 repetitions of the center.
-        H = scidoe_bbdesign(5,3)
-        //
-        // Create a Box Benkhen design and visualise
-        // the result, using scidoe_plot_cube.sci
-        H = scidoe_bbdesign(3);
-        h = scf();
-        param3d(H(:,1),H(:,2),H(:,3))
-        h.children.children.mark_mode="on";
-        h.children.children.line_mode="off";
-        h.children.children.mark_size=1;
-        scidoe_plotcube(3)
-    ]]></programlisting>
-  </refsection>
-  
-    <title>Authors</title>
-    <simplelist type="vert">
-      <member>Copyright (C) 2012 - Michael Baudin</member>
-      <member>Copyright (C) 2012 - Maria Christopoulou</member>
-      <member>Copyright (C) 2009 - Yann Collette</member>
-    </simplelist>
-  </refsection>
-  <refsection>
-     <title>Bibliography</title>
-       <para>
-         Add here the function bibliography
-       </para>
-     </refsection>
-     
-  <refsection>
-     <title>Used Functions</title>
-       <para>
-         scidoe_plotcube.sci
-       </para>
-     </refsection>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   H = scidoe_bbdesign(nbvar)
+   H = scidoe_bbdesign(nbvar,nbcenter)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>nbvar :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, integer value, nbvar &gt; 2. The number of variables of the experiment</para></listitem></varlistentry>
+   <varlistentry><term>nbcenter :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter=1).</para></listitem></varlistentry>
+   <varlistentry><term>H :</term>
+      <listitem><para> a m-by-nbvar matrix of doubles, the design of experiments, where m=nbvar*4+nbcenter</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// Create a Box-Benkhen Design with three
+// variables one repetition of center:
+H = scidoe_bbdesign(3);
+
+// With three variables and the
+// center repeated two times:
+H = scidoe_bbdesign(3,2);
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2009 - Yann Collette</member>
+   </simplelist>
+</refsection>
 </refentry>
