@@ -8,7 +8,7 @@ function [ef, id] = scidoe_yates(varargin) // In progress : In the calling seque
 // Description
 //     YATES Calculates main and interaction effects using Yate's algorithm.
 //
-// Calling Sequences
+// Calling Sequence
 //    ef = scidoe_yates(y);
 //    ef = scidoe_yates(y,sort_eff);
 //    [ef,id] = scidoe_yates(y);

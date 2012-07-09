@@ -14,9 +14,6 @@
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
           xmlns:db="http://docbook.org/ns/docbook">
 
-  <info>
-    <pubdate>$LastChangedDate: 09-Jul-2012 $</pubdate>
-  </info>
 
   <refnamediv>
     <refname>scidoe_yates</refname><refpurpose></refpurpose>
@@ -30,15 +27,19 @@
 YATES Calculates main and interaction effects using Yate's algorithm.
    </para>
    <para>
-Calling Sequences
-ef = scidoe_yates(y);
-ef = scidoe_yates(y,sort_eff);
-[ef,id] = scidoe_yates(y);
-[ef,id] = scidoe_yates(y,sort_eff);
-   </para>
-   <para>
 </para>
 </refsection>
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   ef = scidoe_yates(y);
+   ef = scidoe_yates(y,sort_eff);
+   [ef,id] = scidoe_yates(y);
+   [ef,id] = scidoe_yates(y,sort_eff);
+   
+   </synopsis>
+</refsynopsisdiv>
 
 <refsection>
    <title>Parameters</title>
