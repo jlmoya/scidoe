@@ -70,7 +70,9 @@ apifun_checkveccol("scidoe_yates",y,"y",1)
 // Check size -- TODO: make sure length(y) is power of two
 n = size(y,1);
 k = log2(n);
+if(round(k)=k) then
 apifun_checkdims("scidoe_yates",y,"y",1,[n 1])
+end
 //
 //
 // Yates algorithm
@@ -85,6 +87,7 @@ ef = ef*(2/n);
 ef(1,:) = ef(1,:)/2;
 //
 // Identification vector
+  if (lhs>1) then
   id = zeros(n-1,k);
   iz = 0;
   for ix = 1:k,
@@ -97,11 +100,16 @@ ef(1,:) = ef(1,:)/2;
       ind        = min(find(id(iy,:)==0));
       id(iz,ind) = ix;
     end
-    end
-//
-// Sort the effects -- TODO: sorting the effects should be always done to agree with the ef vector
-    [id, ind] = gsort(id(:,$:-1,1),'c','i');
+  end
+  if (sort_eff) then // secret option 
+    // Sort effects
+    [id, ind] = gsort(id(:,$:-1:1),'c','i');
     id = id(:,$:-1:1);
     ef(2:$,:) = ef(ind+1,:);   
-
+  end
+  // String representation
+  // id = cnr2cl(id);
+  //str0=[' ',char(65:90) char(97:122)]; // characters A - Z a-z
+  //id = str0(id+1);
+end
 endfunction
