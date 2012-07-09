@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_yates.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_yates" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <info>
+    <pubdate>$LastChangedDate: 09-Jul-2012 $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>scidoe_yates</refname><refpurpose></refpurpose>
+  </refnamediv>
+
+
+
+<refsection>
+   <title>Description</title>
+   <para>
+YATES Calculates main and interaction effects using Yate's algorithm.
+   </para>
+   <para>
+Calling Sequences
+ef = scidoe_yates(y);
+ef = scidoe_yates(y,sort_eff);
+[ef,id] = scidoe_yates(y);
+[ef,id] = scidoe_yates(y,sort_eff);
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>id :</term>
+      <listitem><para> a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.</para></listitem></varlistentry>
+   <varlistentry><term>ef :</term>
+      <listitem><para> a n-by-1 vector of average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
+   <varlistentry><term>y :</term>
+      <listitem><para> a n-by-1 or 1-by-n vector of calculated response from a two-level complete factorial design in standard order</para></listitem></varlistentry>
+   <varlistentry><term>sort_eff :</term>
+      <listitem><para> sort the effects (optional), a boolean operator %T. Default is %F.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Bibliography</title>
+   <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
+   <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
+   <para>This function is adopted from the WAFO toolbox :</para>
+   <para>http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html</para>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2001 - Per A. Brodtkorb</member>
+   </simplelist>
+</refsection>
+</refentry>
