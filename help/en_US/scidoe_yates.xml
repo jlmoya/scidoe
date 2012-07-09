@@ -47,12 +47,22 @@ YATES Calculates main and interaction effects using Yate's algorithm.
    <varlistentry><term>id :</term>
       <listitem><para> a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.</para></listitem></varlistentry>
    <varlistentry><term>ef :</term>
-      <listitem><para> a n-by-1 vector of average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
+      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
    <varlistentry><term>y :</term>
-      <listitem><para> a n-by-1 or 1-by-n vector of calculated response from a two-level complete factorial design in standard order</para></listitem></varlistentry>
+      <listitem><para> a n-by-1 vector of doubles, containing the calculated response from a two-level complete factorial design in standard order</para></listitem></varlistentry>
    <varlistentry><term>sort_eff :</term>
       <listitem><para> sort the effects (optional), a boolean operator %T. Default is %F.</para></listitem></varlistentry>
    </variablelist>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+D = scidoe_ff2n(3); // complete 2^3 design in standard order.
+y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
+[ef,id] = scidoe_yates(y);
+
+   ]]></programlisting>
 </refsection>
 
 <refsection>

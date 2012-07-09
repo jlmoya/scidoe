@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_ryates.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_ryates" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_ryates</refname><refpurpose></refpurpose>
+  </refnamediv>
+
+
+
+<refsection>
+   <title>Description</title>
+   <para>
+RYATES Reverse Yate's algorithm to give estimated responses
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   y = scidoe_ryates(ef);
+   [y, id] = scidoe_ryates(ef);
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>ef :</term>
+      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects.EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects.</para></listitem></varlistentry>
+   <varlistentry><term>y :</term>
+      <listitem><para> a n-by-1 vector of doubles, the estimated response given the effects.</para></listitem></varlistentry>
+   <varlistentry><term>id :</term>
+      <listitem><para> a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+D = scidoe_ff2n(3);
+y = [60 72 54 68 52 83 45 80];
+[ef,id] = scidoe_yates(y);
+y1 = scidoe_ryates(ef);
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Bibliography</title>
+   <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
+   <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
+   <para>This function is adopted from the Wafo toolbox:</para>
+   <para>http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html</para>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2001 - Per A. Brodtkorb</member>
+   </simplelist>
+</refsection>
+</refentry>
