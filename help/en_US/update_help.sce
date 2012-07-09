@@ -19,6 +19,7 @@ funarray = [
   "scidoe_simplelinreg"
   "scidoe_plotcube"
   "scidoe_bbdesign"
+  "scidoe_yates"
   ];
 helpdir = fullfile(cwd);
 macrosdir = fullfile(cwd ,"..","..","macros");
