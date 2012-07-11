@@ -55,8 +55,10 @@ function [ef, id] = scidoe_yates(varargin)
     // Check whether length of y is power of two
     n = size(y,1);    // Number of runs
     k = log2(n);    // Number of variables
-    assert_checkalmostequal(k,round(k))
     //
+    if (k~=round(k)) then
+    assert_generror("Length of vector y must be power of two");
+    end
     //
     // Yates algorithm
     ef   = y;
