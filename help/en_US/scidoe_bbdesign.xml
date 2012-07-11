@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_bbdesign</refname><refpurpose></refpurpose>
+    <refname>scidoe_bbdesign</refname><refpurpose>Description</refpurpose>
   </refnamediv>
 
 
@@ -47,21 +47,22 @@
    <programlisting role="example"><![CDATA[
 // Create a Box-Benkhen Design with three
 // variables one repetition of center:
-H = scidoe_bbdesign(3);
+H = scidoe_bbdesign(3)
 
 // With three variables and the
 // center repeated two times:
-H = scidoe_bbdesign(3,2);
+H = scidoe_bbdesign(3,2)
 
-// Create a Box Benkhen design and visualise
-// the result, using scidoe_plot_cube.sci
-H = scidoe_bbdesign(3);
+// Visualise a Box-Benhken Design
+// with three factors and one repetition of center.
+H = scidoe_bbdesign(3)
 h = scf();
 param3d(H(:,1),H(:,2),H(:,3))
 h.children.children.mark_mode="on";
 h.children.children.line_mode="off";
 h.children.children.mark_size=1;
 scidoe_plotcube(3)
+
    ]]></programlisting>
 </refsection>
 

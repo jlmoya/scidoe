@@ -55,7 +55,7 @@ Reverse Yate's algorithm to give estimated responses
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
 D = scidoe_ff2n(3);
-y = [60 72 54 68 52 83 45 80];
+y = [60 72 54 68 52 83 45 80]';
 [ef,id] = scidoe_yates(y);
 y1 = scidoe_ryates(ef);
 
