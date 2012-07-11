@@ -3,7 +3,7 @@
 //
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [ef, id] = scidoe_yates(varargin) // In progress : In the calling sequence [ef,id] = scidoe_yates(y,%T) I get Submatrix Incorrectly defined.
+function [ef, id] = scidoe_yates(varargin)
 //
 // Description
 //    Calculates main and interaction effects using Yate's algorithm.
