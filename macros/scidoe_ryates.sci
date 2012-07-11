@@ -4,35 +4,37 @@
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function [y, id] = scidoe_ryates(ef)
-//
-// Description
-//    RYATES Reverse Yate's algorithm to give estimated responses
-//
-// Calling Sequence
-//    y = scidoe_ryates(ef);
-//    [y, id] = scidoe_ryates(ef);
-//
-// Parameters
-//    ef : a n-by-1 vector of doubles, containing average response, main effects and interaction effects.EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects.
-//    y : a n-by-1 vector of doubles, the estimated response given the effects.
-//    id : a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.
-//
-// Examples
-//    D = scidoe_ff2n(3);
-//    y = [60 72 54 68 52 83 45 80];
-//    [ef,id] = scidoe_yates(y);
-//    y1 = scidoe_ryates(ef);
-//
-// Bibliography 
-// Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)
-// Statistics for experimenters, John Wiley & Sons, pp 342
-//
-// This function is adopted from the Wafo toolbox:
-// http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html
-//
-// Authors
-// Copyright (C) 2012 - Maria Christopoulou
-// Copyright (C) 2001 - Per A. Brodtkorb
+    // Reverse Yate's algorithm to give estimated responses
+    //
+    // Calling Sequence
+    //    y = scidoe_ryates(ef)
+    //    [y, id] = scidoe_ryates(ef)
+    //
+    // Parameters
+    //    ef : a n-by-1 vector of doubles, containing average response, main effects and interaction effects. ef(1) is the average response and ef(2:$) contain the main effects and interaction effects.
+    //    y : a n-by-1 vector of doubles, the estimated response given the effects.
+    //    id : a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.
+    //
+    // Description
+    //  Reverse Yate's algorithm to give estimated responses
+    //
+    // This function is adapted from the Wafo toolbox:
+	//
+    // http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html
+    //
+    // Examples
+    //    D = scidoe_ff2n(3);
+    //    y = [60 72 54 68 52 83 45 80];
+    //    [ef,id] = scidoe_yates(y);
+    //    y1 = scidoe_ryates(ef)
+    //
+    // Bibliography 
+    // Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)
+    // Statistics for experimenters, John Wiley & Sons, pp 342
+    //
+    // Authors
+    // Copyright (C) 2012 - Maria Christopoulou
+    // Copyright (C) 2001 - Per A. Brodtkorb
 
     // Check number of input and output arguments
     [lhs,rhs] = argn();
@@ -49,7 +51,7 @@ function [y, id] = scidoe_ryates(ef)
     n = size(ef,1);   // Number of runs
     k = log2(n);      // Number of variables.
     assert_checkalmostequal(k,round(k))
-    
+
     // Reverse yates algorithm
     y = ef*(n/2);
     y(1,:) = y(1,:)*2;
@@ -60,7 +62,7 @@ function [y, id] = scidoe_ryates(ef)
     end
     y = y($:-1:1,:)/2;
     y($,:) = y($,:)*2;
-    
+
 endfunction
 
 

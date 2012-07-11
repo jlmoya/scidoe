@@ -16,25 +16,16 @@
 
 
   <refnamediv>
-    <refname>scidoe_ryates</refname><refpurpose></refpurpose>
+    <refname>scidoe_ryates</refname><refpurpose>Reverse Yate's algorithm to give estimated responses</refpurpose>
   </refnamediv>
 
 
 
-<refsection>
-   <title>Description</title>
-   <para>
-Reverse Yate's algorithm to give estimated responses
-   </para>
-   <para>
-</para>
-</refsection>
-
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   y = scidoe_ryates(ef);
-   [y, id] = scidoe_ryates(ef);
+   y = scidoe_ryates(ef)
+   [y, id] = scidoe_ryates(ef)
    
    </synopsis>
 </refsynopsisdiv>
@@ -52,12 +43,27 @@ Reverse Yate's algorithm to give estimated responses
 </refsection>
 
 <refsection>
+   <title>Description</title>
+   <para>
+Reverse Yate's algorithm to give estimated responses
+   </para>
+   <para>
+This function is adapted from the Wafo toolbox:
+   </para>
+   <para>
+http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
 D = scidoe_ff2n(3);
-y = [60 72 54 68 52 83 45 80]';
+y = [60 72 54 68 52 83 45 80];
 [ef,id] = scidoe_yates(y);
-y1 = scidoe_ryates(ef);
+y1 = scidoe_ryates(ef)
 
    ]]></programlisting>
 </refsection>
@@ -66,8 +72,6 @@ y1 = scidoe_ryates(ef);
    <title>Bibliography</title>
    <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
    <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
-   <para>This function is adopted from the Wafo toolbox:</para>
-   <para>http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html</para>
 </refsection>
 
 <refsection>

@@ -16,27 +16,17 @@
 
 
   <refnamediv>
-    <refname>scidoe_yates</refname><refpurpose></refpurpose>
+    <refname>scidoe_yates</refname><refpurpose>Calculates main and interaction effects using Yate's algorithm.</refpurpose>
   </refnamediv>
 
 
 
-<refsection>
-   <title>Description</title>
-   <para>
-Calculates main and interaction effects using Yate's algorithm.
-   </para>
-   <para>
-</para>
-</refsection>
-
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   ef = scidoe_yates(y);
-   ef = scidoe_yates(y,sort_eff);
-   [ef,id] = scidoe_yates(y);
-   [ef,id] = scidoe_yates(y,sort_eff);
+   ef = scidoe_yates(y)
+   ef = scidoe_yates(y,sort_eff)
+   [ef,id] = scidoe_yates(...)
    
    </synopsis>
 </refsynopsisdiv>
@@ -56,11 +46,24 @@ Calculates main and interaction effects using Yate's algorithm.
 </refsection>
 
 <refsection>
+   <title>Description</title>
+   <para>
+Calculates main and interaction effects using Yate's algorithm.
+   </para>
+   <para>
+This function is adopted from the WAFO toolbox :
+http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
 D = scidoe_ff2n(3); // complete 2^3 design in standard order.
 y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
-[ef,id] = scidoe_yates(y);
+[ef,id] = scidoe_yates(y)
 
    ]]></programlisting>
 </refsection>
@@ -69,8 +72,6 @@ y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
    <title>Bibliography</title>
    <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
    <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
-   <para>This function is adopted from the WAFO toolbox :</para>
-   <para>http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html</para>
 </refsection>
 
 <refsection>
