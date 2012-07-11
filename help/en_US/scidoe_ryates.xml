@@ -34,7 +34,7 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>ef :</term>
-      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects.EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects.</para></listitem></varlistentry>
+      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. ef(1) is the average response and ef(2:$) contain the main effects and interaction effects.</para></listitem></varlistentry>
    <varlistentry><term>y :</term>
       <listitem><para> a n-by-1 vector of doubles, the estimated response given the effects.</para></listitem></varlistentry>
    <varlistentry><term>id :</term>

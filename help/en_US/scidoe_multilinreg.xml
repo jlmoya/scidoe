@@ -183,6 +183,7 @@ Y = [
 // Print an analysis of variance table
 B = scidoe_multilinreg(Y,X,[],%t);
 
+// Create an example with known coefficients
 grand("setsd",0);
 // The number of observations
 N = 100;

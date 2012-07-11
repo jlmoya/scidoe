@@ -34,14 +34,14 @@
 <refsection>
    <title>Parameters</title>
    <variablelist>
-   <varlistentry><term>id :</term>
-      <listitem><para> a (n-1)-by-k matrix of doubles, the identification matrix of main and interaction effects.</para></listitem></varlistentry>
-   <varlistentry><term>ef :</term>
-      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:$,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
    <varlistentry><term>y :</term>
       <listitem><para> a n-by-1 vector of doubles, containing the calculated response from a two-level complete factorial design in standard order</para></listitem></varlistentry>
    <varlistentry><term>sort_eff :</term>
-      <listitem><para> the boolean operator %T. It sorts the id matrix and the corresponding ef vector, so that main effects are first, followed by two-factor and three-factor interactions. Default is %F.</para></listitem></varlistentry>
+      <listitem><para> a 1-by-1 matrix of booleans, set to true to sort the effects (default sort_eff=%f). If sort_eff is true, sorts the id matrix and the corresponding ef vector, so that main effects are first, followed by two-factor and three-factor interactions.</para></listitem></varlistentry>
+   <varlistentry><term>ef :</term>
+      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. ef(1) is the average response and ef(2:$) contain the main effects and interaction effects corresponding to the vector id.</para></listitem></varlistentry>
+   <varlistentry><term>id :</term>
+      <listitem><para> a (n-1)-by-k matrix of doubles, the identification matrix of main and interaction effects.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -49,6 +49,12 @@
    <title>Description</title>
    <para>
 Calculates main and interaction effects using Yate's algorithm.
+   </para>
+   <para>
+On output, we have
+   </para>
+   <para>
+ef(1)==mean(y)
    </para>
    <para>
 This function is adopted from the WAFO toolbox :
@@ -65,6 +71,9 @@ D = scidoe_ff2n(3); // complete 2^3 design in standard order.
 y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
 [ef,id] = scidoe_yates(y)
 
+// See the sort_eff option in action
+[ef,id] = scidoe_yates(y,%t)
+
    ]]></programlisting>
 </refsection>
 
@@ -72,6 +81,7 @@ y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
    <title>Bibliography</title>
    <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
    <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
+   <para>http://www.itl.nist.gov/div898/handbook/eda/section3/eda35i.htm</para>
 </refsection>
 
 <refsection>

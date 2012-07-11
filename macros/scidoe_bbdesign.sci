@@ -21,11 +21,11 @@ function H = scidoe_bbdesign(varargin)
     // Examples
     // // Create a Box-Benkhen Design with three 
 	// // variables one repetition of center:
-    // H = scidoe_bbdesign(3);
+    // H = scidoe_bbdesign(3)
     //
     // // With three variables and the 
 	// // center repeated two times:
-    // H = scidoe_bbdesign(3,2);
+    // H = scidoe_bbdesign(3,2)
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin

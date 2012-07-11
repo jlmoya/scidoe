@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_bbdesign</refname><refpurpose>Description</refpurpose>
+    <refname>scidoe_bbdesign</refname><refpurpose></refpurpose>
   </refnamediv>
 
 
@@ -52,16 +52,6 @@ H = scidoe_bbdesign(3)
 // With three variables and the
 // center repeated two times:
 H = scidoe_bbdesign(3,2)
-
-// Visualise a Box-Benhken Design
-// with three factors and one repetition of center.
-H = scidoe_bbdesign(3)
-h = scf();
-param3d(H(:,1),H(:,2),H(:,3))
-h.children.children.mark_mode="on";
-h.children.children.line_mode="off";
-h.children.children.mark_size=1;
-scidoe_plotcube(3)
 
    ]]></programlisting>
 </refsection>
