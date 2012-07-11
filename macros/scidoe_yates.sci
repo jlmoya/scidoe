@@ -6,7 +6,7 @@
 function [ef, id] = scidoe_yates(varargin) // In progress : In the calling sequence [ef,id] = scidoe_yates(y,%T) I get Submatrix Incorrectly defined.
 //
 // Description
-//     YATES Calculates main and interaction effects using Yate's algorithm.
+//    Calculates main and interaction effects using Yate's algorithm.
 //
 // Calling Sequence
 //    ef = scidoe_yates(y);
@@ -15,10 +15,10 @@ function [ef, id] = scidoe_yates(varargin) // In progress : In the calling seque
 //    [ef,id] = scidoe_yates(y,sort_eff);
 // 
 //  Parameters
-//    id : a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.
-//    ef : a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects corresponding to the vector ID.
+//    id : a (n-1)-by-k matrix of doubles, the identification matrix of main and interaction effects.
+//    ef : a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:$,:) contain the main effects and interaction effects corresponding to the vector ID.
 //    y : a n-by-1 vector of doubles, containing the calculated response from a two-level complete factorial design in standard order
-//    sort_eff : sort the effects (optional), a boolean operator %T. Default is %F.
+//    sort_eff : the boolean operator %T. It sorts the id matrix and the corresponding ef vector, so that main effects are first, followed by two-factor and three-factor interactions. Default is %F.
 //
 // Examples
 //    D = scidoe_ff2n(3); // complete 2^3 design in standard order.
@@ -70,28 +70,27 @@ function [ef, id] = scidoe_yates(varargin) // In progress : In the calling seque
     //
     // Identification vector
       if (lhs>1) then
-      id = zeros(n-1,k);
-      iz = 0;
-      for ix = 1:k,
-        iz       = iz+1;
-        id(iz,1) = ix;
-        iz0      = iz;
-        for iy = 1:iz0-1,
+          id = zeros(n-1,k);
+          iz = 0;
+      for ix = 1:k
           iz = iz+1;
-          id(iz,:)   = id(iy,:);
-          ind        = min(find(id(iy,:)==0));
-          id(iz,ind) = ix;
+          id(iz,1) = ix;
+          iz0      = iz;
+        for iy = 1:iz0-1,
+            iz = iz+1;
+            id(iz,:) = id(iy,:);
+            ind = min(find(id(iy,:)==0));
+            id(iz,ind) = ix;
         end
       end
+
       if (sort_eff) then
-        [id, ind] = gsort(id(:,$:-1:1),'c','i');
-        id = id(:,$:-1:1);
-        ef(2:$,:) = ef(ind+1,:);   // Submatrix incorrectly defined.
+          id = id(:,$:-1:1);
+          [id, ind] = gsort(id,'lr','i');
+          id = id(:,$:-1:1);
+          ef(2:$,:) = ef(ind+1,:);
       end
-      // String representation
-      // id = cnr2cl(id);
-      //str0=[' ',char(65:90) char(97:122)]; // characters A - Z a-z
-      //id = str0(id+1);
+  
     end
 
 endfunction

@@ -24,7 +24,7 @@
 <refsection>
    <title>Description</title>
    <para>
-YATES Calculates main and interaction effects using Yate's algorithm.
+Calculates main and interaction effects using Yate's algorithm.
    </para>
    <para>
 </para>
@@ -45,13 +45,13 @@ YATES Calculates main and interaction effects using Yate's algorithm.
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>id :</term>
-      <listitem><para> a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.</para></listitem></varlistentry>
+      <listitem><para> a (n-1)-by-k matrix of doubles, the identification matrix of main and interaction effects.</para></listitem></varlistentry>
    <varlistentry><term>ef :</term>
-      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:end,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
+      <listitem><para> a n-by-1 vector of doubles, containing average response, main effects and interaction effects. EF(1,:) is the average response and EF(2:$,:) contain the main effects and interaction effects corresponding to the vector ID.</para></listitem></varlistentry>
    <varlistentry><term>y :</term>
       <listitem><para> a n-by-1 vector of doubles, containing the calculated response from a two-level complete factorial design in standard order</para></listitem></varlistentry>
    <varlistentry><term>sort_eff :</term>
-      <listitem><para> sort the effects (optional), a boolean operator %T. Default is %F.</para></listitem></varlistentry>
+      <listitem><para> the boolean operator %T. It sorts the id matrix and the corresponding ef vector, so that main effects are first, followed by two-factor and three-factor interactions. Default is %F.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
