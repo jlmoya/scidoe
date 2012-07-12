@@ -128,3 +128,57 @@ rintExpected = [
   -579.9292931086839   166.4136427577415
 ];
 assert_checkalmostequal(rint,rintExpected,1.e-7,[],"element");
+// "Introduction to probability and statistics for engineers and scientists.", 
+// Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
+// Example 9.10a
+// X1 : Population in Thousands
+// X2 : Divorce Rate per 100,000
+// X : [X1 X2]
+// Y : Suicide Rate per 100,000
+X = [679     30.4 
+     1,420   34.1 
+     1,349   17.2 
+     296     26.8 
+     6,975   29.1 
+     323     18.7 
+     4,200   32.6 
+     633     32.5 ];
+Y = [11.6
+     16.1
+     9.3
+     9.1
+     8.4
+     7.7
+     11.3
+     8.4];
+B_expected = [3.5074
+             -0.0002
+              0.2609];
+bint_expected = [-7.6954   14.7101
+                 -0.0014    0.0009
+                 -0.1474    0.6693];
+r_expected = [0.3281
+              4.0461
+              1.6385
+             -1.3274
+             -0.9731
+             -0.6070
+              0.3262
+             -3.4313
+rint_expected = [-6.3040    6.9601
+                 0.5609    7.5313
+                -3.1902    6.4672
+                -7.8346    5.1798
+                -4.3683    2.4221
+                -6.2653    5.0512
+                -5.9799    6.6323
+                -7.9445    1.0819];
+[B_computed,bint_computed,r_computed,rint_computed,stats] = scidoe_multilinreg(Y,X);
+assert_checkalmostequal(B_expected,B_computed,[],[],"element");
+assert_checkalmostequal(bint_expected,bint_computed,[],[],"element");
+assert_checkalmostequal(r_expected,r_computed,[],[],"e;ement");
+assert_checkalmostequal(rint_expected,rint_computed,[],[],"element");
+assert_checkalmostequal(stats.ResidualMean,6.848);
+assert_checkalmostequal(stats.R2,0.3528);
+assert_checkalmostequal(stats.pval,33.70);
+assert_checkalmostequal(stats.F,1.3626);
