@@ -20,29 +20,58 @@ function [ef, id] = scidoe_yates(varargin)
     // Description
     //    Calculates main and interaction effects using Yate's algorithm.
 	//    
-    //    The output of the first example below is:
-    //
-    //                                ef = 64.25  
-    //    id  = 1.    0.    0.             23.    
-    //          2.    0.    0.            -5.     
-    //          1.    2.    0.             1.5    
-    //          3.    0.    0.             1.5    
-    //          1.    3.    0.             10.    
-    //          2.    3.    0.             0.     
-    //          1.    2.    3.             0.5    
+    //    Let us analyse the output of the first example below:
+    //   <programlisting>
+    //    ef = [
+	//  64.25  
+	//  23. 
+	// -5.  
+	//  1.5 
+	//  1.5 
+	//  10. 
+	//  0.  
+	//  0.5 
+	// ]
+    //    id  = [
+	//          1.    0.    0.              
+    //          2.    0.    0.              
+    //          1.    2.    0.              
+    //          3.    0.    0.              
+    //          1.    3.    0.              
+    //          2.    3.    0.              
+    //          1.    2.    3.              
+	//    ]
+	//    </programlisting>
     //                                       
-    //    Each row of the id matrix shows which factors interact.
-    //    id(1,:) = [1 0 0] shows that only factor X1 varies, while factors X2 and X3 remain fixed.
-    //    id(5,:) = [1 3 0] shows that factors X1 and X3 interact, while X2 remains fixed.
-    //    id(7,:) = [1 2 3] shows the three-factor interaction X1*X2*X3.
-    //    In the column vector ef, the element ef(1,1) is the average response of the experiment,
-    //    while the remaining entries ef(2:$,1) are the effects corresponding to each id() row.
-    //    For id(1,:) = [1 0 0] the main effect is ef(2,1) = 23.
-    //    For id(5,:) = [1 3 0] the interaction effect is ef(6,1) = 10.
-    //    For id(7,:) = [1 2 3] the interaction effect is ef(8,1) = 0.5.
-    //
+    //    For i=1,2,...,n-1, the entry <literal>ef(i+1)</literal> is 
+    //    the effect of the parameters in <literal>id(i,:)</literal>.
+    //    <itemizedlist>
+    //      <listitem>
+    //        <para> 
+    //          <literal>ef(1)</literal> is the average response of the experiment.
+    //        </para> 
+    //      </listitem>
+    //      <listitem>
+    //        <para> 
+    //    The effect ef(2) = 23 is associated with id(1,:) = [1 0 0],
+	//    which shows what is the effect of the parameter X1 (while X2 and X3 remain fixed).
+    //        </para> 
+    //      </listitem>
+    //      <listitem>
+    //        <para> 
+    //    The effect ef(6) = 10 is associated with id(5,:) = [1 3 0], 
+    //    which shows the effect when X1 and X3 interact (while X2 remains fixed).
+    //        </para> 
+    //      </listitem>
+    //      <listitem>
+    //        <para> 
+    //    The effect ef(8) = 0.5 is associated with id(7,:) = [1 2 3], 
+    //    which shows the effect when X1, x2 and X3 interact.
+    //        </para> 
+    //      </listitem>
+    //    </itemizedlist>
 	//
-    //    This function is adopted from the WAFO toolbox :
+    //    This function is adapted from the WAFO toolbox :
     //    http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html
     //
     // Examples
