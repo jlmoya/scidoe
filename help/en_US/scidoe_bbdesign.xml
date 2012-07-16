@@ -38,7 +38,7 @@
    <varlistentry><term>nbcenter :</term>
       <listitem><para> a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter=1).</para></listitem></varlistentry>
    <varlistentry><term>H :</term>
-      <listitem><para> a m-by-nbvar matrix of doubles, the design of experiments, where m=nbvar*4+nbcenter</para></listitem></varlistentry>
+      <listitem><para> a m-by-nbvar matrix of doubles, the design of experiments in the range [-1,1], where m=nbvar*4+nbcenter</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -48,6 +48,13 @@
 // Create a Box-Benkhen Design with three
 // variables one repetition of center:
 H = scidoe_bbdesign(3)
+// Plot the design
+h = scf();
+param3d(H(:,1),H(:,2),H(:,3))
+h.children.children.mark_mode="on";
+h.children.children.line_mode="off";
+h.children.children.mark_size=1;
+scidoe_plotcube(3)
 
 // With three variables and the
 // center repeated two times:

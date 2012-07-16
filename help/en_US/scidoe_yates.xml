@@ -86,7 +86,7 @@ the effect of the parameters in <literal>id(i,:)</literal>.
 <listitem>
 <para>
 The effect ef(2) = 23 is associated with id(1,:) = [1 0 0],
-which shows what is the effect of the parameter X1.
+which shows what is the effect of the parameter X1 (while X2 and X3 remain fixed).
 </para>
 </listitem>
 <listitem>

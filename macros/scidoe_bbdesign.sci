@@ -14,18 +14,34 @@ function H = scidoe_bbdesign(varargin)
     //    H = scidoe_bbdesign(nbvar,nbcenter)
     //
     // Parameters
-    //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar > 2. The number of variables of the experiment
+    //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar >= 3. The number of variables of the experiment
     //    nbcenter : a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter=1).
-    //    H : a m-by-nbvar matrix of doubles, the design of experiments, where m=nbvar*4+nbcenter
+    //    H : a m-by-nbvar matrix of doubles, the design of experiments in the range [-1,1], where m=nbvar*4+nbcenter
     //
     // Examples
     // // Create a Box-Benkhen Design with three 
 	// // variables one repetition of center:
     // H = scidoe_bbdesign(3)
+	// // Plot the design
+	// h = scf();
+	// param3d(H(:,1),H(:,2),H(:,3))
+	// h.children.children.mark_mode="on";
+	// h.children.children.line_mode="off";
+	// h.children.children.mark_size=1;
+	// scidoe_plotcube(3)
+	// xtitle("Box-Benkhen Design","X1","X2","X3")
     //
     // // With three variables and the 
 	// // center repeated two times:
     // H = scidoe_bbdesign(3,2)
+	//
+	// // Print the number of experiments
+	// for nbvar = 3 : 10
+	//   H = scidoe_bbdesign(nbvar);
+	//   m = size(H,"r");
+	//   mprintf("nbvar=%d, Num. Experiments=%d\n",..
+	//      nbvar,m)
+	// end
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin

@@ -48,6 +48,9 @@
 Reverse Yate's algorithm to give estimated responses
    </para>
    <para>
+This is the reverse function of scidoe_ryates.
+   </para>
+   <para>
 This function is adapted from the Wafo toolbox:
    </para>
    <para>

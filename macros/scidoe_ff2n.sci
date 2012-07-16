@@ -15,7 +15,7 @@ function B = scidoe_ff2n(n)
     //
     // Parameters
     //   n : a 1-by-1 matrix of doubles, integer value, positive, the number of levels for each factor
-    //   B : a m-by-n matrix of doubles, the experiments, where m=n*n
+    //   B : a m-by-n matrix of doubles, the experiments in the range [0,1], where m=n*n. 
     //
     // Description
     // Computes a full factorial design with 2 levels for each factor.
@@ -25,12 +25,37 @@ function B = scidoe_ff2n(n)
 	// // 2 levels for the first factor
 	// // 2 levels for the second factor
     // B=scidoe_ff2n(2)
+	// // Scale into [-1,1]
+	// C=2*B-1;
+	// // Plot this design
+	// scf();
+	// scidoe_plotcube(2);
+	// plot(C(:,1),C(:,2),"bo");
+	// xtitle("Full Factorial Design","X1","X2")
 	//
 	// // For three factors
     // B=scidoe_ff2n(3)
+	// // Scale into [-1,1]
+	// C=2*B-1;
+	// // Plot this design
+	// h = scf();
+	// param3d(C(:,1),C(:,2),C(:,3))
+	// h.children.children.mark_mode="on";
+	// h.children.children.line_mode="off";
+	// h.children.children.mark_size=1;
+	// scidoe_plotcube(3)
+	// xtitle("Full Factorial Design","X1","X2","X3")
 	//
 	// // For four factors
     // B=scidoe_ff2n(4)
+	//
+	// // Print the number of experiments
+	// for n = 1 : 10
+	//   B=scidoe_ff2n(n);
+	//   m = size(B,"r");
+	//   mprintf("n=%d, Num. Experiments=%d\n",..
+	//      n,m)
+	// end
     //
     // Authors
 	// Copyright (C) 2012 - Michael Baudin

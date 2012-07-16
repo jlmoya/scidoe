@@ -18,6 +18,8 @@ function [y, id] = scidoe_ryates(ef)
     // Description
     //  Reverse Yate's algorithm to give estimated responses
     //
+	// This is the reverse function of scidoe_ryates.
+	//
     // This function is adapted from the Wafo toolbox:
 	//
     // http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html
