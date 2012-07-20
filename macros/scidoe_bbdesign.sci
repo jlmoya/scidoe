@@ -4,10 +4,8 @@
 //
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function H = scidoe_bbdesign(varargin)
-
-    // Description
-    //    Creates a Box-Benkhen Design of Experiments
+function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added. 
+    // Box-Benhken design of experiments
     //
     // Calling Sequence
     //    H = scidoe_bbdesign(nbvar)
@@ -17,6 +15,9 @@ function H = scidoe_bbdesign(varargin)
     //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar >= 3. The number of variables of the experiment
     //    nbcenter : a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter=1).
     //    H : a m-by-nbvar matrix of doubles, the design of experiments in the range [-1,1], where m=nbvar*4+nbcenter
+    //
+    // Description
+    // Creates a Box-Benkhen Design of Experiments
     //
     // Examples
     // // Create a Box-Benkhen Design with three 
@@ -42,6 +43,9 @@ function H = scidoe_bbdesign(varargin)
 	//   mprintf("nbvar=%d, Num. Experiments=%d\n",..
 	//      nbvar,m)
 	// end
+    //
+    // Bibliography
+    // http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin
@@ -72,23 +76,70 @@ function H = scidoe_bbdesign(varargin)
     apifun_checkflint("scidoe_bbdesign",nbvar,"nbvar",1);
     apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",2);
     //
-    //First, we compute a two level factorial doe with 2 parameters.
     //
-    H_fact = [-1 -1;1 -1;-1 1;1 1];
-    C = zeros(nbcenter,nbvar);
-    nb_lines = nbvar*4;
-    H = zeros(nb_lines,nbvar);
-    // We populate the real doe with this doe
-    // TODO : Check for possible vectorization...    
-    Index = 0;    
-    for i=1:nbvar-1
-      for j=i+1:nbvar
-        Index = Index + 1;
-        rows = max([1 ((Index-1)*4+1)]):Index*4;
-        H(rows,i) = H_fact(:,1);
-        H(rows,j) = H_fact(:,2);
-      end
-    end
+    // Depending on the number of variables nbvar, we compute two level design
+    // which is populated with the real doe.
+    if (nbvar<6 | nbvar==8 | nbvar==13 | nbvar == 14 | nbvar ==15 | nbvar>16 ) then
+        H_fact = [-1 -1;1 -1;-1 1;1 1];
+        C = zeros(nbcenter,nbvar);
+        nb_lines = nbvar*size(H_fact,1);
+        H = zeros(nb_lines,nbvar);
+        Index = 0;
+            for i=1:nbvar-1
+                  for j=i+1:nbvar
+                      Index = Index + 1;
+                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
+                      H(rows,i) = H_fact(:,1);
+                      H(rows,j) = H_fact(:,2);
+                  end
+            end
+     end
+    
+        
+    if (nbvar==6 | nbvar==7 | nbvar==9) then
+        H_fact=[-1 -1 -1;1 -1 -1;-1 1 -1;1 1 -1;-1 -1 1;1 -1 1;-1 1 1;1 1 1];
+        C = zeros(nbcenter,nbvar);
+        nb_lines = nbvar*size(H_fact,1);
+        H = zeros(nb_lines,nbvar);
+        Index = 0;
+        for i=1:nbvar-2
+          for j=i+1:nbvar-1
+              for k=j+1:nbvar
+                  Index = Index + 1;
+                  if (Index<=nbvar)
+                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
+                      H(rows,i) = H_fact(:,1);
+                      H(rows,j) = H_fact(:,2);
+                      H(rows,k) = H_fact(:,3);
+                  end
+              end
+            end
+           end
+     end
+     
+     if(nbvar==10 | nbvar==11 | nbvar==12 |nbvar ==16 )
+         H_fact=[-1 -1 -1 -1;1 -1 -1 -1;-1 1 -1 -1;1 1 -1 -1;-1 -1 1 -1;1 -1 1 -1;-1 1 1 -1;1 1 1 -1;-1 -1 -1 1;1 -1 -1 1;-1 1 -1 1;1 1 -1 1;-1 -1 1 1;1 -1 1 1;-1 1 1 1;1 1 1 1];
+        C = zeros(nbcenter,nbvar);
+        nb_lines = nbvar*size(H_fact,1);
+        H = zeros(nb_lines,nbvar);
+        Index = 0;
+        for i=1:nbvar-3
+          for j=i+1:nbvar-2
+              for k=j+1:nbvar-1
+                  for l=k+1:nbvar
+                  end
+                  Index = Index + 1;
+                  if (Index<=nbvar)
+                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
+                      H(rows,i) = H_fact(:,1);
+                      H(rows,j) = H_fact(:,2);
+                      H(rows,k) = H_fact(:,3);
+                      H(rows,l) = H_fact(:,4);
+                  end
+              end
+            end
+           end
+     end
     
     H = [H' C']';
     
