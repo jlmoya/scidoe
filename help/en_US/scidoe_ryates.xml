@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_ryates</refname><refpurpose>Reverse Yate's algorithm to give estimated responses</refpurpose>
+    <refname>scidoe_ryates</refname><refpurpose>Reverse Yates algorithm to give estimated responses</refpurpose>
   </refnamediv>
 
 
@@ -45,10 +45,10 @@
 <refsection>
    <title>Description</title>
    <para>
-Reverse Yate's algorithm to give estimated responses
+Reverse Yates algorithm to give estimated responses
    </para>
    <para>
-This is the reverse function of scidoe_ryates.
+This is the reverse function of scidoe_yates.
    </para>
    <para>
 This function is adapted from the Wafo toolbox:
@@ -63,6 +63,9 @@ http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.ht
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
+// "Statistics for experimenters Design,Innovation and Discovery",
+// Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
+// Tables 5.6, 5.7 - Pilot Plant Investigation Experiment
 D = scidoe_ff2n(3);
 y = [60 72 54 68 52 83 45 80];
 [ef,id] = scidoe_yates(y);
@@ -73,8 +76,8 @@ y1 = scidoe_ryates(ef)
 
 <refsection>
    <title>Bibliography</title>
-   <para>Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)</para>
-   <para>Statistics for experimenters, John Wiley &amp; Sons, pp 342</para>
+   <para>"Statistics for experimenters Design,Innovation and Discovery",</para>
+   <para>Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005</para>
 </refsection>
 
 <refsection>

@@ -18,10 +18,10 @@ function [ef, id] = scidoe_yates(varargin)
     //    id : a (n-1)-by-k matrix of doubles, the identification matrix of main and interaction effects.
     //
     // Description
-    //    Calculates main and interaction effects using Yate's algorithm.
+    //    Calculates main and interaction effects using Yates algorithm.
 	//    
     //    Let us analyse the output of the first example below:
-    //   <programlisting>
+    //   
     //    ef = [
 	//  64.25  
 	//  23. 
@@ -41,50 +41,47 @@ function [ef, id] = scidoe_yates(varargin)
     //          2.    3.    0.              
     //          1.    2.    3.              
 	//    ]
-	//    </programlisting>
+	//    
     //                                       
-    //    For i=1,2,...,n-1, the entry <literal>ef(i+1)</literal> is 
-    //    the effect of the parameters in <literal>id(i,:)</literal>.
-    //    <itemizedlist>
-    //      <listitem>
-    //        <para> 
-    //          <literal>ef(1)</literal> is the average response of the experiment.
-    //        </para> 
-    //      </listitem>
-    //      <listitem>
-    //        <para> 
+    //    For i=1,2,...,n-1, the entry ef(i+1) is 
+    //    the effect of the parameters in id(i,:).
+    //     
+    //    ef(1) is the average response of the experiment.
+    //        
     //    The effect ef(2) = 23 is associated with id(1,:) = [1 0 0],
 	//    which shows what is the effect of the parameter X1 (while X2 and X3 remain fixed).
-    //        </para> 
-    //      </listitem>
-    //      <listitem>
-    //        <para> 
+    //         
     //    The effect ef(6) = 10 is associated with id(5,:) = [1 3 0], 
     //    which shows the effect when X1 and X3 interact (while X2 remains fixed).
-    //        </para> 
-    //      </listitem>
-    //      <listitem>
-    //        <para> 
+    //    
     //    The effect ef(8) = 0.5 is associated with id(7,:) = [1 2 3], 
     //    which shows the effect when X1, x2 and X3 interact.
-    //        </para> 
-    //      </listitem>
-    //    </itemizedlist>
-	//
+    //         
+    //    
     //    This function is adapted from the WAFO toolbox :
     //    http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html
     //
     // Examples
+    // // "Statistics for experimenters Design,Innovation and Discovery",
+    // // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
+    // // Tables 5.6, 5.7 - Pilot Plant Investigation Experiment
     // D = scidoe_ff2n(3); // complete 2^3 design in standard order.
     // y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
     // [ef,id] = scidoe_yates(y)
 	//
+    // // "Statistics for experimenters Design,Innovation and Discovery",
+    // // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
+    // // Table 5.2 - Yarn Experiment
+    // D = scidoe_ff2n(3)
+    // y = [28 36 22 31 25 33 19 26]'
+    // [ef,id] = scidoe_yates(y)
+    //
 	// // See the sort_eff option in action
     // [ef,id] = scidoe_yates(y,%t)
     //
     // Bibliography
-    // Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)
-    // Statistics for experimenters, John Wiley & Sons, pp 342
+    // "Statistics for experimenters Design,Innovation and Discovery",
+    // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
 	// http://www.itl.nist.gov/div898/handbook/eda/section3/eda35i.htm
     // 
     // Authors

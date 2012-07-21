@@ -4,7 +4,7 @@
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function [y, id] = scidoe_ryates(ef)
-    // Reverse Yate's algorithm to give estimated responses
+    // Reverse Yates algorithm to give estimated responses
     //
     // Calling Sequence
     //    y = scidoe_ryates(ef)
@@ -16,23 +16,26 @@ function [y, id] = scidoe_ryates(ef)
     //    id : a (n-1)-by-k matrix of doubles, identification matrix of main and interaction effects.
     //
     // Description
-    //  Reverse Yate's algorithm to give estimated responses
+    //  Reverse Yates algorithm to give estimated responses
     //
-	// This is the reverse function of scidoe_ryates.
+	// This is the reverse function of scidoe_yates.
 	//
     // This function is adapted from the Wafo toolbox:
 	//
     // http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/ryates.html
     //
     // Examples
+    // // "Statistics for experimenters Design,Innovation and Discovery",
+    // // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
+    // // Tables 5.6, 5.7 - Pilot Plant Investigation Experiment
     //    D = scidoe_ff2n(3);
     //    y = [60 72 54 68 52 83 45 80];
     //    [ef,id] = scidoe_yates(y);
     //    y1 = scidoe_ryates(ef)
     //
     // Bibliography 
-    // Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)
-    // Statistics for experimenters, John Wiley & Sons, pp 342
+    // "Statistics for experimenters Design,Innovation and Discovery",
+    // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
     //
     // Authors
     // Copyright (C) 2012 - Maria Christopoulou
