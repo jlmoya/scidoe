@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function B = scidoe_fullfact(levels)
-    // Full factorial design with 2 levels
+    // Full factorial design
     //
     // Calling Sequence
     //   B = scidoe_fullfact(levels)

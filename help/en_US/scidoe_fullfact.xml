@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_fullfact</refname><refpurpose>Full factorial design with 2 levels</refpurpose>
+    <refname>scidoe_fullfact</refname><refpurpose>Full factorial design</refpurpose>
   </refnamediv>
 
 
@@ -68,6 +68,7 @@ D=2*C-1
 scf();
 scidoe_plotcube(2);
 plot(D(:,1),D(:,2),"bo");
+xtitle("Full Factorial Design","X1","X2")
 
 // Create a full factorial design with :
 // 2 levels for the first factor
@@ -87,6 +88,17 @@ h.children.children.mark_mode="on";
 h.children.children.line_mode="off";
 h.children.children.mark_size=1;
 scidoe_plotcube(3)
+xtitle("Full Factorial Design","X1","X2","X3")
+
+// Print the number of experiments
+// Use 3 levels for each parameter
+for n = 1 : 10
+levels = 3*ones(n,1);
+B=scidoe_fullfact(levels);
+m = size(B,"r");
+mprintf("n=%d, Num. Experiments=%d\n",..
+n,m)
+end
 
    ]]></programlisting>
 </refsection>

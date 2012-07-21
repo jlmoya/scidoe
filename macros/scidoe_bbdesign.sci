@@ -21,28 +21,28 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     //
     // Examples
     // // Create a Box-Benkhen Design with three 
-	// // variables one repetition of center:
+    // // variables one repetition of center:
     // H = scidoe_bbdesign(3)
-	// // Plot the design
-	// h = scf();
-	// param3d(H(:,1),H(:,2),H(:,3))
-	// h.children.children.mark_mode="on";
-	// h.children.children.line_mode="off";
-	// h.children.children.mark_size=1;
-	// scidoe_plotcube(3)
-	// xtitle("Box-Benkhen Design","X1","X2","X3")
+    // // Plot the design
+    // h = scf();
+    // param3d(H(:,1),H(:,2),H(:,3))
+    // h.children.children.mark_mode="on";
+    // h.children.children.line_mode="off";
+    // h.children.children.mark_size=1;
+    // scidoe_plotcube(3)
+    // xtitle("Box-Benkhen Design","X1","X2","X3")
     //
     // // With three variables and the 
-	// // center repeated two times:
+    // // center repeated two times:
     // H = scidoe_bbdesign(3,2)
-	//
-	// // Print the number of experiments
-	// for nbvar = 3 : 10
-	//   H = scidoe_bbdesign(nbvar);
-	//   m = size(H,"r");
-	//   mprintf("nbvar=%d, Num. Experiments=%d\n",..
-	//      nbvar,m)
-	// end
+    //
+    // // Print the number of experiments
+    // for nbvar = 3 : 10
+    //   H = scidoe_bbdesign(nbvar);
+    //   m = size(H,"r");
+    //   mprintf("nbvar=%d, Num. Experiments=%d\n",..
+    //      nbvar,m)
+    // end
     //
     // Bibliography
     // http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
@@ -80,67 +80,74 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     // Depending on the number of variables nbvar, we compute two level design
     // which is populated with the real doe.
     if (nbvar<6 | nbvar==8 | nbvar==13 | nbvar == 14 | nbvar ==15 | nbvar>16 ) then
-        H_fact = [-1 -1;1 -1;-1 1;1 1];
-        C = zeros(nbcenter,nbvar);
-        nb_lines = nbvar*size(H_fact,1);
-        H = zeros(nb_lines,nbvar);
-        Index = 0;
-            for i=1:nbvar-1
-                  for j=i+1:nbvar
-                      Index = Index + 1;
-                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
-                      H(rows,i) = H_fact(:,1);
-                      H(rows,j) = H_fact(:,2);
-                  end
-            end
-     end
-    
-        
-    if (nbvar==6 | nbvar==7 | nbvar==9) then
-        H_fact=[-1 -1 -1;1 -1 -1;-1 1 -1;1 1 -1;-1 -1 1;1 -1 1;-1 1 1;1 1 1];
-        C = zeros(nbcenter,nbvar);
-        nb_lines = nbvar*size(H_fact,1);
-        H = zeros(nb_lines,nbvar);
-        Index = 0;
-        for i=1:nbvar-2
-          for j=i+1:nbvar-1
-              for k=j+1:nbvar
-                  Index = Index + 1;
-                  if (Index<=nbvar)
-                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
-                      H(rows,i) = H_fact(:,1);
-                      H(rows,j) = H_fact(:,2);
-                      H(rows,k) = H_fact(:,3);
-                  end
-              end
-            end
-           end
-     end
-     
-     if(nbvar==10 | nbvar==11 | nbvar==12 |nbvar ==16 )
-         H_fact=[-1 -1 -1 -1;1 -1 -1 -1;-1 1 -1 -1;1 1 -1 -1;-1 -1 1 -1;1 -1 1 -1;-1 1 1 -1;1 1 1 -1;-1 -1 -1 1;1 -1 -1 1;-1 1 -1 1;1 1 -1 1;-1 -1 1 1;1 -1 1 1;-1 1 1 1;1 1 1 1];
-        C = zeros(nbcenter,nbvar);
-        nb_lines = nbvar*size(H_fact,1);
-        H = zeros(nb_lines,nbvar);
-        Index = 0;
-        for i=1:nbvar-3
-          for j=i+1:nbvar-2
-              for k=j+1:nbvar-1
-                  for l=k+1:nbvar
-                  end
-                  Index = Index + 1;
-                  if (Index<=nbvar)
-                      rows = max([1 ((Index-1)*size(H_fact,1)+1)]):Index*size(H_fact,1);
-                      H(rows,i) = H_fact(:,1);
-                      H(rows,j) = H_fact(:,2);
-                      H(rows,k) = H_fact(:,3);
-                      H(rows,l) = H_fact(:,4);
-                  end
-              end
-            end
-           end
-     end
-    
+        H = scidoe_bbdesign2(nbvar)
+    elseif (nbvar==6 | nbvar==7 | nbvar==9 ) then
+        H = scidoe_bbdesign3(nbvar)
+    elseif(nbvar==10 | nbvar==11 | nbvar==12 |nbvar ==16)
+        H = scidoe_bbdesign4(nbvar)
+    end
+    C = zeros(nbcenter,nbvar);
     H = [H' C']';
-    
+    H = gsort(H,"lr","i")
+endfunction
+
+function H = scidoe_bbdesign2(nbvar)
+    H_fact = 2*scidoe_ff2n(2)-1;
+    // Number of factorial points per block:
+    // number of rows in H_fact
+    fppb = 2^2
+    nb_lines = 2*(nbvar-1)*nbvar;
+    H = zeros(nb_lines,nbvar);
+    Index = 0;
+    for i=1:nbvar-1
+        for j=i+1:nbvar
+            Index = Index + 1;
+            startindex = max([1 ((Index-1)*fppb+1)])
+            stopindex = Index*fppb
+            rows = startindex:stopindex;
+            H(rows,[i j]) = H_fact;
+        end
+    end
+endfunction
+function H = scidoe_bbdesign3(nbvar)
+    H_fact=2*scidoe_ff2n(3)-1;
+    fppb = 2^3
+    nb_lines = nbvar*fppb
+    H = zeros(nb_lines,nbvar);
+    Index = 0;
+    for i=1:nbvar-2
+        for j=i+1:nbvar-1
+            for k=j+1:nbvar
+                Index = Index + 1;
+                if (Index<=nbvar)
+                    startindex = max([1 ((Index-1)*fppb+1)])
+                    stopindex = Index*fppb
+                    rows = startindex:stopindex;
+                    H(rows,[i j k]) = H_fact;
+                end
+            end
+        end
+    end
+endfunction
+function H = scidoe_bbdesign4(nbvar)
+    H_fact=2*scidoe_ff2n(4)-1;
+    fppb = 2^4
+    nb_lines = nbvar*fppb
+    H = zeros(nb_lines,nbvar);
+    Index = 0;
+    for i=1:nbvar-3
+        for j=i+1:nbvar-2
+            for k=j+1:nbvar-1
+                for l=k+1:nbvar
+                    Index = Index + 1;
+                    if (Index<=nbvar)
+                        startindex = max([1 ((Index-1)*fppb+1)])
+                        stopindex = Index*fppb
+                        rows = startindex:stopindex;
+                        H(rows,[i j k l]) = H_fact;
+                    end
+                end
+            end
+        end
+    end
 endfunction

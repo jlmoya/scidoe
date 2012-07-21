@@ -11,8 +11,8 @@
 //
 // Test with only one parameter
 nb_var = 3;
-computed1 = scidoe_bbdesign(3);
-expected1 = [-1 -1 0.;
+C = scidoe_bbdesign(3);
+E = [-1 -1 0.;
 1 -1 0;
 -1 1 0;
 1 1 0.;
@@ -25,14 +25,14 @@ expected1 = [-1 -1 0.;
 0 -1 1;
 0 1 1;
 0 0 0];
-    
-assert_checkequal(computed1,expected1);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
 //
 // Test with both input parameters
 
-computed2 = scidoe_bbdesign(5,3);
+C = scidoe_bbdesign(5,3);
 
-expected2 =   [-1.  -1.    0.    0.    0.;
+E =   [-1.  -1.    0.    0.    0.;
 1.  -1.    0.    0.    0.;
 -1.  1.    0.    0.    0.;
 1.   1.    0.    0.    0.;
@@ -76,4 +76,5 @@ expected2 =   [-1.  -1.    0.    0.    0.;
 0.   0.    0.    0.    0.;
 0.   0.    0.    0.    0.];
     
-assert_checkequal(computed2,expected2);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);

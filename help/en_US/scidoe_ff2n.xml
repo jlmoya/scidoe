@@ -61,6 +61,7 @@ C=2*B-1;
 scf();
 scidoe_plotcube(2);
 plot(C(:,1),C(:,2),"bo");
+xtitle("Full Factorial Design","X1","X2")
 
 // For three factors
 B=scidoe_ff2n(3)
@@ -73,9 +74,18 @@ h.children.children.mark_mode="on";
 h.children.children.line_mode="off";
 h.children.children.mark_size=1;
 scidoe_plotcube(3)
+xtitle("Full Factorial Design","X1","X2","X3")
 
 // For four factors
 B=scidoe_ff2n(4)
+
+// Print the number of experiments
+for n = 1 : 10
+B=scidoe_ff2n(n);
+m = size(B,"r");
+mprintf("n=%d, Num. Experiments=%d\n",..
+n,m)
+end
 
    ]]></programlisting>
 </refsection>
