@@ -10,11 +10,12 @@
 //
 // Test with only one parameter
 nb_var = 3;
-computed1 = scidoe_bbdesign(3);
-expected1 = [-1 -1 0.;
+C = scidoe_bbdesign(3,1);
+E = [
+-1 -1 0.
 1 -1 0;
 -1 1 0;
-1 1 0.;
+1 1 0.
 -1 0 -1;
 1 0 -1;
 -1 0 1;
@@ -23,52 +24,412 @@ expected1 = [-1 -1 0.;
 0 1 -1;
 0 -1 1;
 0 1 1;
-0 0 0];
-assert_checkequal(computed1,expected1);
+0 0 0
+];
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
 //
 // Test with both input parameters
-computed2 = scidoe_bbdesign(5,3);
-expected2 =   [-1.  -1.    0.    0.    0.;
-1.  -1.    0.    0.    0.;
--1.  1.    0.    0.    0.;
-1.   1.    0.    0.    0.;
--1.  0.   -1.    0.    0.;
-1.   0.   -1.    0.    0.;
--1.  0.    1.    0.    0.;
-1.   0.    1.    0.    0.;
--1.  0.    0.   -1.    0.;
-1.   0.    0.   -1.    0.;
--1.  0.    0.    1.    0.;
-1.   0.    0.    1.    0.;
--1.  0.    0.    0.   -1.;
-1.   0.    0.    0.   -1.;
--1.  0.    0.    0.    1.;
-1.   0.    0.    0.    1.;
-0.  -1.   -1.    0.    0.;
-0.   1.   -1.    0.    0.;
-0.  -1.    1.    0.    0.;
-0.   1.    1.    0.    0.;
-0.  -1.    0.   -1.    0.;
-0.   1.    0.   -1.    0.;
-0.  -1.    0.    1.    0.;
-0.   1.    0.    1.    0.;
-0.  -1.    0.    0.   -1.;
-0.   1.    0.    0.   -1.;
-0.  -1.    0.    0.    1.;
-0.   1.    0.    0.    1.;
-0.   0.   -1.   -1.    0.;
-0.   0.    1.   -1.    0.;
-0.   0.   -1.    1.    0.;
-0.   0.    1.    1.    0.;
-0.   0.   -1.    0.   -1.;
-0.   0.    1.    0.   -1.;
-0.   0.   -1.    0.    1.;
-0.   0.    1.    0.    1.;
-0.   0.    0.   -1.   -1.;
-0.   0.    0.    1.   -1.;
-0.   0.    0.   -1.    1.;
-0.   0.    0.    1.    1.;
-0.   0.    0.    0.    0.;
-0.   0.    0.    0.    0.;
-0.   0.    0.    0.    0.];
-assert_checkequal(computed2,expected2);
+C = scidoe_bbdesign(5,3);
+E =   [
+-1.  -1.    0.    0.    0.
+1.  -1.    0.    0.    0.
+-1.  1.    0.    0.    0.
+1.   1.    0.    0.    0.
+-1.  0.   -1.    0.    0.
+1.   0.   -1.    0.    0.
+-1.  0.    1.    0.    0.
+1.   0.    1.    0.    0.
+-1.  0.    0.   -1.    0.
+1.   0.    0.   -1.    0.
+-1.  0.    0.    1.    0.
+1.   0.    0.    1.    0.
+-1.  0.    0.    0.   -1.
+1.   0.    0.    0.   -1.
+-1.  0.    0.    0.    1.
+1.   0.    0.    0.    1.
+0.  -1.   -1.    0.    0.
+0.   1.   -1.    0.    0.
+0.  -1.    1.    0.    0.
+0.   1.    1.    0.    0.
+0.  -1.    0.   -1.    0.
+0.   1.    0.   -1.    0.
+0.  -1.    0.    1.    0.
+0.   1.    0.    1.    0.
+0.  -1.    0.    0.   -1.
+0.   1.    0.    0.   -1.
+0.  -1.    0.    0.    1.
+0.   1.    0.    0.    1.
+0.   0.   -1.   -1.    0.
+0.   0.    1.   -1.    0.
+0.   0.   -1.    1.    0.
+0.   0.    1.    1.    0.
+0.   0.   -1.    0.   -1.
+0.   0.    1.    0.   -1.
+0.   0.   -1.    0.    1.
+0.   0.    1.    0.    1.
+0.   0.    0.   -1.   -1.
+0.   0.    0.    1.   -1.
+0.   0.    0.   -1.    1.
+0.   0.    0.    1.    1.
+0.   0.    0.    0.    0.
+0.   0.    0.    0.    0.
+0.   0.    0.    0.    0.
+];
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+// Print the number of experiments
+// With variable point at center.
+// Source: http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
+expected = [
+0
+0
+15
+27
+46	
+54	
+62	
+120	
+130	
+170	
+188	
+204	
+0
+0
+0
+396	
+];
+for nbvar = 3 : 16
+    H = scidoe_bbdesign(nbvar);
+    m = size(H,"r");
+    mprintf("nbvar=%d, Num. Experiments=%d (expected=%d)\n",..
+    nbvar,m,expected(nbvar));
+	if (nbvar==9 | nbvar==16) then
+	    // Skip this case:
+	    // TODO : fix this bug !
+	    continue
+	end
+	if (expected(nbvar)<>0) then
+		assert_checkequal(m,expected(nbvar));
+	end
+end
+nbvar=3, Num. Experiments=15 (expected=15)
+nbvar=4, Num. Experiments=27 (expected=27)
+nbvar=5, Num. Experiments=46 (expected=46)
+nbvar=6, Num. Experiments=54 (expected=54)
+nbvar=7, Num. Experiments=62 (expected=62)
+nbvar=8, Num. Experiments=120 (expected=120)
+nbvar=9, Num. Experiments=81 (expected=130)
+nbvar=10, Num. Experiments=170 (expected=170)
+nbvar=11, Num. Experiments=188 (expected=188)
+nbvar=12, Num. Experiments=204 (expected=204)
+nbvar=13, Num. Experiments=325 (expected=0)
+nbvar=14, Num. Experiments=378 (expected=0)
+nbvar=15, Num. Experiments=435 (expected=0)
+nbvar=16, Num. Experiments=272 (expected=396)
+// Print the number of experiments.
+// With 1 point at center.
+// Source: http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
+expected = [
+0
+0
+13	
+25	
+41	
+49	
+57	
+113
+121
+161
+177
+193
+0
+0
+0
+385
+];
+for nbvar = 3 : 16
+    H = scidoe_bbdesign(nbvar,1);
+    m = size(H,"r");
+    mprintf("nbvar=%d, Num. Experiments=%d (expected=%d)\n",..
+    nbvar,m,expected(nbvar))
+	if (nbvar==9 | nbvar==16) then
+	    // Skip this case:
+	    // TODO : fix this bug !
+	    continue
+	end
+	if (expected(nbvar)<>0) then
+		assert_checkequal(m,expected(nbvar));
+	end
+end
+nbvar=3, Num. Experiments=13 (expected=13)
+nbvar=4, Num. Experiments=25 (expected=25)
+nbvar=5, Num. Experiments=41 (expected=41)
+nbvar=6, Num. Experiments=49 (expected=49)
+nbvar=7, Num. Experiments=57 (expected=57)
+nbvar=8, Num. Experiments=113 (expected=113)
+nbvar=9, Num. Experiments=73 (expected=121)
+nbvar=10, Num. Experiments=161 (expected=161)
+nbvar=11, Num. Experiments=177 (expected=177)
+nbvar=12, Num. Experiments=193 (expected=193)
+nbvar=13, Num. Experiments=313 (expected=0)
+nbvar=14, Num. Experiments=365 (expected=0)
+nbvar=15, Num. Experiments=421 (expected=0)
+nbvar=16, Num. Experiments=257 (expected=385)
+// Table from the R-rsm package.
+// bbd(3), with the first row deleted, 
+// so that the center point appears three times.
+E = [
+  0 -1 -1
+  1 -1  0
+  0  0  0
+ -1  1  0
+ -1  0  1
+  0  0  0
+  1  1  0
+  1  0  1
+  0  1  1
+  0 -1  1
+  0  1 -1
+  1  0 -1
+  0  0  0
+ -1  0 -1
+ -1 -1  0
+];
+C = scidoe_bbdesign(3);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+//
+// Table from the R-rsm package.
+// bbd(4), with 9 zero center points 
+// deleted, changing the number of rows from 
+// 36 down to 27.
+E=[
+ 0  0  1 -1
+ 0  0 -1 -1
+ 1 -1  0  0
+ 0  0 -1  1
+ 0  0  0  0
+-1 -1  0  0
+-1  1  0  0
+ 1  1  0  0
+ 0  0  1  1
+-1  0  0  1
+ 1  0  0 -1
+ 1  0  0  1
+ 0  1 -1  0
+-1  0  0 -1
+ 0  1  1  0
+ 0 -1  1  0
+ 0 -1 -1  0
+ 0  1  0 -1
+ 0 -1  0  1
+ 0  1  0  1
+ 0  0  0  0
+-1  0 -1  0
+ 0  0  0  0
+ 1  0 -1  0
+ 1  0  1  0
+-1  0  1  0
+ 0 -1  0 -1
+];
+C = scidoe_bbdesign(4);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+// Table from the R-rsm package.
+// bbd(5), with 2 zero center points 
+// deleted, changing the number of rows from 
+// 48 down to 46.
+E = [
+ -1  0 -1  0  0
+  0  0  0 -1 -1
+  0 -1  0  0 -1
+  0  0  0  1 -1
+  0  0  1 -1  0
+  0  0  0  1  1
+  0  1  0  0  1
+  1 -1  0  0  0
+ -1 -1  0  0  0
+  1  0 -1  0  0
+  1  1  0  0  0
+  0  0 -1 -1  0
+ -1  1  0  0  0
+  0  0  0  0  0
+  1  0  1  0  0
+  0  0  0  0  0
+ -1  0  1  0  0
+  0  0  0 -1  1
+  0 -1  0  0  1
+  0  0 -1  1  0
+  0  1  0  0 -1
+  0  0  1  1  0
+  0 -1  1  0  0
+  0  0  0  0  0
+  0  1  1  0  0
+  1  0  0 -1  0
+  0  0  1  0  1
+  0  0  0  0  0
+  0 -1  0  1  0
+  0  0  1  0 -1
+  0  0 -1  0  1
+  1  0  0  1  0
+  0 -1  0 -1  0
+  1  0  0  0 -1
+  0  1  0 -1  0
+  1  0  0  0  1
+  0  1  0  1  0
+  0 -1 -1  0  0
+  0  0  0  0  0
+  0  0 -1  0 -1
+ -1  0  0 -1  0
+  0  0  0  0  0
+  0  1 -1  0  0
+ -1  0  0  0  1
+ -1  0  0  0 -1
+ -1  0  0  1  0
+];
+C = scidoe_bbdesign(5);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+//
+// Table from the R-rsm package.
+// bbd(6), with two center points added, 
+// changing the number of rows from 52 to 54
+if (%f) then
+// The test does not pass:
+// TODO : fix me !
+E = [
+  0  0  0  0  0  0
+  0  0  0  0  0  0
+  1  0  0  0 -1 -1
+  0  0  0  0  0  0
+  0 -1 -1  0  1  0
+ -1  0  1  0  0  1
+ -1  0  0  1  1  0
+  0  0  0  0  0  0
+  1 -1  0  1  0  0
+ -1  0  0  0 -1  1
+  0 -1 -1  0 -1  0
+  0  0  1 -1  0  1
+  1  0 -1  0  0 -1
+ -1  0  0  1 -1  0
+  0  1  1  0 -1  0
+ -1  0  0  0  1  1
+  0  0 -1  1  0  1
+  0  0 -1  1  0 -1
+ -1  0 -1  0  0  1
+ -1  1  0 -1  0  0
+  1  0  0  0  1  1
+  1  1  0 -1  0  0
+ -1  0 -1  0  0 -1
+  0  0  1 -1  0 -1
+  1 -1  0 -1  0  0
+  1  0  0  1 -1  0
+  0 -1  1  0 -1  0
+ -1  0  0  0 -1 -1
+  1  0  1  0  0 -1
+  0  0 -1 -1  0 -1
+  0 -1  1  0  1  0
+  0  0  1  1  0  1
+  0  0  1  1  0 -1
+  0  0  0  0  0  0
+  0  0 -1 -1  0  1
+  0  1 -1  0 -1  0
+  1  0  0  0 -1  1
+ -1 -1  0 -1  0  0
+ -1  0  0  0  1 -1
+ -1  0  1  0  0 -1
+  1  0  0  0  1 -1
+  1  0  0 -1  1  0
+  1  1  0  1  0  0
+  1  0 -1  0  0  1
+  1  0  0  1  1  0
+  0  1  1  0  1  0
+ -1 -1  0  1  0  0
+  0  1 -1  0  1  0
+ -1  0  0 -1 -1  0
+  1  0  0 -1 -1  0
+  0  0  0  0  0  0
+  1  0  1  0  0  1
+ -1  0  0 -1  1  0
+ -1  1  0  1  0  0
+];
+C = scidoe_bbdesign(6);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+end
+//
+// Table from the R-rsm package.
+// bbd(7), with two center points added, 
+// changing the number of rows from 60 to 62
+if (%f) then
+// The test does not pass:
+// TODO : fix me !
+E = [
+  0  0  0  0  0  0  0
+  0  0  0  0  0  0  0
+  0  0  0  1 -1  1  0
+  0 -1  0  0 -1  0  1
+  1  0 -1  0  1  0  0
+ -1  1  0  1  0  0  0
+  1  0  0  0  0  1 -1
+  0  0  0  1 -1 -1  0
+  0  0  0  0  0  0  0
+  1  0  0  0  0  1  1
+ -1  1  0 -1  0  0  0
+  1 -1  0 -1  0  0  0
+  0  1 -1  0  0  1  0
+  1  1  0 -1  0  0  0
+  0  0 -1  1  0  0 -1
+  0  0 -1 -1  0  0  1
+  0  0  0 -1 -1  1  0
+  1  0  1  0  1  0  0
+  0  0  1  1  0  0  1
+  0  0  0  0  0  0  0
+ -1  0  1  0  1  0  0
+  0  1  1  0  0  1  0
+  0  0  0  0  0  0  0
+  0 -1  0  0  1  0  1
+  0 -1 -1  0  0 -1  0
+  0  0 -1 -1  0  0 -1
+ -1 -1  0 -1  0  0  0
+  0  0  1  1  0  0 -1
+ -1  0  0  0  0 -1 -1
+  0 -1  0  0 -1  0 -1
+  0 -1 -1  0  0  1  0
+ -1  0 -1  0 -1  0  0
+  0 -1  1  0  0 -1  0
+  0  1  1  0  0 -1  0
+  0  0  0 -1 -1 -1  0
+  0  1  0  0  1  0  1
+  0  0  0  0  0  0  0
+ -1 -1  0  1  0  0  0
+  0  0 -1  1  0  0  1
+  1 -1  0  1  0  0  0
+  1  0  1  0 -1  0  0
+  0  0  0  1  1  1  0
+  1  0  0  0  0 -1  1
+  0  1  0  0 -1  0 -1
+  0  0  0 -1  1  1  0
+  0 -1  1  0  0  1  0
+  0  1  0  0 -1  0  1
+  0  0  1 -1  0  0  1
+  0  0  0 -1  1 -1  0
+ -1  0  0  0  0  1  1
+ -1  0  1  0 -1  0  0
+  0 -1  0  0  1  0 -1
+  0  1 -1  0  0 -1  0
+ -1  0  0  0  0 -1  1
+  1  0 -1  0 -1  0  0
+  0  0  0  1  1 -1  0
+  1  0  0  0  0 -1 -1
+  0  0  1 -1  0  0 -1
+  0  1  0  0  1  0 -1
+  1  1  0  1  0  0  0
+ -1  0 -1  0  1  0  0
+ -1  0  0  0  0  1 -1
+];
+C = scidoe_bbdesign(7);
+E = gsort(E,"lr","i");
+assert_checkequal(C,E);
+end

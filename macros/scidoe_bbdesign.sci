@@ -13,11 +13,34 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     //
     // Parameters
     //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar >= 3. The number of variables of the experiment
-    //    nbcenter : a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter=1).
+    //    nbcenter : a 1-by-1 matrix of doubles, integer value, positive. The number of repetitions of the central point in the design (default nbcenter depends on nbvar).
     //    H : a m-by-nbvar matrix of doubles, the design of experiments in the range [-1,1], where m=nbvar*4+nbcenter
     //
     // Description
-    // Creates a Box-Benkhen Design of Experiments
+    // Creates a Box-Benkhen Design of Experiments. 
+    // This type of design is sufficient for quadratic models. 
+    //
+    // This is a three-level design, where each variable 
+    // can only have one of the following values: -1, 0, +1. 
+    //
+    // By default, scidoe_bbdesign produces a number of center 
+    // points which depends on nbvar. 
+    // If nbvar>16, then nbcenter is equal to nbvar. 
+    // If nbvar<=16, the nbcenter is taken from the following table:
+    //
+    // <literal>[0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]</literal>
+    //
+    // To have only one center point, use the 
+    // <literal>H=scidoe_bbdesign(nbvar,1)</literal> calling sequence.
+    //
+    // In this design, there is no point at the corners of the 
+    // cube [-1,+1]. 
+    // This property can be advantageous when the corners of the cube 
+    // are too expensive, or even impossible, to compute. 
+    //
+    // On output, the rows in H are sorted in increasing order.
+    //
+    // This function does not entirely reproduce Matlab's bbdesign. 
     //
     // Examples
     // // Create a Box-Benkhen Design with three 
@@ -46,6 +69,7 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     //
     // Bibliography
     // http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
+    // Design and analysis of experiments, Montgomery, 5th Edition, Wiley, 2001
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin
@@ -60,34 +84,49 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     //
     // If nbcenter is not defined by the user, then its default value is nbcenter = 1.
     nbvar = varargin(1)
-    nbcenter = apifun_argindefault (varargin,2,1)
+    nbcenter = apifun_argindefault (varargin,2,[])
     //
     //Check type
-    apifun_checktype("scidoe_bbdesign",nbvar,"nbvar",1,["constant"])
-    apifun_checktype("scidoe_bbdesign",nbcenter,"nbcenter",2,["constant"])
+    apifun_checktype("scidoe_bbdesign",nbvar,"nbvar",1,"constant")
+    apifun_checktype("scidoe_bbdesign",nbcenter,"nbcenter",2,"constant")
     //
     //Check size
     apifun_checkscalar("scidoe_bbdesign",nbvar,"nbvar",1);
-    apifun_checkscalar("scidoe_bbdesign",nbcenter,"nbcenter",2)
+    if (nbcenter<>[]) then
+        apifun_checkscalar("scidoe_bbdesign",nbcenter,"nbcenter",2)
+    end
     //
     // Check content
     // Value of nbvar must be over 2
     apifun_checkgreq("scidoe_bbdesign",nbvar,"nbvar",1,3)
     apifun_checkflint("scidoe_bbdesign",nbvar,"nbvar",1);
-    apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",2);
+    if (nbcenter<>[]) then
+        apifun_checkgreq("scidoe_bbdesign",nbcenter,"nbcenter",2,1)
+        apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",2);
+    end
     //
+    if (nbcenter==[]) then
+        // Compute the number of extra-points 
+        // depending on nbvar.
+        tableOfExtraPoints = [0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]
+        if (nbvar<=16) then
+            nbcenter = tableOfExtraPoints(nbvar)
+        else
+            nbcenter = nbvar
+        end
+    end
     //
     // Depending on the number of variables nbvar, we compute two level design
     // which is populated with the real doe.
-    if (nbvar<6 | nbvar==8 | nbvar==13 | nbvar == 14 | nbvar ==15 | nbvar>16 ) then
+    if (nbvar<6 | or(nbvar==[8 13 14 15]) | nbvar>16 ) then
         H = scidoe_bbdesign2(nbvar)
-    elseif (nbvar==6 | nbvar==7 | nbvar==9 ) then
+    elseif (or(nbvar==[6 7 9]) ) then
         H = scidoe_bbdesign3(nbvar)
-    elseif(nbvar==10 | nbvar==11 | nbvar==12 |nbvar ==16)
+    elseif(or(nbvar==[10 11 12 16]))
         H = scidoe_bbdesign4(nbvar)
     end
     C = zeros(nbcenter,nbvar);
-    H = [H' C']';
+    H = [H;C]
     H = gsort(H,"lr","i")
 endfunction
 
