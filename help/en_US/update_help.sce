@@ -17,6 +17,8 @@ funarray = [
   "scidoe_fullfact"
   "scidoe_multilinreg"
   "scidoe_simplelinreg"
+  "scidoe_regress"
+  "scidoe_regressprint"
   "scidoe_plotcube"
   "scidoe_bbdesign"
   "scidoe_yates"

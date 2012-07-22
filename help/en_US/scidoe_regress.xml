@@ -2,11 +2,11 @@
 
 <!--
  *
- * This help file was generated from scidoe_multilinreg.sci using help_from_sci().
+ * This help file was generated from scidoe_regress.sci using help_from_sci().
  *
  -->
 
-<refentry version="5.0-subset Scilab" xml:id="scidoe_multilinreg" xml:lang="en"
+<refentry version="5.0-subset Scilab" xml:id="scidoe_regress" xml:lang="en"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           xmlns:svg="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
 
 
   <refnamediv>
-    <refname>scidoe_multilinreg</refname><refpurpose>Multivariate linear regression</refpurpose>
+    <refname>scidoe_regress</refname><refpurpose>Multiple linear regression</refpurpose>
   </refnamediv>
 
 
@@ -24,13 +24,13 @@
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   B = scidoe_multilinreg(Y,X)
-   B = scidoe_multilinreg(Y,X,level)
-   [B,bint] = scidoe_multilinreg(...)
-   [B,bint,r] = scidoe_multilinreg(...)
-   [B,bint,r,rint] = scidoe_multilinreg(...)
-   [B,bint,r,rint,stats] = scidoe_multilinreg(...)
-   [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(...)
+   B = scidoe_regress(y,X)
+   B = scidoe_regress(y,X,level)
+   [B,bint] = scidoe_regress(...)
+   [B,bint,r] = scidoe_regress(...)
+   [B,bint,r,rint] = scidoe_regress(...)
+   [B,bint,r,rint,stats] = scidoe_regress(...)
+   [B,bint,r,rint,stats,fullstats] = scidoe_regress(...)
    
    </synopsis>
 </refsynopsisdiv>
@@ -38,7 +38,7 @@
 <refsection>
    <title>Parameters</title>
    <variablelist>
-   <varlistentry><term>Y :</term>
+   <varlistentry><term>y :</term>
       <listitem><para> a m-by-1 matrix of doubles, the responses.</para></listitem></varlistentry>
    <varlistentry><term>X :</term>
       <listitem><para> a m-by-n matrix of doubles, the inputs, where m is the number of observations and n is the number of variables.</para></listitem></varlistentry>
@@ -49,8 +49,10 @@
    <varlistentry><term>bint :</term>
       <listitem><para> a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.</para></listitem></varlistentry>
    <varlistentry><term>r :</term>
-      <listitem><para> a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x</para></listitem></varlistentry>
+      <listitem><para> a m-by-1 matrix of doubles, the residuals y-B(1)-B(2)*x</para></listitem></varlistentry>
    <varlistentry><term>stats :</term>
+      <listitem><para> a 4-by-1 matrix of doubles, the statistics. stats(1) is the R2 statistics, stats(2) is the F statistics, stats(3) is the p-value of the F statistics, stats(4) is an estimate of the error variance.</para></listitem></varlistentry>
+   <varlistentry><term>fullstats :</term>
       <listitem><para> a struct, the statistics, see below for details.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
@@ -66,17 +68,69 @@ which best fit the data in the least squares sense.
 The linear model we compute is
    </para>
    <para>
-Y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
+y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
    </para>
    <para>
-The fields in <literal>stats</literal> are
-presented in scidoe_regress.
+The fields in <literal>fullstats</literal> are :
+   </para>
+   <para>
+fullstats.RegressionSS: the sum of squares of the regression
+   </para>
+   <para>
+fullstats.RegressionDof: the number of degrees of freedom of the regression
+   </para>
+   <para>
+fullstats.RegressionMean: the mean of the sum of squares of the regression
+   </para>
+   <para>
+fullstats.ResidualSS: the sum of squares of the residuals
+   </para>
+   <para>
+fullstats.ResidualDof: the number of degrees of freedom of the residuals
+   </para>
+   <para>
+fullstats.ResidualMean: the mean of the sum of squares of the residuals
+   </para>
+   <para>
+fullstats.F: the F statistics
+   </para>
+   <para>
+fullstats.pval : the p-value corresponding to the F statistics
+   </para>
+   <para>
+fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
+   </para>
+   <para>
+fullstats.R2: the R-squared statistics
    </para>
    <para>
 The residual r is :
    </para>
    <para>
-r == Y-X*B
+r == y-X*B
+   </para>
+   <para>
+The statistics fullstats.R2 is in the range [0,1].
+On output, the coefficient of determination fullstats.R2
+measures the proportion of the variation in the response variables
+that is explained by the different input values.
+A value of fullstats.R2 near 1 indicates a good fit, while
+a value near zero indicates a poor fit.
+   </para>
+   <para>
+The F statistics tests the null hypothesis
+B(1)==B(2)==...==B(n) agains the alternative
+hypothesis that there is one nonzero B(i), for
+some i=1,2,...,n.
+The F test does not tell which of the B(i) is nonzero,
+but only that one of them is linearly related
+to the response.
+When the P-value for the F test statistic is small (e.g.
+less than 0.001), this provides an evidence against
+the null hypothesis.
+In other words, if the P-value is small,
+therefore one of the parameters B(i) is linearly related
+to the response.
    </para>
    <para>
 </para>
@@ -107,7 +161,7 @@ X = [
 115.7 518173 4806 2572 127852 1961
 116.9 554894 4007 2827 130081 1962
 ];
-Y = [
+y = [
 60323
 61122
 60171
@@ -125,7 +179,7 @@ Y = [
 69331
 70551
 ];
-[B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,X)
+[B,bint,r,rint,stats,fullstats] = scidoe_regress(y,X)
 // Print an analysis of variance table
 scidoe_regressprint(fullstats)
 
@@ -146,22 +200,22 @@ X2max = -200;
 X2=grand(N,1,"uin",X2min,X2max);
 X2=gsort(X2,"g","i");
 // Make the observations
-X = [X1,X2];
+X = [ones(X1),X1,X2];
 // Compute the ouput from the input
-Y = Bexact(1)+Bexact(2)*X1+Bexact(3)*X2;
+y = Bexact(1)+Bexact(2)*X1+Bexact(3)*X2;
 // Add a normal noise to the output
 sigma = 50;
 e = grand(N,1,"nor",0,sigma);
-Y = int(Y + e);
+y = int(y + e);
 // Linear regression
-B = scidoe_multilinreg(Y,X)
+B = scidoe_regress(y,X)
 // Compare B (exact) with B (estimate)
 [B,Bexact]
-L = B(1)+B(2)*X(:,1)+B(3)*X(:,2);
+L = B(1)+B(2)*X(:,2)+B(3)*X(:,3);
 // Check visually
 scf();
-plot(Y,L,"bo");
-plot(Y,Y,"r-");
+plot(y,L,"bo");
+plot(y,y,"r-");
 xtitle("Linear Regression","Data","Linear Fit");
 
    ]]></programlisting>

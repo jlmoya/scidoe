@@ -16,3 +16,5 @@ scidoe (not released yet)
  * Fixed building and comments of doetbx_fullfact
  * Fixed building and comments of scidoe_simplelinreg
  * Fixed building and comments of scidoe_multilinreg
+ * Created scidoe_regress.
+ * Created scidoe_regressprint.
