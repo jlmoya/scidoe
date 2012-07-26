@@ -83,7 +83,7 @@ function H = scidoe_bbdesign(varargin)
 
     // Check number of input and output arguments:
     [lhs, rhs] = argn()
-    apifun_checkrhs("scidoe_bbdesign",rhs,1:3)
+    apifun_checkrhs("scidoe_bbdesign",rhs,[1 3])
     apifun_checklhs("scidoe_bbdesign",lhs,1)
     //
     //
