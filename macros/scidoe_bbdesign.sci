@@ -4,7 +4,7 @@
 //
 // This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added. 
+function H = scidoe_bbdesign(varargin)
     // Box-Benhken design of experiments
     //
     // Calling Sequence
@@ -70,6 +70,7 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     // Bibliography
     // http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design
     // Design and analysis of experiments, Montgomery, 5th Edition, Wiley, 2001
+    // Plans d'expériences Applications à l'entreprise, Gilbert Saporta, Jean-Jacques Droesbeke, Jeanne Fine, Editions Technip, 1997
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin
@@ -78,43 +79,41 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
 
     // Check number of input and output arguments:
     [lhs, rhs] = argn()
-    apifun_checkrhs("scidoe_bbdesign",rhs,1:2)
+    apifun_checkrhs("scidoe_bbdesign",rhs,1:3)
     apifun_checklhs("scidoe_bbdesign",lhs,1)
     //
     //
-    // If nbcenter is not defined by the user, then its default value is nbcenter = 1.
     nbvar = varargin(1)
-    nbcenter = apifun_argindefault (varargin,2,[])
-    //
-    //Check type
+    // Check type, size, content of nbvar
     apifun_checktype("scidoe_bbdesign",nbvar,"nbvar",1,"constant")
-    apifun_checktype("scidoe_bbdesign",nbcenter,"nbcenter",2,"constant")
-    //
-    //Check size
-    apifun_checkscalar("scidoe_bbdesign",nbvar,"nbvar",1);
-    if (nbcenter<>[]) then
-        apifun_checkscalar("scidoe_bbdesign",nbcenter,"nbcenter",2)
-    end
-    //
-    // Check content
-    // Value of nbvar must be over 2
+    apifun_checkscalar("scidoe_bbdesign",nbvar,"nbvar",1)
     apifun_checkgreq("scidoe_bbdesign",nbvar,"nbvar",1,3)
-    apifun_checkflint("scidoe_bbdesign",nbvar,"nbvar",1);
-    if (nbcenter<>[]) then
-        apifun_checkgreq("scidoe_bbdesign",nbcenter,"nbcenter",2,1)
-        apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",2);
+    apifun_checkflint("scidoe_bbdesign",nbvar,"nbvar",1)
+    //
+    // Input and check of nbcenter
+    if (rhs==1) then
+        tableOfExtraPoints = [0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16];
+            if (nbvar<=16) then
+                nbcenter = tableOfExtraPoints(nbvar)
+            else
+                nbcenter = nbvar
+            end
+    end
+      
+    if (rhs==3) then
+        nbcenter = apifun_argindefault (varargin,3,[]) 
+        default.nbcenter = nbcenter;
+        //Set key value pairs
+        options = apifun_keyvaluepairs(default)
+        options = apifun_keyvaluepairs(default,"nbcenter",nbcenter)
+        nbcenter = options.nbcenter
     end
     //
-    if (nbcenter==[]) then
-        // Compute the number of extra-points 
-        // depending on nbvar.
-        tableOfExtraPoints = [0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]
-        if (nbvar<=16) then
-            nbcenter = tableOfExtraPoints(nbvar)
-        else
-            nbcenter = nbvar
-        end
-    end
+    // Check type, content of nbcenter
+    apifun_checktype("scidoe_bbdesign",nbcenter,"nbcenter",3,"constant")
+    apifun_checkscalar("scidoe_bbdesign",nbcenter,"nbcenter",3)
+    apifun_checkgreq("scidoe_bbdesign",nbcenter,"nbcenter",3,1)
+    apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",3);
     //
     // Depending on the number of variables nbvar, we compute two level design
     // which is populated with the real doe.
@@ -127,7 +126,7 @@ function H = scidoe_bbdesign(varargin) //  'blocksize' option to be added.
     end
     C = zeros(nbcenter,nbvar);
     H = [H;C]
-    H = gsort(H,"lr","i")
+    //H = gsort(H,"lr","i");
 endfunction
 
 function H = scidoe_bbdesign2(nbvar)
