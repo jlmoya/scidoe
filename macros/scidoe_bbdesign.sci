@@ -2,14 +2,18 @@
 // Copyright (C) 2012 - Maria Christopoulou
 // Copyright (C) 2009 - Yann Collette
 //
-// This file is released under the terms of the CeCILL_V2 license : http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function H = scidoe_bbdesign(varargin)
     // Box-Benhken design of experiments
     //
     // Calling Sequence
     //    H = scidoe_bbdesign(nbvar)
-    //    H = scidoe_bbdesign(nbvar,nbcenter)
+    //    H = scidoe_bbdesign(nbvar,"nbcenter",nbcenter)
     //
     // Parameters
     //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar >= 3. The number of variables of the experiment
@@ -31,7 +35,7 @@ function H = scidoe_bbdesign(varargin)
     // <literal>[0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]</literal>
     //
     // To have only one center point, use the 
-    // <literal>H=scidoe_bbdesign(nbvar,1)</literal> calling sequence.
+    // <literal>H=scidoe_bbdesign(nbvar,"nbcenter",1)</literal> calling sequence.
     //
     // In this design, there is no point at the corners of the 
     // cube [-1,+1]. 
@@ -115,18 +119,221 @@ function H = scidoe_bbdesign(varargin)
     apifun_checkgreq("scidoe_bbdesign",nbcenter,"nbcenter",3,1)
     apifun_checkflint("scidoe_bbdesign",nbcenter,"nbcenter",3);
     //
+    // Box Behnken Designs for Nbvar = 3:7
+    // Plans d'expériences Applications à l'entreprise, Gilbert Saporta, Jean-Jacques Droesbeke, Jeanne Fine, Editions Technip, 1997
+    // pages 254 - 255
+    //
+    select nbvar
+    // nbvar = 3
+    case 3 then
+        H =[-1 -1  0
+             1 -1  0
+            -1  1  0
+             1  1  0
+            -1  0 -1
+             1  0 -1
+            -1  0  1
+             1  0  1
+             0 -1 -1
+             0  1 -1
+             0 -1  1
+             0  1  1];
+
+    // nbvar = 4
+    case 4 then
+        H =[-1 -1  0  0
+             1 -1  0  0
+            -1  1  0  0
+             1  1  0  0
+             0  0 -1 -1
+             0  0  1 -1
+             0  0 -1  1
+             0  0  1  1
+            -1  0  0 -1
+             1  0  0 -1
+            -1  0  0  1
+             1  0  0  1
+             0 -1 -1  0
+             0  1 -1  0
+             0 -1  1  0
+             0  1  1  0
+            -1  0 -1  0
+             1  0 -1  0
+            -1  0  1  0
+             1  0  1  0
+             0 -1  0 -1
+             0  1  0  1
+             0 -1  0 -1
+             0  1  0  1];
+             
+    // nbvar = 5
+    case 5 then
+        H = [-1 -1  0  0  0
+              1 -1  0  0  0
+             -1  1  0  0  0
+              1  1  0  0  0
+              0  0 -1 -1  0
+              0  0  1 -1  0
+              0  0 -1  1  0
+              0  0  1  1  0
+              0 -1  0  0 -1
+              0  1  0  0 -1
+              0 -1  0  0  1
+              0  1  0  0  1
+             -1  0 -1  0  0
+              1  0 -1  0  0
+             -1  0  1  0  0
+              1  0  1  0  0
+              0  0  0 -1 -1
+              0  0  0  1 -1
+              0  0  0 -1  1
+              0  0  0  1  1
+              0 -1 -1  0  0
+              0  1 -1  0  0
+              0 -1  1  0  0
+              0  1  1  0  0
+             -1  0  0 -1  0
+              1  0  0 -1  0
+             -1  0  0  1  0
+              1  0  0  1  0
+              0 -1  0  0 -1
+              0  1  0  0 -1
+              0 -1  0  0  1
+              0  1  0  0  1
+             -1  0  0  0 -1
+              1  0  0  0 -1
+             -1  0  0  0  1
+              1  0  0  0  1
+              0 -1  0 -1  0
+              0  1  0 -1  0
+              0 -1  0  1  0
+              0  1  0  1  0];
+              
+    // nbvar = 6
+    case 6 then
+        H = [-1 -1  0 -1  0  0
+              1 -1  0 -1  0  0
+             -1  1  0 -1  0  0
+              1  1  0 -1  0  0
+             -1 -1  0  1  0  0
+              1 -1  0  1  0  0
+             -1  1  0  1  0  0
+              1  1  0  1  0  0
+              0 -1 -1  0 -1  0
+              0  1 -1  0 -1  0
+              0 -1  1  0 -1  0
+              0  1  1  0 -1  0
+              0 -1 -1  0  1  0
+              0  1 -1  0  1  0
+              0 -1  1  0  1  0
+              0  1  1  0  1  0
+              0  0 -1 -1  0 -1
+              0  0  1 -1  0 -1
+              0  0 -1  1  0 -1
+              0  0  1  1  0 -1
+              0  0 -1 -1  0  1
+              0  0  1 -1  0  1
+              0  0 -1  1  0  1
+              0  0  1  1  0  1
+             -1  0  0 -1 -1  0
+              1  0  0 -1 -1  0
+             -1  0  0  1 -1  0
+              1  0  0  1 -1  0
+             -1  0  0 -1  1  0
+              1  0  0 -1  1  0
+             -1  0  0  1  1  0
+              1  0  0  1  1  0
+              0 -1  0  0 -1 -1
+              0  1  0  0 -1 -1
+              0 -1  0  0  1 -1
+              0  1  0  0  1 -1
+              0 -1  0  0 -1  1
+              0  1  0  0 -1  1
+              0 -1  0  0  1  1
+              0  1  0  0  1  1
+             -1 -1  0  0  0 -1
+              1 -1  0  0  0 -1
+             -1  1  0  0  0 -1
+              1  1  0  0  0 -1
+             -1 -1  0  0  0  1
+              1 -1  0  0  0  1
+             -1  1  0  0  0  1
+              1  1  0  0  0  1];
+              
+      // nbvar = 7
+      case 7 then 
+          H = [0  0  0 -1 -1 -1  0
+               0  0  0  1 -1 -1  0
+               0  0  0 -1  1 -1  0
+               0  0  0  1  1 -1  0
+               0  0  0 -1 -1  1  0
+               0  0  0  1 -1  1  0
+               0  0  0 -1  1  1  0
+               0  0  0  1  1  1  0
+              -1  0  0  0  0 -1 -1
+               1  0  0  0  0 -1 -1
+              -1  0  0  0  0  1 -1
+               1  0  0  0  0  1 -1
+              -1  0  0  0  0 -1  1
+               1  0  0  0  0 -1  1
+              -1  0  0  0  0  1  1
+               1  0  0  0  0  1  1
+               0 -1  0  0 -1  0 -1
+               0  1  0  0 -1  0 -1
+               0 -1  0  0  1  0 -1
+               0  1  0  0  1  0 -1
+               0 -1  0  0 -1  0  1
+               0  1  0  0 -1  0  1
+               0 -1  0  0  1  0  1
+               0  1  0  0  1  0  1
+              -1 -1  0 -1  0  0  0
+               1 -1  0 -1  0  0  0
+              -1  1  0 -1  0  0  0
+               1  1  0 -1  0  0  0
+              -1 -1  0  1  0  0  0
+               1 -1  0  1  0  0  0
+              -1  1  0  1  0  0  0
+               1  1  0  1  0  0  0
+               0  0 -1 -1  0  0 -1
+               0  0  1 -1  0  0 -1
+               0  0 -1  1  0  0 -1
+               0  0  1  1  0  0 -1
+               0  0 -1 -1  0  0  1
+               0  0  1 -1  0  0  1
+               0  0 -1  1  0  0  1
+               0  0  1  1  0  0  1
+              -1  0 -1  0 -1  0  0
+               1  0 -1  0 -1  0  0
+              -1  0  1  0 -1  0  0
+               1  0  1  0 -1  0  0
+              -1  0 -1  0  1  0  0
+               1  0 -1  0  1  0  0
+              -1  0  1  0  1  0  0
+               1  0  1  0  1  0  0
+               0 -1 -1  0  0 -1  0
+               0  1 -1  0  0 -1  0
+               0 -1  1  0  0 -1  0
+               0  1  1  0  0 -1  0
+               0 -1 -1  0  0  1  0
+               0  1 -1  0  0  1  0
+               0 -1  1  0  0  1  0
+               0  1  1  0  0  1  0];
+          
+     end
+    //
+    // If nbvar > 7, then the design is computed by the following:
     // Depending on the number of variables nbvar, we compute two level design
     // which is populated with the real doe.
-    if (nbvar<6 | or(nbvar==[8 13 14 15]) | nbvar>16 ) then
+    if (or (nbvar==[8 13 14 15]) | nbvar>16 ) then
         H = scidoe_bbdesign2(nbvar)
-    elseif (or(nbvar==[6 7 9]) ) then
+    elseif (or(nbvar==[9]) ) then
         H = scidoe_bbdesign3(nbvar)
     elseif(or(nbvar==[10 11 12 16]))
         H = scidoe_bbdesign4(nbvar)
     end
     C = zeros(nbcenter,nbvar);
     H = [H;C]
-    //H = gsort(H,"lr","i");
+    H = gsort(H,"lr","i");
 endfunction
 
 function H = scidoe_bbdesign2(nbvar)
