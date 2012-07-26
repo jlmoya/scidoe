@@ -13,7 +13,7 @@ function H = scidoe_bbdesign(varargin)
     //
     // Calling Sequence
     //    H = scidoe_bbdesign(nbvar)
-    //    H = scidoe_bbdesign(nbvar,"nbcenter",nbcenter)
+    //    H = scidoe_bbdesign(nbvar,"center",nbcenter)
     //
     // Parameters
     //    nbvar : a 1-by-1 matrix of doubles, integer value, nbvar >= 3. The number of variables of the experiment
@@ -106,11 +106,11 @@ function H = scidoe_bbdesign(varargin)
       
     if (rhs==3) then
         nbcenter = apifun_argindefault (varargin,3,[]) 
-        default.nbcenter = nbcenter;
+        default.center = nbcenter;
         //Set key value pairs
         options = apifun_keyvaluepairs(default)
-        options = apifun_keyvaluepairs(default,"nbcenter",nbcenter)
-        nbcenter = options.nbcenter
+        options = apifun_keyvaluepairs(default,"center",nbcenter)
+        nbcenter = options.center
     end
     //
     // Check type, content of nbcenter
