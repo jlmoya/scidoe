@@ -30,12 +30,12 @@ function H = scidoe_bbdesign(varargin)
     // By default, scidoe_bbdesign produces a number of center 
     // points which depends on nbvar. 
     // If nbvar>16, then nbcenter is equal to nbvar. 
-    // If nbvar<=16, the nbcenter is taken from the following table:
+    // If nbvar<=16, the nbcenter = T(nbvar), where T is from the following table:
     //
     // <literal>[0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]</literal>
     //
     // To have only one center point, use the 
-    // <literal>H=scidoe_bbdesign(nbvar,"nbcenter",1)</literal> calling sequence.
+    // <literal>H=scidoe_bbdesign(nbvar,"center",1)</literal> calling sequence.
     //
     // In this design, there is no point at the corners of the 
     // cube [-1,+1]. 
@@ -162,8 +162,8 @@ function H = scidoe_bbdesign(varargin)
             -1  0  1  0
              1  0  1  0
              0 -1  0 -1
-             0  1  0  1
-             0 -1  0 -1
+             0  1  0 -1
+             0 -1  0  1
              0  1  0  1];
              
     // nbvar = 5
