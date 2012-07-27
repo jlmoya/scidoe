@@ -64,7 +64,7 @@ assert_checkalmostequal(B,Bexpected,[],[],"element");
 assert_checkalmostequal(fullstats.ResidualSS,836424.055505915,1.e-12);
 assert_checkalmostequal(fullstats.ResidualMean,92936.0061673238,1.e-12);
 assert_checkalmostequal(fullstats.R2,0.995479004577296,1.e-12);
-assert_checkalmostequal(fullstats.F,330.285339234588,1.e-12);
+assert_checkalmostequal(fullstats.F,330.285339234588,1.e-11);
 Bstddev = [
  890420.383607373
  84.9149257747669

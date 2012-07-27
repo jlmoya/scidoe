@@ -25,7 +25,7 @@
    <title>Calling Sequence</title>
    <synopsis>
    H = scidoe_bbdesign(nbvar)
-   H = scidoe_bbdesign(nbvar,nbcenter)
+   H = scidoe_bbdesign(nbvar,"center",nbcenter)
    
    </synopsis>
 </refsynopsisdiv>
@@ -56,14 +56,14 @@ can only have one of the following values: -1, 0, +1.
 By default, scidoe_bbdesign produces a number of center
 points which depends on nbvar.
 If nbvar>16, then nbcenter is equal to nbvar.
-If nbvar&lt;=16, the nbcenter is taken from the following table:
+If nbvar&lt;=16, the nbcenter = T(nbvar), where T is from the following table:
    </para>
    <para>
 <literal>[0 0 3 3 6 6 6 8 9 10 12 12 13 14 15 16]</literal>
    </para>
    <para>
 To have only one center point, use the
-<literal>H=scidoe_bbdesign(nbvar,1)</literal> calling sequence.
+<literal>H=scidoe_bbdesign(nbvar,"center",1)</literal> calling sequence.
    </para>
    <para>
 In this design, there is no point at the corners of the
@@ -115,6 +115,7 @@ end
    <title>Bibliography</title>
    <para>http://en.wikipedia.org/wiki/Box%E2%80%93Behnken_design</para>
    <para>Design and analysis of experiments, Montgomery, 5th Edition, Wiley, 2001</para>
+   <para>Plans d'expériences Applications à l'entreprise, Gilbert Saporta, Jean-Jacques Droesbeke, Jeanne Fine, Editions Technip, 1997</para>
 </refsection>
 
 <refsection>

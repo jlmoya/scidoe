@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_sortdesign.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_sortdesign" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_sortdesign</refname><refpurpose>Sort the experiments of a design of experiments</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   D = scidoe_sortdesign(D)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>D :</term>
+      <listitem><para> a m-by-nbvar matrix of doubles, the design of experiments.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Sorts the rows of a DOE, so that we gather the
+rows which are common, ignoring the signs
+of the entries.
+   </para>
+   <para>
+In a DOE which has {0,-1,+1} entries, this gathers
+the blocks which have +-1 entries.
+This makes the factorial blocks of the design more obvious.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// A DOE with no obvious structure.
+E = [
+-1 1 0
+-1 -1 0
+0 0 0
+1 -1 0
+0 -1 1
+-1 0 -1
+0 1 1
+-1 0 1
+1 0 1
+0 -1 -1
+1 0 -1
+0 1 -1
+1 1 0
+]
+D = scidoe_sortdesign(E)
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   </simplelist>
+</refsection>
+</refentry>

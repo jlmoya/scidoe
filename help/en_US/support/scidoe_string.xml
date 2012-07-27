@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_string.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_string" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_string</refname><refpurpose>Sort the experiments of a design of experiments</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   S = scidoe_string(D)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>D :</term>
+      <listitem><para> a m-by-nbvar matrix of doubles, the design of experiments.</para></listitem></varlistentry>
+   <varlistentry><term>S :</term>
+      <listitem><para> a m-by-nbvar matrix of strings, the design of experiments.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Ignores the signs of the entries in D, and
+remove duplicate entries.
+Then replaces each entry equal to 1 by a "*".
+   </para>
+   <para>
+In a DOE which has {0,-1,+1} entries, this factors
+the blocks which have +-1 entries.
+This makes the factorial blocks of the design more obvious.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// A DOE with no obvious structure.
+D = [
+-1 1 0
+-1 -1 0
+0 0 0
+1 -1 0
+0 -1 1
+-1 0 -1
+0 1 1
+-1 0 1
+1 0 1
+0 -1 -1
+1 0 -1
+0 1 -1
+1 1 0
+]
+S = scidoe_string(D)
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   </simplelist>
+</refsection>
+</refentry>

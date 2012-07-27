@@ -7,29 +7,10 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 // <-- JVM NOT MANDATORY -->
-// "Statistics for experimenters Design,Innovation and Discovery",
-// Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
-// Tables 5.6, 5.7 - Pilot Plant Investigation Experiment
-//
+// Box, G.E.P, Hunter, W.G. and Hunter, J.S. (1978)
+// Statistics for experimenters, John Wiley & Sons, pp 342
+// Table 5.2 - Pilot Plant Investigation, page 177
 y = [60 72 54 68 52 83 45 80]';
 [ef, id] = scidoe_yates(y);
-y1 = scidoe_ryates(ef);
-assert_checkequal(y,y1);
-//
-// "Statistics for experimenters Design,Innovation and Discovery",
-// Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
-// Table 5.2 - Yarn Experiment
-y = [28 36 22 31 25 33 19 26]'
- y  =
- 
-    28.  
-    36.  
-    22.  
-    31.  
-    25.  
-    33.  
-    19.  
-    26.  
-[ef,id] = scidoe_yates(y);
 y1 = scidoe_ryates(ef);
 assert_checkequal(y,y1);

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_compare.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_compare" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_compare</refname><refpurpose>The default comparison function used in the sort-merge.</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   order = scidoe_compare ( a , b )
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>a :</term>
+      <listitem><para> a 1x1 matrix of doubles, the first value to be compared</para></listitem></varlistentry>
+   <varlistentry><term>b :</term>
+      <listitem><para> a 1x1 matrix of doubles, the second value to be compared</para></listitem></varlistentry>
+   <varlistentry><term>order :</term>
+      <listitem><para> a 1x1 matrix of floating point integers, the order. Returns order=0 is a is almost equal to b, order=-1 if a &lt; b, order=+1 if a &gt; b.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Returns -1 if and(a&lt;b), returns 0 if and(a==b), returns +1 otherwise.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+order = scidoe_compare ( 1 , -1 ) // 1
+order = scidoe_compare ( -1 , 1 ) // -1
+order = scidoe_compare ( 1 , 1 ) // 0
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Michael Baudin, DIGITEO, 2009-2010 (to manage a comparison function)</member>
+   </simplelist>
+</refsection>
+</refentry>
