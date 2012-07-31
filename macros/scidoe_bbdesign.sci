@@ -45,6 +45,9 @@ function H = scidoe_bbdesign(varargin)
     // On output, the rows in H are sorted in increasing order.
     //
     // This function does not entirely reproduce Matlab's bbdesign. 
+    // For nbvar = 9,16, the function gives different results than 
+    // the known bibliography.
+    // 
     //
     // Examples
     // // Create a Box-Benkhen Design with three 

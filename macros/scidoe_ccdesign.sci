@@ -1,3 +1,13 @@
+// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2012 - Maria Christopoulou
+// Copyright (C) 2009 - Yann Collette
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 function H = scidoe_ccdesign(varargin) // In progress
 // A Central Composite Design of Experiments
 //
@@ -5,37 +15,31 @@ function H = scidoe_ccdesign(varargin) // In progress
 //
 // Calling Sequence :
 // H = scidoe_ccdesign(nbvar)
-// H = scidoe_ccdesign(nbvar,"Name1","Parameter1","Name2","Parameter2"...)
+// H = scidoe_ccdesign(nbvar,"Key1","Value1","Key2","Value2")
 //
 // Options :
-// 'center' : number of center points// I haven't added this option yet.
-// 'ccd' : circumscribed, inscribed, faced. Default is circumscribed.
-// 'alpha' : 'orthogonal' or 'rotatable'. For the moment, default is rotatable, because orthogonal does not give correct output.
+// 'ccd' : 'circumscribed', 'inscribed', 'faced'. Default is circumscribed.
+// 'alpha' : 'orthogonal' or 'rotatable'.
 // Circumscribed and Inscribed can be rotatable, but Faced cannot. For Faced CCD, alpha =1.
 //
-// If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points. Results don't agree with R.
+// If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
 //
-// If the design is rotatable, alpha = nc^1/4, nc the factorial points. Results agree with R.
+// If the design is rotatable, alpha = nc^1/4, nc the factorial points.
+// This function reproduces R's 'ccd' function.
 //
 // Bibliography:
-//    Box, Hunter and Hunter "Statistics for experimenters"
+//    George E. P. Box, J. Stuart Hunter, William G. Hunter, "Statistics for experimenters Design,Innovation and Discovery", Second Edition, 2005
 //    http://en.wikipedia.org/wiki/Central_composite_design
 //    http://rgm2.lab.nig.ac.jp/RGM2/func.php?rd_id=rsm:ccd
 //    http://www.mathworks.com/help/toolbox/stats/f56635.html
 //    http://www.itl.nist.gov/div898/handbook/pri/section3/pri3361.htm
 //
-// Current Issues:
-// 1) H1 is undefined variable when I call:
-//    scidoe_ccdesign(nbvar)
-//    scidoe_ccdesign(nbvar,"ccd","circumscribed/inscribed","alpha","orthogonal/rotatable");
-//
-// 2) When CCd is Inscribed, values of factorial points have to decrease as nbvar increases.
 // 
     [lhs, rhs] = argn()
     apifun_checkrhs("scidoe_ccdesign",rhs,[1 3 5])
     apifun_checklhs("scidoe_ccdesign",lhs,1)
 
-    nbvar = varargin(1);
+    nbvar = varargin(1)
     // Check type, size, content of nbvar
     apifun_checktype("scidoe_ccdesign",nbvar,"nbvar",1,"constant")
     apifun_checkscalar("scidoe_ccdesign",nbvar,"nbvar",1)
@@ -43,72 +47,75 @@ function H = scidoe_ccdesign(varargin) // In progress
     apifun_checkflint("scidoe_ccdesign",nbvar,"nbvar",1)
 //
 // Choose type of CCD. Default is 'circumscribed'.
-ccd = ['circumscribed' 'inscribed' 'faced'];
-
-if (rhs==1) then
+//
+// Default CCD is "circumscribed" and orthogonal design
+if (rhs == 1) then
+    ccd = ['circumscribed' 'inscribed' 'faced'];
     ccd == 'circumscribed';
-    alpha = nbvar^(1/4); // Rotatable Design
+    nc = 2^nbvar; // Factorial points
+    nco = 4; // Center points to factorial
+    na=2*nbvar; // Axial points
+    nao=4; // Center points to axial design
+    A =  sqrt((nbvar*(1+(nao/na)))/(1+(nco/nc)));
 end
 
-if (rhs==3 |rhs==5) then
+    if (rhs==3 | rhs == 5) then
         // Check for CCD type
-        ccd= apifun_argindefault (varargin,rhs,[])
+        ccd= apifun_argindefault (varargin,rhs,[]);
+        alpha = apifun_argindefault(varargin,rhs,[]);
         apifun_checktype("scidoe_ccdesign",ccd,"ccd",rhs,"string")
+        apifun_checktype("scidoe_ccdesign",alpha,"alpha",rhs,["string" "constant"])
         // Set default values
         default.ccd = 'circumscribed';
-        default.ccd = 'inscribed';
-        default.ccd = 'faced';
+        default.alpha = 'orthogonal';
+        //
         //Set key value pairs
         options = apifun_keyvaluepairs(default)
-        options = apifun_keyvaluepairs(default,"ccd",'circumscribed')
         options = apifun_keyvaluepairs(default,"ccd",'inscribed')
+   //     options = apifun_keyvaluepairs(default,"ccd",'inscribed',"alpha",'rotatable')
         options = apifun_keyvaluepairs(default,"ccd",'faced')
-        'circumscribed' == options.ccd;
-        'inscribed' == options.ccd;
-        'faced' == options.ccd;
-        //
-        // Check for alpha value
-        alpha = apifun_argindefault(varargin,rhs,[])
-        apifun_checktype("scidoe_ccdesign",alpha,"alpha",rhs,"string")
-        // Set default values
-        default.alpha = 'rotatable';
-        default.alpha = 'orthogonal';
         options = apifun_keyvaluepairs(default,"alpha",'rotatable')
-        options = apifun_keyvaluepairs(default,"alpha",'orthogonal')
-        //
-        // Rotatable Design
-        if ('rotatable' == options.alpha) then
-            alpha == nbvar^(1/4);
-        end
-        //
-        // Orthogonal Design
-        if ('orthogonal' == options.alpha) then
-            nc = 2^nbvar; // Factorial points
-            nco = 2*nbvar+4; // Center points added to factorial design
-            na=2*nbvar; // Axial points
-            nao=2*nbvar+4; // Center points added to second design
-            alpha =  sqrt(nbvar*(1+(nao/na))/(1+(nco/nc)));
-          end 
-          
+    //    options = apifun_keyvaluepairs(default,"ccd",'faced',"alpha",1)
+        ccd = options.ccd;
+        a = options.alpha;
+    end   
+         
+    // Rotatable Design
+    if (a == 'rotatable') then
+            A = nbvar^(1/4);
     end
 
+    // Orthogonal Design
+    if (a == 'orthogonal') then
+            nc = 2^nbvar; // Factorial points
+            nco = 4; // Center points to factorial
+            na=2*nbvar; // Axial points
+            nao=4; // Center points to axial design
+            A =  sqrt((nbvar*(1+(nao/na)))/(1+(nco/nc)));
+    end 
+
+
 if (ccd == 'inscribed') then
-    H1=specfun_combinerepeat([ -0.5477226  0.5477226],nbvar)';// This is wrong, values of factorial points must decrease, as nbvar increases.
+    B = 1/A; // Scale down the factorial points
+    H1 = specfun_combinerepeat([-B B],nbvar)';
 end
 
 if (ccd == 'faced') then
-   alpha = 1;
+   A = 1;
    H1 = 2*scidoe_ff2n(nbvar)-1;
 end
 
 if (ccd == 'circumscribed') then
     H1 = 2*scidoe_ff2n(nbvar)-1;
 end
+//
+// Star design, containing the axial points
 H2 = eye(nbvar, nbvar);
 H2 = [H2 -H2]';
-
-C = zeros(8,nbvar);//
-H = [H1; alpha*H2];
+//
+// Center points. R produces 8 center points as default.
+C = zeros(8,nbvar);
+H = [H1; A*H2];
 H=[H;C];
 H =scidoe_sortdesign(H);
 
