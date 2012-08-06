@@ -106,12 +106,19 @@ function H = scidoe_lhsdesign(varargin)
         center = apifun_argindefault(varargin,4,[]);
         apifun_checktype("scidoe_lhsdesign",criterion,"criterion",3,"string");
         apifun_checktype("scidoe_lhsdesign",center,"center",4,"string");
+        //
+
         // Set default values
         default.criterion = center;
         options = apifun_keyvaluepairs(default)
         options = apifun_keyvaluepairs(default,"criterion","center")
         //
         "center" == options.criterion;
+        //
+        // Generate an error when criterion is other than "centered"
+        if (center ~= "center") then
+            error("Criterion must be center")
+        end        
         //
         // Choose the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
         cut = linspace(0,1,n+1);
