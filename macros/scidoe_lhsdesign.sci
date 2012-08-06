@@ -13,7 +13,7 @@ function H = scidoe_lhsdesign(varargin)
     //
     // Calling sequence
     //    H = scidoe_lhsdesign(s,n)
-    //    H = scidoe_lhsdesign(s,n,"criterion","Center")
+    //    H = scidoe_lhsdesign(s,n,"criterion","center")
     //    H = scidoe_lhsdesign(s,n,"criterion","maximin") // Not implemented yet
     //    H = scidoe_lhsdesign(s,n,"criterion","correlation") // Not implemented yet
     //
@@ -26,7 +26,9 @@ function H = scidoe_lhsdesign(varargin)
     //    
     //    If no criterion is specified, the function computes a random LHS design,
     //    calling the nisp_buildlhs.sci macro of the NISP Toolbox http://forge.scilab.org/index.php/p/nisp/source/tree/99/macros/nisp_buildlhs.sci)
-    //    If "criterion" = "Center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+    //    If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+    //
+    // This function changes the state of the grand uniform random number generator.
     //
     // Examples
     // // Compute a random LHS with 2 variables and 5 points
@@ -41,7 +43,7 @@ function H = scidoe_lhsdesign(varargin)
     // end
     // //
     // // Compute a LHS design with center points
-    // H = scidoe_lhsdesign(2,5,"criterion","Center")
+    // H = scidoe_lhsdesign(2,5,"criterion","center")
     // // Plot this design
     // cut = linspace(0,1,6);
     // for i=1:6
@@ -78,22 +80,38 @@ function H = scidoe_lhsdesign(varargin)
     apifun_checkgreq("scidoe_lhsdesign",n,"n",2,1)
     //
     // LHS design without improvement
+    // This is part of the code of nisp_buildlhs.sci
     if (rhs==2) then
-        H = nisp_buildlhs(s,n)
+          cut = linspace ( 0 , 1 , n + 1 )'
+          // Fill points uniformly in each interval
+          u = grand(n,s,"unf",0,1)
+          a = cut(1 : n)
+          b = cut(2 : n+1)
+          rdpoints = zeros(n,s)
+          for j = 1 : s
+            rdpoints(:,j)  = u(:,j) .* (b-a) + a
+          end
+          // Make the random pairings
+          sampling = zeros(n,s)
+          for j = 1 : s
+            order = grand(1,"prm",(1:n)')
+            sampling ( 1 : n , j ) = rdpoints ( order , j )
+          end
+          H = sampling;
     end
     //
     // LHS using the centerpoints
     if (rhs==4) then
         criterion = apifun_argindefault(varargin,3,[])
-        Center = apifun_argindefault(varargin,4,[]);
+        center = apifun_argindefault(varargin,4,[]);
         apifun_checktype("scidoe_lhsdesign",criterion,"criterion",3,"string");
-        apifun_checktype("scidoe_lhsdesign",Center,"Center",4,"string");
+        apifun_checktype("scidoe_lhsdesign",center,"center",4,"string");
         // Set default values
-        default.criterion = Center;
+        default.criterion = center;
         options = apifun_keyvaluepairs(default)
-        options = apifun_keyvaluepairs(default,"criterion","Center")
+        options = apifun_keyvaluepairs(default,"criterion","center")
         //
-        "Center" == options.criterion;
+        "center" == options.criterion;
         //
         // Choose the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
         cut = linspace(0,1,n+1);
@@ -112,4 +130,5 @@ function H = scidoe_lhsdesign(varargin)
     // and choose the design with the minimum correlation
     // 
 
+     
 endfunction
