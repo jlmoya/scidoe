@@ -45,6 +45,8 @@ funarray = [
   "scidoe_ff2n"
   "scidoe_fullfact"
   "scidoe_bbdesign"
+  "scidoe_ccdesign"
+  "scidoe_lhsdesign"
   ];
 helpdir = fullfile(cwd,"designs");
 macrosdir = fullfile(cwd ,"..","..","macros");

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_ccdesign.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_ccdesign" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+
+  <refnamediv>
+    <refname>scidoe_ccdesign</refname><refpurpose>A Central Composite Design of Experiments</refpurpose>
+  </refnamediv>
+
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   H = scidoe_ccdesign(nbvar)
+   H = scidoe_ccdesign(nbvar,"Name1","Parameter1","Name2","Parameter2")
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>nbvar :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiment</para></listitem></varlistentry>
+   <varlistentry><term>Name :</term>
+      <listitem><para> a 1-by-n matrix of strings. It can be "type" or "alpha"</para></listitem></varlistentry>
+   <varlistentry><term>Parameter :</term>
+      <listitem><para> a 1-by-n matrix of strings, describing the design</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Scidoe_ccdesign.sci produces a Central Composite Design of experiments.
+A CCD is composed by a factorial design, a matrix of axial points and a matrix of center points (zeros)
+   </para>
+   <para>
+The CCD can be specified, as described in "Parameters".
+The default design is "circumscribed" and "orthogonal".
+   </para>
+   <para>
+Circumscribed and Inscribed can be rotatable designs, but Faced cannot. For Faced CCD, alpha =1.
+When "type" of design is "inscribed", the function calls the specfun_combinerepeat.sci macro of the Specfun Toolbox http://forge.scilab.org/index.php/p/specfun/source/tree/HEAD/macros/specfun_combinerepeat.sci
+which impements the scaled factorial design.
+   </para>
+   <para>
+If "type" is specified, while "alpha" is not, then default value is "orthogonal".
+If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
+If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
+   </para>
+   <para>
+The matrix of Center points is an 8-by-nbvar matrix of zeros.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// Circumscribed orthogonal design
+H = scidoe_ccdesign(2)
+// Inscribed orthogonal design
+H = scidoe_ccdesign(3,"type","inscribed")
+// Faced CCD
+H = scidoe_ccdesign(2,"type","faced")
+// Inscribed rotatable CC Design
+H = scidoe_ccdesign(3,"type","inscribed","alpha","rotatable")
+// TODO - Plot the design with scidoe_plotcube.sci
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Bibliography</title>
+   <para>George E. P. Box, J. Stuart Hunter, William G. Hunter, "Statistics for experimenters Design,Innovation and Discovery", Second Edition, 2005</para>
+   <para>http://en.wikipedia.org/wiki/Central_composite_design</para>
+   <para>http://rgm2.lab.nig.ac.jp/RGM2/func.php?rd_id=rsm:ccd</para>
+   <para>http://www.mathworks.com/help/toolbox/stats/f56635.html</para>
+   <para>http://www.itl.nist.gov/div898/handbook/pri/section3/pri3361.htm</para>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2009 - Yann Collette</member>
+   </simplelist>
+</refsection>
+</refentry>
