@@ -63,7 +63,7 @@ function scidoe_regressprint(fullstats)
     // 69331
     // 70551
     // ];
-    // [B,bint,r,rint,stats,fullstats] = scidoe_regressprint(Y,X);
+    // [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,X);
 	// scidoe_regressprint(fullstats)
     //
     // Authors
