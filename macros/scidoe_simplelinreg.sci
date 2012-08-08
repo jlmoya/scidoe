@@ -168,7 +168,7 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// // The number of observations
 	// N = 100;
 	// // The exact coefficients
-	// B = [2;3]
+	// B_exact = [2;3]
 	// // The input
 	// Xmin = 50;
 	// Xmax = 150;
@@ -181,9 +181,9 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// e = grand(N,1,"nor",0,sigma);
 	// Y = int(Y + e);
 	// // Linear regression
-	// B = scidoe_simplelinreg(X,Y)
-	// // Compare B (exact) with B (estimate)
-	// [B,B]
+	// B_estim = scidoe_simplelinreg(X,Y)
+	// // Compare B_exact (exact) with B_estim (estimate)
+	// [B_exact,B_estim]
 	// scf();
 	// plot(X,Y,"bo");
 	// L = B(1)+B(2)*X;
