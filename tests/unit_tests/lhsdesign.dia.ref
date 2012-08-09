@@ -1,0 +1,76 @@
+// Copyright (C) 2012 - Michael Baudin
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- TEST WITH GRAPHIC -->
+grand("setsd",0);
+H = scidoe_lhsdesign(2,5);
+E = [
+    0.3185689    0.6847310  
+    0.7688531    0.3089766  
+    0.5430379    0.5694503  
+    0.9205527    0.1715891  
+    0.1097627    0.9247127  
+];
+assert_checkalmostequal(H,E,[],1.e-6);
+// Plot this design
+scf();
+plot ( H(:,1) , H(:,2) , "bo" );
+ 
+ WARNING: Due to your configuration limitations, Scilab switched in a m 
+      ode where mixing uicontrols and graphics is not available. Type " 
+      help usecanvas" for more information.                             
+cut = linspace(0,1,6);
+for i=1:6
+    plot([cut(i) cut(i)],[0 1],"-")
+end
+for i=1:6
+    plot([0 1],[cut(i) cut(i)],"-")
+end
+// Create a Lhs design with 1000 points in 5 dimensions.
+n = 1000;
+s =  5;
+sampling = scidoe_lhsdesign ( s , n );
+// Count the number of classes in each class: only one!
+cuts = linspace ( 0 , 1 , n + 1 );
+for k = 1 : s
+  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
+  assert_checkequal ( occ , ones(1,n));
+  assert_checkequal ( info , 0);
+end
+//
+// Compute a LHS design with center points
+grand("setsd",0);
+H = scidoe_lhsdesign(2,5,"criterion","center");
+E = [
+    0.9    0.7  
+    0.1    0.9  
+    0.3    0.1  
+    0.7    0.3  
+    0.5    0.5  
+];
+assert_checkalmostequal(H,E,[],1.e-6);
+// Plot this design
+scf();
+plot( H(:,1) , H(:,2) , "bo" );
+cut = linspace(0,1,6);
+for i=1:6
+    plot([cut(i) cut(i)],[0 1],"-")
+end
+for i=1:6
+    plot([0 1],[cut(i) cut(i)],"-")
+end
+// Create a Centered Lhs design with 1000 points in 2 dimensions.
+n = 1000;
+s =  2;
+sampling = scidoe_lhsdesign ( s , n ,"criterion","center");
+// Count the number of classes in each class: only one!
+cuts = linspace ( 0 , 1 , n + 1 );
+for k = 1 : s
+  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
+  assert_checkequal ( occ , ones(1,n));
+  assert_checkequal ( info , 0);
+end
