@@ -18,3 +18,20 @@ scidoe (not released yet)
  * Fixed building and comments of scidoe_multilinreg
  * Created scidoe_regress.
  * Created scidoe_regressprint.
+
+
+scidoe (v0.1)
+ * Added scidoe_ccdesign.sci
+ * Added scidoe_lhsdesign.sci
+ * Fixed Bug #834: The help of scidoe_multilinreg was unclear about stats and fullstats
+ * Fixed Bug #835: The example in scidoe_regressprint was wrong
+ * Fixed Bug #836: The example in scidoe_yates was too large
+ * Fixed Bug #838: The example in scidoe_simplelinreg.sci was weird
+ * Fixed Bug #843: Brodtkorb was not included in the authors of the readme
+ * Fixed Bug #840: The demos did not load
+ * Fixed Bug #841: The demos were deleted
+ * Fixed Bug #842: There was no macros cleaner
+ * Fixed Bug #855: The changelog.txt was not updated
+ 
+
+
