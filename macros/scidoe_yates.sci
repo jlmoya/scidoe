@@ -62,26 +62,20 @@ function [ef, id] = scidoe_yates(varargin)
     //    http://www.maths.lth.se/matstat/wafo/documentation/wafodoc/wafo/wstats/yates.html
     //
     // Examples
-    // // "Statistics for experimenters Design,Innovation and Discovery",
-    // // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
-    // // Tables 5.6, 5.7 - Pilot Plant Investigation Experiment
+    // // Calculate main and interaction effects
     // D = scidoe_ff2n(3); // complete 2^3 design in standard order.
     // y = [60 72 54 68 52 83 45 80]'; // Responses to design D.
     // [ef,id] = scidoe_yates(y)
-	//
-    // // "Statistics for experimenters Design,Innovation and Discovery",
-    // // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
-    // // Table 5.2 - Yarn Experiment
+    // // Another example
     // D = scidoe_ff2n(3)
     // y = [28 36 22 31 25 33 19 26]'
     // [ef,id] = scidoe_yates(y)
     //
-	// // See the sort_eff option in action
+    // // See the sort_eff option in action
     // [ef,id] = scidoe_yates(y,%t)
     //
     // Bibliography
-    // "Statistics for experimenters Design,Innovation and Discovery",
-    // Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005
+    // "Statistics for experimenters Design,Innovation and Discovery", Second Edition, George E.P Box, J. Stuart Hunter, William Hunter, Wiley Series, 2005. 177-183, 191.
 	// http://www.itl.nist.gov/div898/handbook/eda/section3/eda35i.htm
     // 
     // Authors
