@@ -27,7 +27,9 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(varargin)
     // B : a n-by-1 matrix of doubles, the coefficients of the linear model.
     // bint : a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.
     // r : a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x
-    // stats : a struct, the statistics, see below for details. 
+    // rint : a m-by-2 matrix of doubles, the confidence intervals of the residuals. The column rint(:,1) are the lower bounds and rint(:,2) are the upper bounds.
+    // stats : a 4-by-1 matrix of doubles, the statistics. stats(1) is the R2 statistics, stats(2) is the F statistics, stats(3) is the p-value of the F statistics, stats(4) is an estimate of the error variance.
+    // fullstats : a struct, the statistics, see below for details. 
     //
     // Description
     // This function computes a linear model with 
@@ -38,8 +40,27 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(varargin)
     //
     // Y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
     //
-    // The fields in <literal>stats</literal> are 
-	// presented in scidoe_regress.
+    // The fields in <literal>fullstats</literal> are :
+    //
+    // fullstats.RegressionSS: the sum of squares of the regression
+    //
+    // fullstats.RegressionDof: the number of degrees of freedom of the regression
+    //
+    // fullstats.RegressionMean: the mean of the sum of squares of the regression
+    //
+    // fullstats.ResidualSS: the sum of squares of the residuals
+    //
+    // fullstats.ResidualDof: the number of degrees of freedom of the residuals
+    //
+    // fullstats.ResidualMean: the mean of the sum of squares of the residuals
+    //
+    // fullstats.F: the F statistics
+    //
+    // fullstats.pval : the p-value corresponding to the F statistics
+    //
+    // fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
+    //
+    // fullstats.R2: the R-squared statistics
     //
     // The residual r is :
     //

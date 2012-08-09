@@ -50,7 +50,11 @@
       <listitem><para> a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.</para></listitem></varlistentry>
    <varlistentry><term>r :</term>
       <listitem><para> a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x</para></listitem></varlistentry>
+   <varlistentry><term>rint :</term>
+      <listitem><para> a m-by-2 matrix of doubles, the confidence intervals of the residuals. The column rint(:,1) are the lower bounds and rint(:,2) are the upper bounds.</para></listitem></varlistentry>
    <varlistentry><term>stats :</term>
+      <listitem><para> a 4-by-1 matrix of doubles, the statistics. stats(1) is the R2 statistics, stats(2) is the F statistics, stats(3) is the p-value of the F statistics, stats(4) is an estimate of the error variance.</para></listitem></varlistentry>
+   <varlistentry><term>fullstats :</term>
       <listitem><para> a struct, the statistics, see below for details.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
@@ -69,8 +73,37 @@ The linear model we compute is
 Y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
    </para>
    <para>
-The fields in <literal>stats</literal> are
-presented in scidoe_regress.
+The fields in <literal>fullstats</literal> are :
+   </para>
+   <para>
+fullstats.RegressionSS: the sum of squares of the regression
+   </para>
+   <para>
+fullstats.RegressionDof: the number of degrees of freedom of the regression
+   </para>
+   <para>
+fullstats.RegressionMean: the mean of the sum of squares of the regression
+   </para>
+   <para>
+fullstats.ResidualSS: the sum of squares of the residuals
+   </para>
+   <para>
+fullstats.ResidualDof: the number of degrees of freedom of the residuals
+   </para>
+   <para>
+fullstats.ResidualMean: the mean of the sum of squares of the residuals
+   </para>
+   <para>
+fullstats.F: the F statistics
+   </para>
+   <para>
+fullstats.pval : the p-value corresponding to the F statistics
+   </para>
+   <para>
+fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
+   </para>
+   <para>
+fullstats.R2: the R-squared statistics
    </para>
    <para>
 The residual r is :
