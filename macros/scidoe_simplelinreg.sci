@@ -8,7 +8,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
+function [B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(varargin)
     // Univariate linear regression
     //
     // Calling Sequence
@@ -16,6 +16,9 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
     //   B = scidoe_simplelinreg(X,Y,level)
     //   [B,bint] = scidoe_simplelinreg(...)
     //   [B,bint,r] = scidoe_simplelinreg(...)
+    //   [B,bint,r,rint] = scidoe_simplelinreg(...)
+    //   [B,bint,r,rint,stats] = scidoe_simplelinreg(...)
+    //   [B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(...)
     //
     // Parameters
     // X is a m-by-1 or 1-by-m matrix of doubles, the inputs, where m is the number of observations. m must be greater than 2.
@@ -24,7 +27,10 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// B : a 1-by-2 matrix of doubles, where B(1) is the intercept and B(2) is the slope
 	// bint : a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.
 	// r : a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x
-	// stats : a struct, the statistics, see below for details. 
+	// rint : a m-by-2 matrix of doubles, the confidence intervals of the residuals. The column rint(:,1) are the lower bounds and rint(:,2) are the upper bounds.
+	// stats : a struct, the statistics, see below for details.
+	// fullstats : a struct, the statistics, see below for details. 
+    // 
     //
 	// Description    
     // This function fits data in linear model 
@@ -79,6 +85,30 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// When the model is correct, the standardized residuals 
 	// are approximately randomly distributed with mean zero and 
 	// 95% of their values in the range [-1.96,1.96].
+	//
+    //
+	// The fields in <literal>fullstats</literal> are :
+    //
+    // fullstats.RegressionSS: the sum of squares of the regression
+    //
+    // fullstats.RegressionDof: the number of degrees of freedom of the regression
+    //
+    // fullstats.RegressionMean: the mean of the sum of squares of the regression
+    //
+    // fullstats.ResidualSS: the sum of squares of the residuals
+    //
+    // fullstats.ResidualDof: the number of degrees of freedom of the residuals
+    //
+    // fullstats.ResidualMean: the mean of the sum of squares of the residuals
+    //
+    // fullstats.F: the F statistics
+    //
+    // fullstats.pval : the p-value corresponding to the F statistics
+    //
+    // fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
+    //
+    // fullstats.R2: the R-squared statistics
+    //
     //
     // Examples
     // X = [
@@ -168,7 +198,7 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// // The number of observations
 	// N = 100;
 	// // The exact coefficients
-	// B_exact = [2;3]
+	// B = [2;3]
 	// // The input
 	// Xmin = 50;
 	// Xmax = 150;
@@ -181,9 +211,9 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	// e = grand(N,1,"nor",0,sigma);
 	// Y = int(Y + e);
 	// // Linear regression
-	// B_estim = scidoe_simplelinreg(X,Y)
-	// // Compare B_exact (exact) with B_estim (estimate)
-	// [B_exact,B_estim]
+	// B = scidoe_simplelinreg(X,Y)
+	// // Compare B (exact) with B (estimate)
+	// [B,B]
 	// scf();
 	// plot(X,Y,"bo");
 	// L = B(1)+B(2)*X;
@@ -204,7 +234,7 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
     // Check number of input arguments
     [lhs,rhs] = argn();
     apifun_checkrhs("scidoe_simplelinreg",rhs,2:3);
-    apifun_checklhs("scidoe_simplelinreg",lhs,1:4);
+    apifun_checklhs("scidoe_simplelinreg",lhs,1:6);
 	//
 	X = varargin(1)
 	Y = varargin(2)
@@ -230,37 +260,5 @@ function [B,bint,r,stats] = scidoe_simplelinreg(varargin)
 	Y = Y(:)
 	n = size(X,"*")
     A = [ones(n,1),X]
-	// Workaround for the lack of accuracy of backslash
-	// See http://bugzilla.scilab.org/show_bug.cgi?id=11379
-	// We should use :
-    // B = A\Y
-	// but pinv (which uses the SVD) is more 
-	// accurate in some cases.
-	B = pinv(A)*Y
-	// Compute confidence intervals
-	r = Y-A*B
-	SSR = sum(r.^2)
-	P = 1-level/2
-	Q = level/2
-	T=cdft("T",n-2,P,Q)
-	Xmean = mean(X)
-	Ymean = mean(Y)
-	SXX = sum((X-Xmean).^2)
-	SYY = sum((Y-Ymean).^2)
-	Bsig(1) = T*sqrt(SSR*sum(X.^2)/n/(n-2)/SXX)
-	Bsig(2) = T*sqrt(SSR/(n-2)/SXX)
-	bint(:,1) = B-Bsig
-	bint(:,2) = B+Bsig
-	// Create stats
-	stats = struct()
-	// Store SSR:
-	// the sum of squares of the residuals
-	stats.SSR = SSR
-	// Compute R-squared :
-	// the coefficient of determination.
-	stats.R2 = 1-SSR/SYY
-	// Compute sigma2:
-	// an estimate of the variance of the 
-	// normal(0,sigma2) error
-	stats.sigma2 = SSR/(n-2)
+    [B,bint,r,rint,stats,fullstats] = scidoe_regress(Y,A,level)
 endfunction
