@@ -15,6 +15,8 @@ function H = scidoe_lhsdesign(varargin)
     // Calling sequence
     //    H = scidoe_lhsdesign(s,n)
     //    H = scidoe_lhsdesign(s,n,"criterion","center")
+    //    H = scidoe_lhsdesign(s,n,"criterion","maximin")
+    //    H = scidoe_lhsdesign(s,n,"criterion","correlation")
     //
     // Parameters
     //    s : a 1-by-1 matrix of doubles, integer value, positive, the number of variables
@@ -26,12 +28,10 @@ function H = scidoe_lhsdesign(varargin)
     //    If no criterion is specified, the function computes a random LHS design,
     //    calling the nisp_buildlhs.sci macro of the NISP Toolbox http://forge.scilab.org/index.php/p/nisp/source/tree/99/macros/nisp_buildlhs.sci)
     //    If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+    //    if "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance
+    //    If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables
     //
     // This function changes the state of the grand uniform random number generator.
-    //
-    // TODO : add  H = scidoe_lhsdesign(s,n,"criterion","maximin")
-    //
-    // TODO : add  H = scidoe_lhsdesign(s,n,"criterion","correlation")
     //
     // Examples
     // // Compute a random LHS with 2 variables and 5 points
@@ -60,7 +60,7 @@ function H = scidoe_lhsdesign(varargin)
     // plot([0 1],[cut(i) cut(i)],"-")
     // end
     //
-    // Bibliography
+    // References
 	// McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
 	// http://en.wikipedia.org/wiki/Latin_hypercube_sampling
     // http://www.mathworks.com/help/toolbox/stats/lhsdesign.html
@@ -114,10 +114,20 @@ function H = scidoe_lhsdesign(varargin)
         // Check criterion value
         apifun_checktype("scidoe_lhsdesign",criterionvalue,"criterionkey",4,"string");
         apifun_checkscalar("scidoe_lhsdesign",criterionvalue,"criterionkey",4);
-        apifun_checkoption("scidoe_lhsdesign",criterionvalue,"criterionkey",4,"center");
+        apifun_checkoption("scidoe_lhsdesign",criterionvalue,"criterionkey",4,["center" "maximin" "correlation"]);
         //
+        select criterionvalue
+        case "center"
         // Center criterion
         H = scidoe_lhsdesignCenter(s,n)
+        
+        case "maximin"
+        // Maximin criterion
+        H = scidoe_lhsdesignMaximin(s,n)
+        
+    case "correlation"
+        H = scidoe_lhsdesignCorr(s,n)
+        end
     end
 endfunction
 function H = scidoe_lhsdesignClassic(s,n)
@@ -149,4 +159,66 @@ function H = scidoe_lhsdesignCenter(s,n)
     for j=1:s
         H(:,j) = grand(1,"prm",_center);
     end
+endfunction
+
+function H = scidoe_lhsdesignMaximin(s,n)
+        //
+        // Matrix to store computed distances
+        
+        // 
+        for k=1:5 // Maximum iterations
+            // Generate a random LHS
+            x=scidoe_lhsdesignClassic(s,n)
+            //
+            // Matrix to store 
+            //
+            // Calculate pairwise point distances
+            // The total  number of combinations is the binomial coefficient
+            // n(n-1)/2, where n is the number of sample points
+            for i=1:s
+                c=specfun_subset(x(:,i),2,'c') // Generate all combinations
+                d(1,i)=sum((c(1,:)-c(2,:)).^2) 
+            end
+            //
+            // Euclidean Distance
+            dsq(1,k) = sum(d,2);
+            
+            if (dsq(1,k)==min(dsq)) then
+                dsqbest=dsq(1,k)
+                xbest=x;
+            end
+
+        end
+        // Return LHS with maximum distance between points
+        H = xbest;
+    
+endfunction
+
+function H = scidoe_lhsdesignCorr(s,n)
+    //
+    // Maximum Iterations
+    for k=1:5
+        // Generate a random LHS
+        x=scidoe_lhsdesignClassic(s,n);
+        // Return Columns Combinations
+        c=specfun_combine(x,x);
+        // get size of matrix of combinations
+        [m,n]=size(c);
+        // Initialise the matrix to store correlation coefficients
+        v=zeros(1,n);
+        // Calculate correlation coefficient between variables
+            for i=1:n
+                v(1,i)=nisp_corrcoef(c(1:m/2,i),c(m/2+1:$,i))// TODO-Replace with code like nisp_buildlhs.sci and update copyrights.
+            end
+        // Exclude 1's from vector v --It doesnt work
+        j=find(v==1);
+        v(j)==[];
+        // 
+        correlation(1,k) = sum(v,2);
+        if (correlation(1,k))==min(correlation) then
+            correlationbest=correlation(1,k);
+            xbest=x;
+        end
+    end
+    H=xbest;
 endfunction
