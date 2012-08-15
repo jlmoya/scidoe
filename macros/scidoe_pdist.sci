@@ -15,14 +15,14 @@ function H = scidoe_pdist(X)
 //
 // Parameters
 //    X : a m-by-n matrix of doubles, the input vector
-//    H : a 1-by-b matrix of doubles, the distance vector, where b = n*(n-1)/2 the binomial coefficient
+//    H : a 1-by-b matrix of doubles, the distance vector, where b = m*(m-1)/2 the binomial coefficient
 //
 // Description
 //    This function computes all the pairwise point distances of a matrix.
 //    The number of combinations of the points in each variable (column) 
 //    is equal to the binomial coefficient n*(n-1)/2.
 //    
-//    The resulted matrix contains the all pairwise point distances, arranged in the order (2,1), (3,1), ..., (n,1), (3,2), ..., (n,2), ..., (n,n–1)
+//    The resulted matrix contains the all pairwise point distances, arranged in the order (2,1), (3,1), ..., (m,1), (3,2), ..., (m,2), ..., (m,m–1)
 //
 //    The function implements only the Euclidean distance case.
 //
