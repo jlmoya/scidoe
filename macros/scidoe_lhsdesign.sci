@@ -31,7 +31,7 @@ function H = scidoe_lhsdesign(varargin)
     //    if "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance
     //    If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables
     //
-    // This function changes the state of the grand uniform random number generator.
+    //    This function changes the state of the grand uniform random number generator.
     //
     // Examples
     // // Compute a random LHS with 2 variables and 5 points
@@ -162,32 +162,18 @@ function H = scidoe_lhsdesignCenter(s,n)
 endfunction
 
 function H = scidoe_lhsdesignMaximin(s,n)
-        //
-        // Matrix to store computed distances
-        
-        // 
+        //      
         for k=1:5 // Maximum iterations
             // Generate a random LHS
             x=scidoe_lhsdesignClassic(s,n)
             //
-            // Matrix to store 
-            //
             // Calculate pairwise point distances
-            // The total  number of combinations is the binomial coefficient
-            // n(n-1)/2, where n is the number of sample points
-            for i=1:s
-                c=specfun_subset(x(:,i),2,'c') // Generate all combinations
-                d(1,i)=sum((c(1,:)-c(2,:)).^2) 
-            end
-            //
-            // Euclidean Distance
+            d = scidoe_pdist(x);
             dsq(1,k) = sum(d,2);
-            
             if (dsq(1,k)==min(dsq)) then
                 dsqbest=dsq(1,k)
                 xbest=x;
             end
-
         end
         // Return LHS with maximum distance between points
         H = xbest;
