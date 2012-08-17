@@ -15,14 +15,15 @@ function H = scidoe_pdist(X)
 //
 // Parameters
 //    X : a m-by-n matrix of doubles, the input vector
-//    H : a 1-by-b matrix of doubles, the distance vector, where b = m*(m-1)/2 the binomial coefficient
+//    H : a 1-by-b matrix of doubles, the distance vector, where b = n*(n-1)/2 the binomial coefficient
 //
 // Description
 //    This function computes all the pairwise point distances of a matrix.
 //    The number of combinations of the points in each variable (column) 
 //    is equal to the binomial coefficient n*(n-1)/2.
 //    
-//    The resulted matrix contains the all pairwise point distances, arranged in the order (2,1), (3,1), ..., (m,1), (3,2), ..., (m,2), ..., (m,m–1)
+//    The resulted matrix contains the all pairwise point distances, arranged in the order (2,1), (3,1), ..., (n,1), (3,2), ..., (n,2), ..., (n,n–1)
+//    If input matrix X includes only one sample point, then an empty matrix is returned.
 //
 //    The function implements only the Euclidean distance case.
 //
@@ -49,17 +50,23 @@ function H = scidoe_pdist(X)
     apifun_checkrhs("scidoe_pdist",rhs,1)
     apifun_checklhs("scidoe_pdist",lhs,1)
     //
-    // Check Input
+    // Check Input Type
     apifun_checktype("scidoe_pdist",X,"X",1,"constant")
     //
     [n,s]=size(X);
+    // If X includes one sample point, the empty matrix is returned
+    if (n<2) then
+        H = [];
+    end
+    //
+    if (n >= 2) then
     b = (n*(n-1))/2; // Binomial Coefficient
     d = zeros(s,b);
-    for i=1:s
-        c = specfun_subset(x(:,i),2,'c') // Generate all combinations
-        d(i,:) = ((c(1,:)-c(2,:)).^2)    // Compute the distance between all pairs of points in each variable
+        for i=1:s
+            c = specfun_subset(x(:,i),2,'c') // Generate all combinations
+            d(i,:) = ((c(1,:)-c(2,:)).^2)    // Compute the distance between all pairs of points in each variable
+        end
+        H = sqrt(sum(d,1));
     end
-    // 
-    H = sqrt(sum(d,1));
 
 endfunction
