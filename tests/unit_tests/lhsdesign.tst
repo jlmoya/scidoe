@@ -8,6 +8,7 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+stacksize('max');
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5);
 E = [
@@ -68,6 +69,75 @@ end
 n = 1000;
 s =  2;
 sampling = scidoe_lhsdesign ( s , n ,"criterion","center");
+// Count the number of classes in each class: only one!
+cuts = linspace ( 0 , 1 , n + 1 );
+for k = 1 : s
+  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
+  assert_checkequal ( occ , ones(1,n));
+  assert_checkequal ( info , 0);
+end
+//
+// Compute a LHS design with maximim criterion
+grand("setsd",0);
+H = scidoe_lhsdesign(2,5,"criterion","maximin");
+E = [
+    0.3185689    0.6847310  
+    0.7688531    0.3089766  
+    0.5430379    0.5694503  
+    0.9205527    0.1715891  
+    0.1097627    0.9247127  
+];
+assert_checkalmostequal(H,E,[],1.e-6);
+// Plot this design
+scf();
+plot ( H(:,1) , H(:,2) , "bo" );
+cut = linspace(0,1,6);
+for i=1:6
+    plot([cut(i) cut(i)],[0 1],"-")
+end
+for i=1:6
+    plot([0 1],[cut(i) cut(i)],"-")
+end
+
+// Create a Lhs design with 500 points in 5 dimensions.
+n = 1000;
+s =  5;
+sampling = scidoe_lhsdesign ( s , n, "criterion","maximin" );
+// Count the number of classes in each class: only one!
+cuts = linspace ( 0 , 1 , n + 1 );
+for k = 1 : s
+  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
+  assert_checkequal ( occ , ones(1,n));
+  assert_checkequal ( info , 0);
+end
+//
+//
+// Compute a LHS design with "correlation" criterion
+grand("setsd",0);
+H = scidoe_lhsdesign(2,5,"criterion","correlation");
+E = [
+    0.3185689    0.6847310  
+    0.7688531    0.3089766  
+    0.5430379    0.5694503  
+    0.9205527    0.1715891  
+    0.1097627    0.9247127  
+];
+assert_checkalmostequal(H,E,[],1.e-6);
+// Plot this design
+scf();
+plot ( H(:,1) , H(:,2) , "bo" );
+cut = linspace(0,1,6);
+for i=1:6
+    plot([cut(i) cut(i)],[0 1],"-")
+end
+for i=1:6
+    plot([0 1],[cut(i) cut(i)],"-")
+end
+
+// Create a Lhs design with 500 points in 5 dimensions.
+n = 500;
+s =  5;
+sampling = scidoe_lhsdesign ( s , n, "criterion","correlation" );
 // Count the number of classes in each class: only one!
 cuts = linspace ( 0 , 1 , n + 1 );
 for k = 1 : s
