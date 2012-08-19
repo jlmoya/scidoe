@@ -2,6 +2,7 @@
 // Copyright (C) 2012 - Maria Christopoulou
 // Copyright (C) 2010 - 2011 - INRIA - Michael Baudin
 // Copyright (C) 2009 - Yann Collette
+// Copyright (C) 2009 - CEA - Jean-Marc Martinez
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -117,15 +118,16 @@ function H = scidoe_lhsdesign(varargin)
         apifun_checkoption("scidoe_lhsdesign",criterionvalue,"criterionkey",4,["center" "maximin" "correlation"]);
         //
         select criterionvalue
+        //
         case "center"
         // Center criterion
         H = scidoe_lhsdesignCenter(s,n)
-        
+        //
         case "maximin"
         // Maximin criterion
         H = scidoe_lhsdesignMaximin(s,n)
-        
-    case "correlation"
+        // Correlation criterion
+        case "correlation"
         H = scidoe_lhsdesignCorr(s,n)
         end
     end
@@ -188,17 +190,22 @@ function H = scidoe_lhsdesignCorr(s,n)
         x=scidoe_lhsdesignClassic(s,n);
         // Return Columns Combinations
         c=specfun_combine(x,x);
-        // get size of matrix of combinations
-        [m,n]=size(c);
-        // Initialise the matrix to store correlation coefficients
-        v=zeros(1,n);
+        // Get size of matrix of combinations
+        [m,r]=size(c);
+        v=zeros(1,r);
         // Calculate correlation coefficient between variables
-            for i=1:n
-                v(1,i)=nisp_corrcoef(c(1:m/2,i),c(m/2+1:$,i))// TODO-Replace with code like nisp_buildlhs.sci and update copyrights.
+            for i=1:r
+               xx = c(1:m/2,i);
+               yy = c(m/2+1:$,i);
+               xx=xx-mean(xx);
+               yy=yy-mean(yy);
+               sx=sqrt(sum(xx.^2));
+               sy=sqrt(sum(yy.^2));
+               v(1,i)=xx'*yy/sx/sy;
             end
-        // Exclude 1's from vector v --It doesnt work
+        // Exclude 1's from vector v, as they refer to the correlation of a column with itself
         j=find(v==1);
-        v(j)==[];
+        v(j)=[];
         // 
         correlation(1,k) = sum(v,2);
         if (correlation(1,k))==min(correlation) then
