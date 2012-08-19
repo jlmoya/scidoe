@@ -21,7 +21,7 @@ function H = scidoe_ccdesign(varargin) // In progress
     //     Parameter : a 1-by-n matrix of strings, describing the design.
     //                 If Name=="type" then "Parameter" can be "circumscribed" (Default), "inscribed" or "faced"
     //                 If Name=="alpha", then "Parameter" can be either "orthogonal" (Default) or "rotatable"
-    //                 If Name=="center", then "Parameter" is a positive integer, the number of center points in each block of the design
+    //                 If Name=="center", then "Parameter" is a 1-by-2 row vector of doubles, the number of center points in each block of the design
     // Description
     //     
     //     The function produces a Central Composite Design of experiments.
@@ -36,12 +36,11 @@ function H = scidoe_ccdesign(varargin) // In progress
     //     If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
     //
     //     The user can specify the number of center points in each block of the design (factorial and axial).
-    //     If "Parameter" is 3, then there are 3 center points in the factorial block and 3 points in the axial points block.
-    //     Default value is 4 (a total of 8 center points in the CCD).
-    //     Specifying different number of center points for the factorial and the axial block, is not implemented yet.
+    //     If "Parameter" is [2 3], then there are 2 center points in the factorial block and 3 points in the axial points block.
+    //     Default value is [4 4] (a total of 8 center points in the CCD).
     //
     //     There is no strict order in the input of the above options.
-    //     scidoe_ccdesign(2,"type","inscribed","center",2) will output the same as scidoe_ccdesign(2,"center",2,"type","inscribed")
+    //     scidoe_ccdesign(2,"type","inscribed","center",[2 3]) will output the same as scidoe_ccdesign(2,"center",[2 3],"type","inscribed")
     //
     // Examples
     // // Circumscribed orthogonal design
@@ -52,7 +51,8 @@ function H = scidoe_ccdesign(varargin) // In progress
     // H = scidoe_ccdesign(2,"type","faced")
     // // Inscribed rotatable CC Design
     // H = scidoe_ccdesign(3,"type","inscribed","alpha","rotatable")
-    // // TODO - Plot the design with scidoe_plotcube.sci
+    // // Orthogonal CCD with 2 2 center points in the factorial block and 3 center points in the star points block
+    // H = scidoe_ccdesign(3,"center",[2 3])
     // 
     // Bibliography:
     //    George E. P. Box, J. Stuart Hunter, William G. Hunter, "Statistics for experimenters Design,Innovation and Discovery", Second Edition, 2005
@@ -80,7 +80,7 @@ function H = scidoe_ccdesign(varargin) // In progress
     // Set default CCD, alpha value and number of center points
     default.type = "circumscribed"
     default.alpha = "orthogonal"
-    default.center = 4;
+    default.center = [4 4];
     options = apifun_keyvaluepairs(default,varargin(2:$))
     
     typevalue = options.type
@@ -96,7 +96,7 @@ function H = scidoe_ccdesign(varargin) // In progress
 
     // Orthogonal Design
     if (alphavalue == "orthogonal") then
-                    [H2,a] = scidoe_star(nbvar,"alpha","orthogonal");
+                    [H2,a] = scidoe_star(nbvar,"alpha","orthogonal","center",centervalue);
     end        
     //
     // Rotatable Design
@@ -111,20 +111,23 @@ function H = scidoe_ccdesign(varargin) // In progress
             H1 = H1./a; // Scale down the factorial points
             H2 = scidoe_star(nbvar)
     end
+    //
     // Faced CCD
     if (typevalue == "faced") then
            H2 = scidoe_star(nbvar); // Value of alpha is always 1 in Faced ccd
            H1 = 2*scidoe_ff2n(nbvar)-1;
     end
+    //
     // Circumscribed Design
     if (typevalue == "circumscribed") then
            H1 = 2*scidoe_ff2n(nbvar)-1;
     end
     //
     // Center points
-    C1 = zeros(centervalue,nbvar);
+    C1 = zeros(centervalue(1),nbvar);
+    C2 = zeros(centervalue(2),nbvar);
     //
     // Central Composite Design
-    H=[H1;C1;H2;C1];
+    H=[H1;C1;H2;C2];
 
 endfunction
