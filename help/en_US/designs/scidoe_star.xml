@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from scidoe_star.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="scidoe_star" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <info>
+    <pubdate>$LastChangedDate: 19-Aug-2012 $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>scidoe_star</refname><refpurpose>Produces a star point design of experiments</refpurpose>
+  </refnamediv>
+
+
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>nbvar :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiments</para></listitem></varlistentry>
+   <varlistentry><term>Name :</term>
+      <listitem><para> a 1-by-n matrix of strings. The options are "alpha" and "center".</para></listitem></varlistentry>
+   <varlistentry><term>Parameter :</term>
+      <listitem><para> a 1-by-n matrix of strings. If "Name"=="alpha", "Parameter" can be "orthogonal", "rotatable" or "faced" (default). If "Name"=="center", then "Parameter" is a 1-by-2 row vector of doubles, positive integers, indicating the number of center points assigned in each block of the response surface design. Default is [1 1]. See "Description" for more details.</para></listitem></varlistentry>
+   <varlistentry><term>H :</term>
+      <listitem><para> a 2*nbvar-by-nbvar matrix of doubles, the design of experiments</para></listitem></varlistentry>
+   <varlistentry><term>a :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, a positive integer, the value of alpha</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+The function computes a star points design of experiments, used as an additional block of runs in Response Surface Designs (RSM).
+Each factor is sequentially placed at +/-alpha, while all other factors are at zero. The value of alpha is determined by the user to give the design desirable properties.
+   </para>
+   <para>
+A RSM design includes a factorial block of exeprimental runs and a block of center points.These points are used to calculate alpha, as follows:
+If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
+If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
+If the design is faced, then alpha=1.
+   </para>
+   <para>
+The center points is a 1-by-2 row vector of doubles, positive integers, indicating the number of center points assigned in each block of the response surface design.
+The default number of center points is [1,1], meaning 1 center point in the factorial block of the doe and 1 center point in the star points block.
+Seting the number of center points is meaningful only for the "orthogonal" design.
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// Star points placed on the face of a factorial design
+H = scidoe_star(3) or
+H = scidoe_star(3,"alpha","faced")
+// Star points block for orthogonal design with 3 factors
+H = scidoe_star(3,"alpha","orthogonal")
+// Star points block for rotatable design with 3 factors
+H = scidoe_star(3,"alpha,"rotatable")
+// Star doe with 2 center points in the factorial block and 3 center points in the star points block
+H = scidoe_star(3,"alpha","orthogonal","center",[2 3])
+
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Bibliography</title>
+   <para>http://en.wikipedia.org/wiki/Central_composite_design</para>
+   <para>http://www.itl.nist.gov/div898/handbook/pri/section3/pri3361.htm</para>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2009 - Yann Collette</member>
+   </simplelist>
+</refsection>
+</refentry>

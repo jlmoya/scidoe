@@ -12,36 +12,42 @@ function [H, a] = scidoe_star(varargin)
 // Produces a star point design of experiments
 //
 // Calling Sequences
-// H = scidoe_star(nbvar)
-// [H, a] = scidoe_star(nbvar)
-// H = scidoe_star(nbvar,"Name","Parameter")
-// [H, a] = scidoe_star(nbvar,"Name","Parameter")
+//    H = scidoe_star(nbvar)
+//    [H, a] = scidoe_star(nbvar)
+//    H = scidoe_star(nbvar,"Name","Parameter")
+//    [H, a] = scidoe_star(nbvar,"Name","Parameter")
 //
 // Parameters
-// nbvar : a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiments
-// Name : a 1-by-n matrix of strings. The only option is "alpha"
-// Parameter : a 1-by-n matrix of strings, the desirable type of design, which defines the value of alpha. Computation of alpha is described in "Description". Default is "one".
-// H : a 2*nbvar-by-nbvar matrix of doubles, the design of experiments
-// a : a 1-by-1 matrix of doubles, a positive integer, the value of aplha
+//    nbvar : a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiments
+//    Name : a 1-by-n matrix of strings. The options are "alpha" and "center". 
+//    Parameter : a 1-by-n matrix of strings. If "Name"=="alpha", "Parameter" can be "orthogonal", "rotatable" or "faced" (default). If "Name"=="center", then "Parameter" is a 1-by-2 row vector of doubles, positive integers, indicating the number of center points assigned in each block of the response surface design. Default is [1 1]. See "Description" for more details.
+//    H : a 2*nbvar-by-nbvar matrix of doubles, the design of experiments
+//    a : a 1-by-1 matrix of doubles, a positive integer, the value of alpha
 //
 // Description
-// The function computes a star points design of experiments, used as an additional block of runs in Central Composite Designs (CCD).
-// Each factor is sequentially placed at +/-alpha, while all other factors are at zero. The value of alpha is determined by the designer, because some values may give the design desirable properties.
+//    The function computes a star points design of experiments, used as an additional block of runs in Response Surface Designs (RSM).
+//    Each factor is sequentially placed at +/-alpha, while all other factors are at zero. The value of alpha is determined by the user to give the design desirable properties.
 //
-// A CCD also includes a factorial block of exeprimental runs and a block of center points.These points are used to calculate alpha, as follows:
-// If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
-// If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
-// If the design is faced, then alpha=1.
+//    A RSM design includes a factorial block of exeprimental runs and a block of center points.These points are used to calculate alpha, as follows:
+//    If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
+//    If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
+//    If the design is faced, then alpha=1.
 //
-// Example
+//    The center points is a 1-by-2 row vector of doubles, positive integers, indicating the number of center points assigned in each block of the response surface design.
+//    The default number of center points is [1,1], meaning 1 center point in the factorial block of the doe and 1 center point in the star points block.
+//    Seting the number of center points is meaningful only for the "orthogonal" design.
+//
+// Examples
 // // Star points placed on the face of a factorial design
 // H = scidoe_star(3) or
-// H = scidoe_star(3,"alpha","one")
+// H = scidoe_star(3,"alpha","faced")
 // // Star points block for orthogonal design with 3 factors
 // H = scidoe_star(3,"alpha","orthogonal")
 // // Star points block for rotatable design with 3 factors
 // H = scidoe_star(3,"alpha,"rotatable")
-
+// // Star doe with 2 center points in the factorial block and 3 center points in the star points block
+// H = scidoe_star(3,"alpha","orthogonal","center",[2 3])
+//
 //
 // Bibliography
 // http://en.wikipedia.org/wiki/Central_composite_design
@@ -53,7 +59,7 @@ function [H, a] = scidoe_star(varargin)
 // Copyright (C) 2009 - Yann Collette
 
 [lhs,rhs] = argn()
-apifun_checkrhs("scidoe_star",rhs,1:3)
+apifun_checkrhs("scidoe_star",rhs,1:5)
 apifun_checklhs("scidoe_star",lhs,1:2)
 
 nbvar=varargin(1)
@@ -66,20 +72,25 @@ apifun_checkflint("scidoe_star",nbvar,"nbvar",1)
 //
 // Choose alpha to produce a design with desirable properties
 // Set default value
-default.alpha = "one"
+default.alpha = "faced"
+default.center =[1 1];
 options = apifun_keyvaluepairs(default,varargin(2:$))
 //
 // Set optional values
 alphavalue = options.alpha
 apifun_checktype("scidoe_star",alphavalue,"alphakey",3,"string")
-apifun_checkoption("scidoe_star",alphavalue,"alphakey",3,["orthogonal" "rotatable" "one"])
+apifun_checkoption("scidoe_star",alphavalue,"alphakey",3,["orthogonal" "rotatable" "faced"])
+//
+centervalue = options.center
+apifun_checktype("scidoe_star",centervalue,"centerkey",5,"constant")
+
 //
 // Orthogonal Design
 if (alphavalue == "orthogonal") then
 nc = 2^nbvar; // Factorial points
-nco = 4; // Center points to factorial
+nco = centervalue(1); // Center points to factorial
 na=2*nbvar; // Axial points
-nao=4; // Center points to axial design
+nao= centervalue(2); // Center points to axial design
 a = sqrt((nbvar*(1+(nao/na)))/(1+(nco/nc))); // Value of alpha in orthogonal design
 end
 //
@@ -90,7 +101,7 @@ a = nc^(1/4); // Value of alpha in rotatable design
 end
 //
 // Star points are at the center of each face of the factorial
-if (alphavalue == "one") then
+if (alphavalue == "faced") then
 a=1;
 end
 //
