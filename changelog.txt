@@ -32,6 +32,10 @@ scidoe (v0.1)
  * Fixed Bug #841: The demos were deleted
  * Fixed Bug #842: There was no macros cleaner
  * Fixed Bug #855: The changelog.txt was not updated
+ * Fixed Bug #837: The calling sequence of scidoe_simplelinreg did not match scidoe_multilinreg
+ * Fixed Bug #839: The description of scidoe_yates was poorly formatted.
+ * Added scidoe_star.sci
+ * Added scidoe_fracfact.sci 
+ * Added demos for high-priority functions
  
-
-
+scidoe (v0.2)
