@@ -8,7 +8,6 @@
 
 // <-- TEST WITH GRAPHIC -->
 
-stacksize('max');
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5);
 E = [
@@ -30,8 +29,8 @@ for i=1:6
     plot([0 1],[cut(i) cut(i)],"-")
 end
 
-// Create a Lhs design with 1000 points in 5 dimensions.
-n = 1000;
+// Create a Lhs design with 100 points in 5 dimensions.
+n = 100;
 s =  5;
 sampling = scidoe_lhsdesign ( s , n );
 // Count the number of classes in each class: only one!
@@ -65,8 +64,8 @@ for i=1:6
     plot([0 1],[cut(i) cut(i)],"-")
 end
 
-// Create a Centered Lhs design with 1000 points in 2 dimensions.
-n = 1000;
+// Create a Centered Lhs design with 100 points in 2 dimensions.
+n = 100;
 s =  2;
 sampling = scidoe_lhsdesign ( s , n ,"criterion","center");
 // Count the number of classes in each class: only one!
@@ -99,8 +98,8 @@ for i=1:6
     plot([0 1],[cut(i) cut(i)],"-")
 end
 
-// Create a Lhs design with 500 points in 5 dimensions.
-n = 1000;
+// Create a Lhs design with 100 points in 5 dimensions.
+n = 100;
 s =  5;
 sampling = scidoe_lhsdesign ( s , n, "criterion","maximin" );
 // Count the number of classes in each class: only one!
@@ -134,8 +133,8 @@ for i=1:6
     plot([0 1],[cut(i) cut(i)],"-")
 end
 
-// Create a Lhs design with 500 points in 5 dimensions.
-n = 500;
+// Create a Lhs design with 100 points in 5 dimensions.
+n = 100;
 s =  5;
 sampling = scidoe_lhsdesign ( s , n, "criterion","correlation" );
 // Count the number of classes in each class: only one!
