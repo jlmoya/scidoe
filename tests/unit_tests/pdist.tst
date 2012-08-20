@@ -8,6 +8,7 @@
 
 // <-- JVM NOT MANDATORY -->
 
+// Results confirmed from licensed Matlab version R2011b
 H = [
     0.3185689    0.684731   
     0.7688531    0.3089766  
