@@ -10,7 +10,7 @@
 mprintf("\nIn fractional factorial designs we represent some of the factors as interactions of the main factors of the experiment.\nThe total number of runs is 2^k, where k is the number of the main factors.\n\n")
 mprintf("Suppose we have an experiment with three factors and we set the third factor equal to the interaction of the first two:\n\n")
 gen = "a b ab"
-mprintf("gen = %s\n",gen)
+mprintf("gen = ''a b ab''\n")
 disp('H = scidoe_fracfact(gen)')
 H = scidoe_fracfact(gen)
 disp(H)
@@ -19,15 +19,15 @@ mprintf("\nTotal number of runs is 2^2")
 // Uppercase letters
 mprintf("\n\nThe same with uppercase letters:\n\n")
 gen = "A B AB"
-mprintf("gen = %s\n",gen)
+mprintf("gen = ''A B AB''\n")
 disp('H = scidoe_fracfact(gen)')
 H = scidoe_fracfact(gen);
 disp(H)
 //
 // Use of the operators "-" and "+"
-mprintf("\n\nHere we use the operators %s and %s :\n\n",'-','+')
+mprintf("\n\nHere we use the operators ''-'' and ''+'' :\n\n")
 gen = "a b c -ab +ac"
-mprintf("gen = %s\n",gen)
+mprintf("gen = ''a b c -ab +ac''\n")
 disp('H = scidoe_fracfact(gen)')
 H = scidoe_fracfact(gen);
 disp(H)
