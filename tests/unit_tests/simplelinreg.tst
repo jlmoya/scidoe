@@ -97,7 +97,7 @@ expected = [
 B = scidoe_simplelinreg(X,Y);
 assert_checkalmostequal(B,expected,[],[],"element");
 // Check more data
-[B,bint,r,stats] = scidoe_simplelinreg(X,Y);
+[B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(X,Y);
 Bintexpected = [
   -0.7354667    0.2108205  
    1.0012434    1.0029903  
@@ -142,9 +142,9 @@ Rexpected = [
   -0.0387353  
 ];
 assert_checkalmostequal(r,Rexpected,1.e-6,[],"element");
-assert_checkalmostequal(stats.R2,0.999993745883712,1.e-15);
-assert_checkalmostequal(stats.SSR,26.6173985294224,1.e-13);
-assert_checkalmostequal(stats.sigma2,0.782864662630069,1.e-13);
+assert_checkalmostequal(fullstats.R2,0.999993745883712,1.e-15);
+assert_checkalmostequal(fullstats.ResidualSS,26.6173985294224,1.e-13);
+assert_checkalmostequal(fullstats.ResidualMean,0.782864662630069,1.e-13);
 
 //
 // "Introduction to probability and statistics for engineers and scientists.", 
