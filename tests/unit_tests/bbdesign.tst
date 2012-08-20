@@ -279,8 +279,6 @@ assert_checkequal(C,E);
 // bbd(6), with two center points added, 
 // changing the number of rows from 52 to 54
 if (%f) then
-    // The test does not pass:
-    // TODO : fix me !
     E = [
     0  0  0  0  0  0
     0  0  0  0  0  0
@@ -346,7 +344,6 @@ end
 // Table from the R-rsm package.
 // bbd(7), with two center points added, 
 // changing the number of rows from 60 to 62
-// The test does not pass:
 E = [
 0  0  0  0  0  0  0
 0  0  0  0  0  0  0
