@@ -28,7 +28,7 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(varargin)
 	// bint : a 2-by-2 matrix of doubles, intervals with confidence level. The column bin(:,1) are the lower bounds and bin(:,2) are the upper bounds.
 	// r : a m-by-1 matrix of doubles, the residuals Y-B(1)-B(2)*x
 	// rint : a m-by-2 matrix of doubles, the confidence intervals of the residuals. The column rint(:,1) are the lower bounds and rint(:,2) are the upper bounds.
-	// stats : a struct, the statistics, see below for details.
+    // stats : a 4-by-1 matrix of doubles, the statistics. stats(1) is the R2 statistics, stats(2) is the F statistics, stats(3) is the p-value of the F statistics, stats(4) is an estimate of the error variance.
 	// fullstats : a struct, the statistics, see below for details. 
     // 
     //
@@ -54,38 +54,6 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(varargin)
 	// In other words, B(1) in [bint(1,1),bint(1,2)] with probability 1-level and 
 	// B(2) in [bint(2,1),bint(2,2)] with probability 1-level. 
 	//
-	// The fields in <literal>stats</literal> are :
-	// 
-	// stats.SSR : the sum of squares of the residuals, 
-	// 
-	// stats.sigma2 : the estimate the variance of the random normal error, 
-	// 
-	// stats.R2 : the coefficient of determination.
-	//
-	// On output, the sum of squares of the residuals stats.SSR 
-	// is such that 
-	//
-	// stats.SSR == sum(r.^2)
-	//
-	// where the residual r is 
-	//
-	// r == Y-X*B
-	//
-    // The statistics stats.R2 is in the range [0,1]. 
-	// On output, the coefficient of determination stats.R2 
-	// measures the proportion of the variation in the response variables 
-	// that is explained by the different input values. 
-	// A value of stats.R2 near 1 indicates a good fit, while 
-	// a value near zero indicates a poor fit. 
-	//
-	// The standardized residuals are 
-	//
-	// r/sqrt(stats.sigma2)
-	//
-	// When the model is correct, the standardized residuals 
-	// are approximately randomly distributed with mean zero and 
-	// 95% of their values in the range [-1.96,1.96].
-	//
     //
 	// The fields in <literal>fullstats</literal> are :
     //
@@ -108,6 +76,31 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_simplelinreg(varargin)
     // fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
     //
     // fullstats.R2: the R-squared statistics
+    //
+    // The residual r is :
+    //
+    // r == y-X*B
+    //
+    // The statistics fullstats.R2 is in the range [0,1]. 
+    // On output, the coefficient of determination fullstats.R2 
+    // measures the proportion of the variation in the response variables 
+    // that is explained by the different input values. 
+    // A value of fullstats.R2 near 1 indicates a good fit, while 
+    // a value near zero indicates a poor fit. 
+    //
+    // The F statistics tests the null hypothesis 
+    // B(1)==B(2)==...==B(n) agains the alternative 
+    // hypothesis that there is one nonzero B(i), for 
+    // some i=1,2,...,n. 
+    // The F test does not tell which of the B(i) is nonzero, 
+    // but only that one of them is linearly related 
+    // to the response.
+    // When the P-value for the F test statistic is small (e.g. 
+    // less than 0.001), this provides an evidence against 
+    // the null hypothesis. 
+    // In other words, if the P-value is small, 
+    // therefore one of the parameters B(i) is linearly related 
+    // to the response.
     //
     //
     // Examples
