@@ -17,7 +17,7 @@ subdemolist = [
 "Star Design of Experiments","demo_star.sce"
 "Simple Linear Regression","demo_simplelinreg.sce"
 "Multivariate Linear Regression","demo_multilinreg.sce"
-
+"Print Regression Statistics","demo_regressprint.sce"
 ];
 subdemolist(:,2) = demopath + subdemolist(:,2);
 // ====================================================================
