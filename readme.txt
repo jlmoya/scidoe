@@ -11,24 +11,40 @@ techniques, along with functions for model building.
 Features
 --------
 
-Factorial Design
- * scidoe_fullfact
- * scidoe_ff2n
+Designs
 
-Response Surface Designs
+ * scidoe_bbdesign — Box-Benhken design of experiments
+ * scidoe_ccdesign — A Central Composite Design of Experiments
+ * scidoe_ff2n — Full factorial design with 2 levels
+ * scidoe_fracfact — Fractional Factorial Design
+ * scidoe_fullfact — Full factorial design
+ * scidoe_lhsdesign — Latin Hypercube Sampling
+ * scidoe_star — Produces a star point design of experiments
 
- * scidoe_bbdesign
+Models
 
-Polynomial Regression
- * scidoe_multilinreg
- * scidoe_simplelinreg
+ * scidoe_multilinreg — Multivariate linear regression
+ * scidoe_regress — Multiple linear regression
+ * scidoe_regressprint — Print linear regression
+ * scidoe_ryates — Reverse Yates algorithm to give estimated responses
+ * scidoe_simplelinreg — Univariate linear regression
+ * scidoe_yates — Calculates main and interaction effects using Yate's algorithm.
+
+Support
+
+ * scidoe_compare — The default comparison function used in the sort-merge.
+ * scidoe_pdist — Pairwise point distances of a matrix
+ * scidoe_plotcube — Plots a d dimensions cube in [-1,1].
+ * scidoe_sort — A flexible sorting function.
+ * scidoe_sortdesign — Sort the experiments of a design of experiments
+ * scidoe_string — Sort the experiments of a design of experiments
 
 Dependencies
 ------------
 
+ * This module depends on Scilab (>= v5.4).
  * This module depends on the helptbx module (to update the help pages).
  * This module depends on the apifun module (>= v0.3).
- * This module depends on the assert module.
  * This module depends on the specfun module (>=v0.2).
 
 Authors

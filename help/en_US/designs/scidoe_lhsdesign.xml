@@ -12,18 +12,23 @@
           xmlns:svg="http://www.w3.org/2000/svg"
           xmlns:ns3="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
           xmlns:db="http://docbook.org/ns/docbook">
 
-
   <refnamediv>
-    <refname>scidoe_lhsdesign</refname><refpurpose>Latin Hypercube Sampling</refpurpose>
+    <refname>scidoe_lhsdesign</refname>
+    <refpurpose>Latin Hypercube Sampling</refpurpose>
   </refnamediv>
-
 
 
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
+   H = scidoe_lhsdesign(s,n)
+   H = scidoe_lhsdesign(s,n,"criterion","center")
+   H = scidoe_lhsdesign(s,n,"criterion","maximin")
+   H = scidoe_lhsdesign(s,n,"criterion","correlation")
+   
    </synopsis>
 </refsynopsisdiv>
 
@@ -43,18 +48,31 @@
 Computes a Latin Hypercube Sampling
    </para>
    <para>
-If no criterion is specified, the function computes a random LHS design,
-calling the nisp_buildlhs.sci macro of the NISP Toolbox http://forge.scilab.org/index.php/p/nisp/source/tree/99/macros/nisp_buildlhs.sci)
+<itemizedlist>
+<listitem>
+<para>
+If no criterion is specified, the function computes a random LHS design.
+</para>
+</listitem>
+<listitem>
+<para>
 If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+</para>
+</listitem>
+<listitem>
+<para>
+If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance
+</para>
+</listitem>
+<listitem>
+<para>
+If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables
+</para>
+</listitem>
+</itemizedlist>
    </para>
    <para>
 This function changes the state of the grand uniform random number generator.
-   </para>
-   <para>
-TODO : add  H = scidoe_lhsdesign(s,n,"criterion","maximin")
-   </para>
-   <para>
-TODO : add  H = scidoe_lhsdesign(s,n,"criterion","correlation")
    </para>
    <para>
 </para>
@@ -89,14 +107,12 @@ for i=1:6
 plot([0 1],[cut(i) cut(i)],"-")
 end
 
-   ]]></programlisting>
-</refsection>
+References
+McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
+http://en.wikipedia.org/wiki/Latin_hypercube_sampling
+http://www.mathworks.com/help/toolbox/stats/lhsdesign.html
 
-<refsection>
-   <title>Bibliography</title>
-   <para>McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.</para>
-   <para>http://en.wikipedia.org/wiki/Latin_hypercube_sampling</para>
-   <para>http://www.mathworks.com/help/toolbox/stats/lhsdesign.html</para>
+   ]]></programlisting>
 </refsection>
 
 <refsection>

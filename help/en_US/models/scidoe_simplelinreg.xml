@@ -12,16 +12,13 @@
           xmlns:svg="http://www.w3.org/2000/svg"
           xmlns:ns3="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
           xmlns:db="http://docbook.org/ns/docbook">
 
-  <info>
-    <pubdate>$LastChangedDate: 20-Aug-2012 $</pubdate>
-  </info>
-
   <refnamediv>
-    <refname>scidoe_simplelinreg</refname><refpurpose>Univariate linear regression</refpurpose>
+    <refname>scidoe_simplelinreg</refname>
+    <refpurpose>Univariate linear regression</refpurpose>
   </refnamediv>
-
 
 
 <refsynopsisdiv>

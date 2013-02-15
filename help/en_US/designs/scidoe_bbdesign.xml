@@ -12,13 +12,13 @@
           xmlns:svg="http://www.w3.org/2000/svg"
           xmlns:ns3="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
           xmlns:db="http://docbook.org/ns/docbook">
 
-
   <refnamediv>
-    <refname>scidoe_bbdesign</refname><refpurpose>Box-Benhken design of experiments</refpurpose>
+    <refname>scidoe_bbdesign</refname>
+    <refpurpose>Box-Benhken design of experiments</refpurpose>
   </refnamediv>
-
 
 
 <refsynopsisdiv>
@@ -76,6 +76,10 @@ On output, the rows in H are sorted in increasing order.
    </para>
    <para>
 This function does not entirely reproduce Matlab's bbdesign.
+For nbvar = 9,16, the function gives different results than
+the known bibliography.
+   </para>
+   <para>
    </para>
    <para>
 </para>
