@@ -15,13 +15,17 @@ function H = scidoe_lhsdesign(varargin)
     //
     // Calling Sequence
     //    H = scidoe_lhsdesign(s,n)
-    //    H = scidoe_lhsdesign(s,n,"criterion","center")
-    //    H = scidoe_lhsdesign(s,n,"criterion","maximin")
-    //    H = scidoe_lhsdesign(s,n,"criterion","correlation")
+    //    H = scidoe_lhsdesign(...,"criterion","center")
+    //    H = scidoe_lhsdesign(...,"criterion","maximin")
+    //    H = scidoe_lhsdesign(...,"criterion","correlation")
+    //    H = scidoe_lhsdesign(...,"criterion","centermaximin")
+    //    H = scidoe_lhsdesign(...,"iterations",k)
     //
     // Parameters
-    //    s : a 1-by-1 matrix of doubles, integer value, positive, the number of variables
-    //    n : a 1-by-1 matrix of doubles, integer value, positive, the number of points
+    //    s : a 1-by-1 matrix of doubles, integer value, s>=1, the number of variables
+    //    n : a 1-by-1 matrix of doubles, integer value, n>=1, the number of points
+    //    k : a 1-by-1 matrix of doubles, integer value, k>=1, the number of iterations in the maximin algorithm
+    //    H : a n-by-s matrix of doubles, the LHS sampling
     //    
     // Description
     //    Computes a Latin Hypercube Sampling
@@ -34,17 +38,22 @@ function H = scidoe_lhsdesign(varargin)
     //    </listitem>
     //    <listitem>
     //    <para>
-    //    If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+    //    If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1). This is a centered LHS design.
     //    </para>
     //    </listitem>
     //    <listitem>
     //    <para>
-    //    If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance
+    //    If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance. This is a maximin LHS design.
     //    </para>
     //    </listitem>
     //    <listitem>
     //    <para>
-    //    If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables
+    //    If "criterion" = "centermaximin", then the function selects the centered LHS design with the maximun pairwise point distance. This is a centered maximin LHS design.
+    //    </para>
+    //    </listitem>
+    //    <listitem>
+    //    <para>
+    //    If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables.
     //    </para>
     //    </listitem>
     //    </itemizedlist>
@@ -54,31 +63,61 @@ function H = scidoe_lhsdesign(varargin)
     // Examples
     // // Compute a random LHS with 2 variables and 5 points
     // H = scidoe_lhsdesign(2,5)
-    // // Plot this design 
     // scf();
-    // plot ( H(:,1) , H(:,2) , "bo" );
-    // cut = linspace(0,1,6);
-    // for i=1:6
-    // plot([cut(i) cut(i)],[0 1],"-")
-    // end
-    // for i=1:6
-    // plot([0 1],[cut(i) cut(i)],"-")
-    // end
-    // //
-    // // Compute a LHS design with center points
-    // H = scidoe_lhsdesign(2,5,"criterion","center")
-    // // Plot this design
-    // scf();
-    // plot ( H(:,1) , H(:,2) , "bo" );
-    // cut = linspace(0,1,6);
-    // for i=1:6
-    // plot([cut(i) cut(i)],[0 1],"-")
-    // end
-    // for i=1:6
-    // plot([0 1],[cut(i) cut(i)],"-")
-    // end
+    // scidoe_plotlhs(H)
+    // xtitle("LHS design","X1","X2")
     //
-    // References
+    // // Compute a centered LHS design
+    // H = scidoe_lhsdesign(2,5,"criterion","center")
+    // scf();
+    // scidoe_plotlhs(H)
+    // xtitle("Centered LHS design","X1","X2")
+    //
+    // // Compute a maximin LHS design
+    // H = scidoe_lhsdesign(2,5,"criterion","maximin")
+    // scf();
+    // scidoe_plotlhs(H)
+    // xtitle("Maximin LHS design","X1","X2")
+    // 
+    // // Compute a correlation LHS design
+    // H = scidoe_lhsdesign(2,5,"criterion","correlation");
+    // scf();
+    // scidoe_plotlhs(H)
+    // xtitle("Correlation LHS design","X1","X2")
+    //
+    // // Compute a maximin LHS design, with 100 iterations
+    // H = scidoe_lhsdesign(2,5,"criterion","maximin""iterations",100)
+    // // d is larger when k increases
+    // d=min(scidoe_pdist(H))
+    // scf();
+    // scidoe_plotlhs(H)
+    // xtitle("Maximin LHS design","X1","X2")
+    //
+    // // A maximin centered LHS
+    // H= scidoe_lhsdesign(2,5,"criterion","centermaximin","iterations",10);
+    // scf();
+    // scidoe_plotlhs(H)
+    // 
+    // // See Maximin LHS designs when k increases.
+    // // The 5 points seems to go away from the center, 
+    // // which increases the minimum distance between the points.
+    // grand("setsd",0);
+    // H1 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",2);
+    // grand("setsd",0);
+    // H2 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",100);
+    // d1 = min(scidoe_pdist(H1));
+    // d2 = min(scidoe_pdist(H2));
+    // t1=msprintf("Maximin LHS - k=2, dmin=%f",d1);
+    // t2=msprintf("Maximin LHS - k=100, dmin=%f",d2);
+    // scf();
+    // subplot(1,2,1)
+    // scidoe_plotlhs(H1)
+    // xtitle(t1,"X1","X2")
+    // subplot(1,2,2)
+    // scidoe_plotlhs(H2)
+    // xtitle(t2,"X1","X2")
+    //
+    // Bibliography
     // McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
     // http://en.wikipedia.org/wiki/Latin_hypercube_sampling
     // http://www.mathworks.com/help/toolbox/stats/lhsdesign.html
@@ -93,7 +132,7 @@ function H = scidoe_lhsdesign(varargin)
     n = varargin(2); // Number of points
     //
     [lhs,rhs] = argn();
-    apifun_checkrhs("scidoe_lhsdesign",rhs,[2 4])
+    apifun_checkrhs("scidoe_lhsdesign",rhs,[2 4 6])
     apifun_checklhs("scidoe_lhsdesign",lhs,1)
     //
     // Check input
@@ -118,21 +157,29 @@ function H = scidoe_lhsdesign(varargin)
     end
     //
     // LHS with criterion
-    if (rhs==4) then
+    if (rhs>=4) then
         //
         // 1. Set the defaults
         default.criterion = "center";
+        default.iterations = 5;
         //
         // 2. Manage (key,value) pairs
         options = apifun_keyvaluepairs (default,varargin(3:$))
         //
         // 3. Get parameters
         criterionvalue = options.criterion
+        k = options.iterations
         //
         // Check criterion value
         apifun_checktype("scidoe_lhsdesign",criterionvalue,"criterionkey",4,"string");
         apifun_checkscalar("scidoe_lhsdesign",criterionvalue,"criterionkey",4);
-        apifun_checkoption("scidoe_lhsdesign",criterionvalue,"criterionkey",4,["center" "maximin" "correlation"]);
+        apifun_checkoption("scidoe_lhsdesign",criterionvalue,"criterionkey",4,["center" "maximin" "correlation" "centermaximin"]);
+        //
+        // Check iterations value
+        apifun_checktype("scidoe_lhsdesign",k,"k",4,"constant");
+        apifun_checkscalar("scidoe_lhsdesign",k,"k",4);
+        apifun_checkgreq("scidoe_lhsdesign",k,"k",4,1);
+        apifun_checkflint("scidoe_lhsdesign",k,"k",4);
         //
         select criterionvalue
         case "center"
@@ -141,9 +188,12 @@ function H = scidoe_lhsdesign(varargin)
             //
         case "maximin"
             // Maximin criterion
-            H = scidoe_lhsdesignMaximin(s,n)
-            // Correlation criterion
+            H = scidoe_lhsdesignMaximin(s,n,k,"maximin")
+        case "centermaximin"
+            // Maximin criterion
+            H = scidoe_lhsdesignMaximin(s,n,k,"centermaximin")
         case "correlation"
+            // Correlation criterion
             H = scidoe_lhsdesignCorr(s,n)
         end
     end
@@ -179,33 +229,32 @@ function H = scidoe_lhsdesignCenter(s,n)
     end
 endfunction
 
-function H = scidoe_lhsdesignMaximin(s,n)
-    //      
-    for k=1:5 // Maximum iterations
-        // Generate a random LHS
-        x=scidoe_lhsdesignClassic(s,n)
-        //
-        // Calculate pairwise point distances
-        d = scidoe_pdist(x);
-        dsq(1,k) = sum(d,2);
-        if (dsq(1,k)==min(dsq)) then
-            dsqbest=dsq(1,k)
-            xbest=x;
+function H = scidoe_lhsdesignMaximin(s,n,k,lhstype)
+    maxdist=0
+    // Maximize the minimimum distance between points
+    for i=1:k
+        if (lhstype=="maximin") then
+            Hcandidate=scidoe_lhsdesignClassic(s,n);
+        else
+            Hcandidate=scidoe_lhsdesignCenter(s,n);
+        end
+        d = scidoe_pdist(Hcandidate)
+        if (maxdist<min(d)) then
+            maxdist=min(d)
+            H=Hcandidate;
+            //mprintf("%s: i=%d, maxdist=%f\n","scidoe_lhsdesign",i,maxdist)
         end
     end
-    // Return LHS with maximum distance between points
-    H = xbest;
-
 endfunction
 
-function H = scidoe_lhsdesignCorr(s,n)
+function H = scidoe_lhsdesignCorr(s,n,k)
     //
     // Maximum Iterations
-    for k=1:5
+    for i=1:k
         // Generate a random LHS
-        x=scidoe_lhsdesignClassic(s,n);
+        Hcandidate=scidoe_lhsdesignClassic(s,n);
         // Return Columns Combinations
-        c=specfun_combine(x,x);
+        c=specfun_combine(Hcandidate,Hcandidate);
         // Get size of matrix of combinations
         [m,r]=size(c);
         v=zeros(1,r);
@@ -219,15 +268,15 @@ function H = scidoe_lhsdesignCorr(s,n)
             sy=sqrt(sum(yy.^2));
             v(1,i)=xx'*yy/sx/sy;
         end
-        // Exclude 1's from vector v, as they refer to the correlation of a column with itself
+        // Exclude 1's from vector v, as they refer to 
+        // the correlation of a column with itself
         j=find(v==1);
         v(j)=[];
         // 
-        correlation(1,k) = sum(v,2);
-        if (correlation(1,k))==min(correlation) then
-            correlationbest=correlation(1,k);
-            xbest=x;
+        correlation(1,i) = sum(v,2);
+        if (correlation(1,i))==min(correlation) then
+            correlationbest=correlation(1,i);
+            H=Hcandidate;
         end
     end
-    H=xbest;
 endfunction

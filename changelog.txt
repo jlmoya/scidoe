@@ -4,6 +4,9 @@ scidoe (not released yet)
  * Fixed Bug #1028: http://forge.scilab.org/index.php/p/scidoe/issues/1028/
    For scidoe_lhsdesign for the "criterion" option in the 
    help page.
+ * Created scidoe_plotlhs to plot LHS designs more simply.
+ * Fixed implementation of maximin LHS in scidoe_lhsdesign.
+ * Added "centermaximin" option in scidoe_lhsdesign.
 
 scidoe (v0.2)
  * added doetbx_rsquared.sci

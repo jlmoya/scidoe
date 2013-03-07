@@ -39,6 +39,8 @@
       <listitem><para> a 1-by-1 matrix of doubles, integer value, positive, the number of variables</para></listitem></varlistentry>
    <varlistentry><term>n :</term>
       <listitem><para> a 1-by-1 matrix of doubles, integer value, positive, the number of points</para></listitem></varlistentry>
+   <varlistentry><term>H :</term>
+      <listitem><para> a n-by-s matrix of doubles, the LHS sampling</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -56,17 +58,17 @@ If no criterion is specified, the function computes a random LHS design.
 </listitem>
 <listitem>
 <para>
-If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1)
+If "criterion" = "center", then the function selects and permutes the center points of the intervals (0,1/n),(1/n,2/n)...(1-1/n,1). This is a centered LHS design.
 </para>
 </listitem>
 <listitem>
 <para>
-If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance
+If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance. This is a maximin LHS design.
 </para>
 </listitem>
 <listitem>
 <para>
-If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables
+If "criterion" = "correlation", then the function selects the LHS design with minimum correlation between its variables.
 </para>
 </listitem>
 </itemizedlist>
@@ -83,42 +85,36 @@ This function changes the state of the grand uniform random number generator.
    <programlisting role="example"><![CDATA[
 // Compute a random LHS with 2 variables and 5 points
 H = scidoe_lhsdesign(2,5)
-// Plot this design
 scf();
-plot ( H(:,1) , H(:,2) , "bo" );
-cut = linspace(0,1,6);
-for i=1:6
-plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-plot([0 1],[cut(i) cut(i)],"-")
-end
-//
-// Compute a LHS design with center points
-H = scidoe_lhsdesign(2,5,"criterion","center")
-// Plot this design
-scf();
-plot ( H(:,1) , H(:,2) , "bo" );
-cut = linspace(0,1,6);
-for i=1:6
-plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-plot([0 1],[cut(i) cut(i)],"-")
-end
+scidoe_plotlhs(H)
+xtitle("LHS design","X1","X2")
 
-References
-McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
-http://en.wikipedia.org/wiki/Latin_hypercube_sampling
-http://www.mathworks.com/help/toolbox/stats/lhsdesign.html
+// Compute a centered LHS design
+H = scidoe_lhsdesign(2,5,"criterion","center")
+scf();
+scidoe_plotlhs(H)
+xtitle("Centered LHS design","X1","X2")
+
+// Compute a maximin LHS design
+H = scidoe_lhsdesign(2,5,"criterion","maximin")
+scf();
+scidoe_plotlhs(H)
+xtitle("Centered LHS design","X1","X2")
 
    ]]></programlisting>
 </refsection>
 
 <refsection>
+   <title>Bibliography</title>
+   <para>McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.</para>
+   <para>http://en.wikipedia.org/wiki/Latin_hypercube_sampling</para>
+   <para>http://www.mathworks.com/help/toolbox/stats/lhsdesign.html</para>
+</refsection>
+
+<refsection>
    <title>Authors</title>
    <simplelist type="vert">
-   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012 - 2013 - Michael Baudin</member>
    <member>Copyright (C) 2012 - Maria Christopoulou</member>
    <member>Copyright (C) 2010 - 2011 - INRIA - Michael Baudin</member>
    <member>Copyright (C) 2009 - Yann Collette</member>

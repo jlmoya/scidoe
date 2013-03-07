@@ -29,6 +29,7 @@ helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t
 mprintf("Updating support\n");
 funarray = [
   "scidoe_plotcube"
+  "scidoe_plotlhs"
   "scidoe_sort"
   "scidoe_compare"
   "scidoe_sortdesign"

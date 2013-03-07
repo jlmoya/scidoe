@@ -50,7 +50,7 @@ Dependencies
 Authors
 -------
 
- * Copyright (C) 2012 - Michael Baudin
+ * Copyright (C) 2012 - 2013 - Michael Baudin
  * Copyright (C) 2012 - Maria Christopoulou 
  * Copyright (C) 2009 - Yann Collette
  * Copyright (C) 2001 - Per A. Brodtkorb
