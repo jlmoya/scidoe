@@ -196,12 +196,14 @@ function [ x , indices ] = scidoe_sort ( varargin )
     //     xp = 1:n
     //     yp = x
     //     plot(xp,yp,"b*")
-    //     titlestr = "Merge sort n="+string(n)+" indices = ("+string(imin)+","+string(imax)+")"
+    //     titlestr = "Merge sort n="+string(n)+..
+    //     " indices = ("+string(imin)+","+string(imax)+")"
     //     xtitle(titlestr,"Rank","Value")
     //   elseif ( status == "out") then
     //     h = gcf()
     //     h.children.children.children.data(imin:imax,2) = x
-    //     titlestr = "Merge sort n="+string(n)+" indices = ("+string(imin)+","+string(imax)+")"
+    //     titlestr = "Merge sort n="+string(n)+..
+    //     " indices = ("+string(imin)+","+string(imax)+")"
     //     h.children.title.text = titlestr
     //   end
     // endfunction

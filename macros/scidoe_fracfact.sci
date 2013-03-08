@@ -1,3 +1,4 @@
+// Copyright (C) 2013 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou
 //
 // This file must be used under the terms of the CeCILL.
@@ -30,19 +31,21 @@ function H = scidoe_fracfact(gen)
     //    The columns of H follow the sequence of "gen". If gen = "a b ab c", then columns H(:,1), H(:,2) and H(4,:) include the two level full factorial design and H(:,3) includes the products of the main factors.
     //
     // Examples
-    // // Fractional factorial design, where the 3rd factors is the product of the first two
+    // // Fractional factorial design, where the 3rd factors 
+    // // is the product of the first two
     // H = scidoe_fracfact("a b ab")
     // // The same with uppercase letters
     // H = scidoe_fracfact("A B AB")
     // // Use of operators
     // H = scidoe_fracfact("a b -ab c +abc")
     //
-    // References
+    // Bibliography
     // http://www.itl.nist.gov/div898/handbook/pri/section3/pri3342.htm
     // http://www.mathworks.com/help/toolbox/stats/fracfact.html
     // 
     // Authors
     // Copyright (C) 2012 - Maria Christopoulou
+    // Copyright (C) 2013 - Michael Baudin
 
     [lhs,rhs] = argn()
     apifun_checkrhs("scidoe_fracfact",rhs,1)
@@ -53,12 +56,17 @@ function H = scidoe_fracfact(gen)
     // Recognize letters and combinations
     A = tokens(gen,["-" " " "+"]);
     C = length(A);
-    I = find(C==1); // Indices of single letters (main factors)
-    J = find(C~=1) // Indices of letter combinations. We need them to fill out H2 properly
+    // Indices of single letters (main factors)
+    I = find(C==1); 
+    // Indices of letter combinations. 
+    // We need them to fill out H2 properly
+    J = find(C~=1) 
     //
     // Check if there are "-" or "+" operators in gen
     U = tokens(gen," ");
-    R1 = grep(U,"+"); // If R1 is either null or not, the result is not changed, since it is a multiplication by 1.
+    // If R1 is either null or not, the result is not 
+    // changed, since it is a multiplication by 1.
+    R1 = grep(U,"+"); 
     R2 = grep(U,"-");
     // Fill in design with two level factorial design
     H1 = 2*scidoe_ff2n(length(I))-1;

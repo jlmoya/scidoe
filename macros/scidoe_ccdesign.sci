@@ -1,4 +1,4 @@
-// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2012-2013 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou
 // Copyright (C) 2009 - Yann Collette
 //
@@ -51,10 +51,11 @@ function H = scidoe_ccdesign(varargin) // In progress
     // H = scidoe_ccdesign(2,"type","faced")
     // // Inscribed rotatable CC Design
     // H = scidoe_ccdesign(3,"type","inscribed","alpha","rotatable")
-    // // Orthogonal CCD with 2 2 center points in the factorial block and 3 center points in the star points block
+    // // Orthogonal CCD with 2 2 center points in the factorial block 
+    // // and 3 center points in the star points block
     // H = scidoe_ccdesign(3,"center",[2 3])
     // 
-    // Bibliography:
+    // Bibliography
     //    George E. P. Box, J. Stuart Hunter, William G. Hunter, "Statistics for experimenters Design,Innovation and Discovery", Second Edition, 2005
     //    http://en.wikipedia.org/wiki/Central_composite_design
     //    http://rgm2.lab.nig.ac.jp/RGM2/func.php?rd_id=rsm:ccd
@@ -62,7 +63,7 @@ function H = scidoe_ccdesign(varargin) // In progress
     //    http://www.itl.nist.gov/div898/handbook/pri/section3/pri3361.htm
     //
     // Authors
-    // Copyright (C) 2012 - Michael Baudin
+    // Copyright (C) 2012-2013 - Michael Baudin
     // Copyright (C) 2012 - Maria Christopoulou
     // Copyright (C) 2009 - Yann Collette
 

@@ -157,6 +157,7 @@ grand("setsd",0);
 H2 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",100);
 R=corrcoef(H2);
 corr2=max(abs(R(R<>1)));
+// We have corr2 < corr1.
 t1=msprintf("Maximin LHS - k=2, maxcorrelation=%f",corr1);
 t2=msprintf("Maximin LHS - k=100, maxcorrelation=%f",corr2);
 scf();
