@@ -35,6 +35,7 @@ Support
  * scidoe_compare — The default comparison function used in the sort-merge.
  * scidoe_pdist — Pairwise point distances of a matrix
  * scidoe_plotcube — Plots a d dimensions cube in [-1,1].
+ * scidoe_plotlhs — Plot a 2D LHS design
  * scidoe_sort — A flexible sorting function.
  * scidoe_sortdesign — Sort the experiments of a design of experiments
  * scidoe_string — Sort the experiments of a design of experiments
@@ -46,6 +47,7 @@ Dependencies
  * This module depends on the helptbx module (to update the help pages).
  * This module depends on the apifun module (>= v0.3).
  * This module depends on the specfun module (>=v0.2).
+ * This module depends on the stixbox module (>=v2.2).
 
 Authors
 -------
