@@ -28,6 +28,7 @@ function scidoe_plotcube(d)
     // Authors
     // Copyright (C) 2012 - Michael Baudin
     // Copyright (C) 2012 - Maria Christopoulou
+
     //
     // Check type
     apifun_checktype("scidoe_plotcube",d,"d",1,["constant"])

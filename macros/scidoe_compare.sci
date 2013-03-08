@@ -27,7 +27,7 @@ function order = scidoe_compare ( a , b )
   //   order = scidoe_compare ( 1 , 1 ) // 0
   //
   // Authors
-  // Michael Baudin, DIGITEO, 2009-2010 (to manage a comparison function)
+  // Michael Baudin, DIGITEO, 2009-2010
 
   if ( and(a < b) ) then
     order = -1

@@ -63,7 +63,7 @@ order = scidoe_compare ( 1 , 1 ) // 0
 <refsection>
    <title>Authors</title>
    <simplelist type="vert">
-   <member>Michael Baudin, DIGITEO, 2009-2010 (to manage a comparison function)</member>
+   <member>Michael Baudin, DIGITEO, 2009-2010</member>
    </simplelist>
 </refsection>
 </refentry>

@@ -103,7 +103,7 @@ H = scidoe_ccdesign(3,"center",[2 3])
 <refsection>
    <title>Authors</title>
    <simplelist type="vert">
-   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012-2013 - Michael Baudin</member>
    <member>Copyright (C) 2012 - Maria Christopoulou</member>
    <member>Copyright (C) 2009 - Yann Collette</member>
    </simplelist>
