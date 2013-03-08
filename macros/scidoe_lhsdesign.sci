@@ -117,6 +117,26 @@ function H = scidoe_lhsdesign(varargin)
     // scidoe_plotlhs(H2)
     // xtitle(t2,"X1","X2")
     //
+    // // See various correlation LHS designs
+    // grand("setsd",0);
+    // H1 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",2);
+    // R=corrcoef(H1);
+    // corr1=max(abs(R(R<>1)));
+    // grand("setsd",0);
+    // H2 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",100);
+    // R=corrcoef(H2);
+    // corr2=max(abs(R(R<>1)));
+    // // We have corr2 < corr1.
+    // t1=msprintf("Maximin LHS - k=2, maxcorrelation=%f",corr1);
+    // t2=msprintf("Maximin LHS - k=100, maxcorrelation=%f",corr2);
+    // scf();
+    // subplot(1,2,1)
+    // scidoe_plotlhs(H1)
+    // xtitle(t1,"X1","X2")
+    // subplot(1,2,2)
+    // scidoe_plotlhs(H2)
+    // xtitle(t2,"X1","X2")
+    //
     // Bibliography
     // McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
     // http://en.wikipedia.org/wiki/Latin_hypercube_sampling
@@ -248,35 +268,16 @@ function H = scidoe_lhsdesignMaximin(s,n,k,lhstype)
 endfunction
 
 function H = scidoe_lhsdesignCorr(s,n,k)
-    //
-    // Maximum Iterations
+    mincorr=%inf
+    // Minimize the components correlation coefficients
     for i=1:k
         // Generate a random LHS
         Hcandidate=scidoe_lhsdesignClassic(s,n);
-        // Return Columns Combinations
-        c=specfun_combine(Hcandidate,Hcandidate);
-        // Get size of matrix of combinations
-        [m,r]=size(c);
-        v=zeros(1,r);
-        // Calculate correlation coefficient between variables
-        for i=1:r
-            xx = c(1:m/2,i);
-            yy = c(m/2+1:$,i);
-            xx=xx-mean(xx);
-            yy=yy-mean(yy);
-            sx=sqrt(sum(xx.^2));
-            sy=sqrt(sum(yy.^2));
-            v(1,i)=xx'*yy/sx/sy;
-        end
-        // Exclude 1's from vector v, as they refer to 
-        // the correlation of a column with itself
-        j=find(v==1);
-        v(j)=[];
-        // 
-        correlation(1,i) = sum(v,2);
-        if (correlation(1,i))==min(correlation) then
-            correlationbest=correlation(1,i);
-            H=Hcandidate;
+        R=corrcoef(Hcandidate)
+        if (max(abs(R(R<>1)))<mincorr) then
+            mincorr=max(abs(R(R<>1)))
+            H=Hcandidate
+            //mprintf("%s: i=%d, mincorr=%f\n","scidoe_lhsdesign",i,mincorr)
         end
     end
 endfunction

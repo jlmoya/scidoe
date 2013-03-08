@@ -1,11 +1,21 @@
-// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2012-2013 - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-// <-- TEST WITH GRAPHIC -->
+// Count the number of classes in each class: only one!
+function checkLHS(H)
+    n=size(H,"r")
+    s=size(H,"c")
+    cuts = linspace ( 0 , 1 , n + 1 );
+    for k = 1 : s
+        [ind, occ, info] = dsearch(H(:,k), cuts , "c" );
+        assert_checkequal ( occ , ones(1,n));
+        assert_checkequal ( info , 0);
+    end
+endfunction
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5);
 E = [
@@ -16,31 +26,12 @@ E = [
     0.1097627    0.9247127  
 ];
 assert_checkalmostequal(H,E,[],1.e-6);
-// Plot this design
-scf();
-plot ( H(:,1) , H(:,2) , "bo" );
- 
- WARNING: Due to your configuration limitations, Scilab switched in a m 
-      ode where mixing uicontrols and graphics is not available. Type " 
-      help usecanvas" for more information.                             
-cut = linspace(0,1,6);
-for i=1:6
-    plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-    plot([0 1],[cut(i) cut(i)],"-")
-end
+checkLHS(H);
 // Create a Lhs design with 100 points in 5 dimensions.
 n = 100;
 s =  5;
-sampling = scidoe_lhsdesign ( s , n );
-// Count the number of classes in each class: only one!
-cuts = linspace ( 0 , 1 , n + 1 );
-for k = 1 : s
-  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
-  assert_checkequal ( occ , ones(1,n));
-  assert_checkequal ( info , 0);
-end
+H = scidoe_lhsdesign ( s , n );
+checkLHS(H);
 //
 // Compute a LHS design with center points
 grand("setsd",0);
@@ -53,91 +44,60 @@ E = [
     0.5    0.5  
 ];
 assert_checkalmostequal(H,E,[],1.e-6);
-// Plot this design
-scf();
-plot( H(:,1) , H(:,2) , "bo" );
-cut = linspace(0,1,6);
-for i=1:6
-    plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-    plot([0 1],[cut(i) cut(i)],"-")
-end
+checkLHS(H);
 // Create a Centered Lhs design with 100 points in 2 dimensions.
 n = 100;
 s =  2;
-sampling = scidoe_lhsdesign ( s , n ,"criterion","center");
-// Count the number of classes in each class: only one!
-cuts = linspace ( 0 , 1 , n + 1 );
-for k = 1 : s
-  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
-  assert_checkequal ( occ , ones(1,n));
-  assert_checkequal ( info , 0);
-end
+H = scidoe_lhsdesign ( s , n ,"criterion","center");
+checkLHS(H);
 //
 // Compute a LHS design with maximim criterion
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5,"criterion","maximin");
 E = [
-    0.3185689    0.6847310  
-    0.7688531    0.3089766  
-    0.5430379    0.5694503  
-    0.9205527    0.1715891  
-    0.1097627    0.9247127  
+    0.9887496    0.9226127  
+    0.5233868    0.48999    
+    0.2444643    0.6719016  
+    0.1224191    0.3363641  
+    0.6772978    0.1805197  
 ];
 assert_checkalmostequal(H,E,[],1.e-6);
-// Plot this design
-scf();
-plot ( H(:,1) , H(:,2) , "bo" );
-cut = linspace(0,1,6);
-for i=1:6
-    plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-    plot([0 1],[cut(i) cut(i)],"-")
-end
+checkLHS(H);
 // Create a Lhs design with 100 points in 5 dimensions.
 n = 100;
 s =  5;
-sampling = scidoe_lhsdesign ( s , n, "criterion","maximin" );
-// Count the number of classes in each class: only one!
-cuts = linspace ( 0 , 1 , n + 1 );
-for k = 1 : s
-  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
-  assert_checkequal ( occ , ones(1,n));
-  assert_checkequal ( info , 0);
-end
-//
-//
+H = scidoe_lhsdesign ( s , n, "criterion","maximin" );
+checkLHS(H);
 // Compute a LHS design with "correlation" criterion
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5,"criterion","correlation");
-E = [
-    0.3185689    0.6847310  
-    0.7688531    0.3089766  
-    0.5430379    0.5694503  
-    0.9205527    0.1715891  
-    0.1097627    0.9247127  
-];
-assert_checkalmostequal(H,E,[],1.e-6);
-// Plot this design
-scf();
-plot ( H(:,1) , H(:,2) , "bo" );
-cut = linspace(0,1,6);
-for i=1:6
-    plot([cut(i) cut(i)],[0 1],"-")
-end
-for i=1:6
-    plot([0 1],[cut(i) cut(i)],"-")
-end
+checkLHS(H);
+// Compute a LHS design with "correlation" criterion
+// Check that the correlation improves when k increases
+grand("setsd",0);
+H1 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",1);
+checkLHS(H1);
+R=corrcoef(H1);
+corr1=max(abs(R(R<>1)));
+grand("setsd",0);
+H2 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",10);
+checkLHS(H2);
+R=corrcoef(H2);
+corr2=max(abs(R(R<>1)));
+assert_checktrue(corr1>corr2);
 // Create a Lhs design with 100 points in 5 dimensions.
 n = 100;
 s =  5;
-sampling = scidoe_lhsdesign ( s , n, "criterion","correlation" );
-// Count the number of classes in each class: only one!
-cuts = linspace ( 0 , 1 , n + 1 );
-for k = 1 : s
-  [ind, occ, info] = dsearch(sampling(:,k), cuts , "c" );
-  assert_checkequal ( occ , ones(1,n));
-  assert_checkequal ( info , 0);
-end
+H = scidoe_lhsdesign ( s , n, "criterion","correlation" );
+checkLHS(H);
+// Compute a LHS design with maximin criterion
+// Configure the iterations
+grand("setsd",0);
+H1 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",1);
+checkLHS(H1);
+d1=min(scidoe_pdist(H1));
+grand("setsd",0);
+H2 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",10);
+d2=min(scidoe_pdist(H2));
+checkLHS(H1);
+assert_checktrue(d2>d1);

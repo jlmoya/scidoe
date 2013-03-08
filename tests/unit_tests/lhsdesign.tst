@@ -75,20 +75,25 @@ n = 100;
 s =  5;
 H = scidoe_lhsdesign ( s , n, "criterion","maximin" );
 checkLHS(H);
-//
-//
+
 // Compute a LHS design with "correlation" criterion
 grand("setsd",0);
 H = scidoe_lhsdesign(2,5,"criterion","correlation");
-E = [
-    0.3185689    0.6847310  
-    0.7688531    0.3089766  
-    0.5430379    0.5694503  
-    0.9205527    0.1715891  
-    0.1097627    0.9247127  
-];
-assert_checkalmostequal(H,E,[],1.e-6);
 checkLHS(H);
+
+// Compute a LHS design with "correlation" criterion
+// Check that the correlation improves when k increases
+grand("setsd",0);
+H1 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",1);
+checkLHS(H1);
+R=corrcoef(H1);
+corr1=max(abs(R(R<>1)));
+grand("setsd",0);
+H2 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",10);
+checkLHS(H2);
+R=corrcoef(H2);
+corr2=max(abs(R(R<>1)));
+assert_checktrue(corr1>corr2);
 
 // Create a Lhs design with 100 points in 5 dimensions.
 n = 100;
@@ -96,8 +101,7 @@ s =  5;
 H = scidoe_lhsdesign ( s , n, "criterion","correlation" );
 checkLHS(H);
 
-//
-// Compute a LHS design with maximim criterion
+// Compute a LHS design with maximin criterion
 // Configure the iterations
 grand("setsd",0);
 H1 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",1);

@@ -25,9 +25,11 @@
    <title>Calling Sequence</title>
    <synopsis>
    H = scidoe_lhsdesign(s,n)
-   H = scidoe_lhsdesign(s,n,"criterion","center")
-   H = scidoe_lhsdesign(s,n,"criterion","maximin")
-   H = scidoe_lhsdesign(s,n,"criterion","correlation")
+   H = scidoe_lhsdesign(...,"criterion","center")
+   H = scidoe_lhsdesign(...,"criterion","maximin")
+   H = scidoe_lhsdesign(...,"criterion","correlation")
+   H = scidoe_lhsdesign(...,"criterion","centermaximin")
+   H = scidoe_lhsdesign(...,"iterations",k)
    
    </synopsis>
 </refsynopsisdiv>
@@ -36,9 +38,11 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>s :</term>
-      <listitem><para> a 1-by-1 matrix of doubles, integer value, positive, the number of variables</para></listitem></varlistentry>
+      <listitem><para> a 1-by-1 matrix of doubles, integer value, s>=1, the number of variables</para></listitem></varlistentry>
    <varlistentry><term>n :</term>
-      <listitem><para> a 1-by-1 matrix of doubles, integer value, positive, the number of points</para></listitem></varlistentry>
+      <listitem><para> a 1-by-1 matrix of doubles, integer value, n>=1, the number of points</para></listitem></varlistentry>
+   <varlistentry><term>k :</term>
+      <listitem><para> a 1-by-1 matrix of doubles, integer value, k>=1, the number of iterations in the maximin algorithm</para></listitem></varlistentry>
    <varlistentry><term>H :</term>
       <listitem><para> a n-by-s matrix of doubles, the LHS sampling</para></listitem></varlistentry>
    </variablelist>
@@ -64,6 +68,11 @@ If "criterion" = "center", then the function selects and permutes the center poi
 <listitem>
 <para>
 If "criterion" = "maximin", then the function selects the LHS design with the maximun pairwise point distance. This is a maximin LHS design.
+</para>
+</listitem>
+<listitem>
+<para>
+If "criterion" = "centermaximin", then the function selects the centered LHS design with the maximun pairwise point distance. This is a centered maximin LHS design.
 </para>
 </listitem>
 <listitem>
@@ -99,7 +108,64 @@ xtitle("Centered LHS design","X1","X2")
 H = scidoe_lhsdesign(2,5,"criterion","maximin")
 scf();
 scidoe_plotlhs(H)
-xtitle("Centered LHS design","X1","X2")
+xtitle("Maximin LHS design","X1","X2")
+
+// Compute a correlation LHS design
+H = scidoe_lhsdesign(2,5,"criterion","correlation");
+scf();
+scidoe_plotlhs(H)
+xtitle("Correlation LHS design","X1","X2")
+
+// Compute a maximin LHS design, with 100 iterations
+H = scidoe_lhsdesign(2,5,"criterion","maximin""iterations",100)
+// d is larger when k increases
+d=min(scidoe_pdist(H))
+scf();
+scidoe_plotlhs(H)
+xtitle("Maximin LHS design","X1","X2")
+
+// A maximin centered LHS
+H= scidoe_lhsdesign(2,5,"criterion","centermaximin","iterations",10);
+scf();
+scidoe_plotlhs(H)
+
+// See Maximin LHS designs when k increases.
+// The 5 points seems to go away from the center,
+// which increases the minimum distance between the points.
+grand("setsd",0);
+H1 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",2);
+grand("setsd",0);
+H2 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",100);
+d1 = min(scidoe_pdist(H1));
+d2 = min(scidoe_pdist(H2));
+t1=msprintf("Maximin LHS - k=2, dmin=%f",d1);
+t2=msprintf("Maximin LHS - k=100, dmin=%f",d2);
+scf();
+subplot(1,2,1)
+scidoe_plotlhs(H1)
+xtitle(t1,"X1","X2")
+subplot(1,2,2)
+scidoe_plotlhs(H2)
+xtitle(t2,"X1","X2")
+
+// See various correlation LHS designs
+grand("setsd",0);
+H1 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",2);
+R=corrcoef(H1);
+corr1=max(abs(R(R<>1)));
+grand("setsd",0);
+H2 = scidoe_lhsdesign(2,5,"criterion","correlation","iterations",100);
+R=corrcoef(H2);
+corr2=max(abs(R(R<>1)));
+t1=msprintf("Maximin LHS - k=2, maxcorrelation=%f",corr1);
+t2=msprintf("Maximin LHS - k=100, maxcorrelation=%f",corr2);
+scf();
+subplot(1,2,1)
+scidoe_plotlhs(H1)
+xtitle(t1,"X1","X2")
+subplot(1,2,2)
+scidoe_plotlhs(H2)
+xtitle(t2,"X1","X2")
 
    ]]></programlisting>
 </refsection>
