@@ -13,7 +13,7 @@ scidoe (not released yet)
    Fixed implementation of "correlation" LHS in scidoe_lhsdesign.
    
 
-scidoe (v0.2)
+scidoe (v0.2 - 15th of February 2013)
  * added doetbx_rsquared.sci
  * added doetbx_least_squares.sci
  * renamed doetbx_least_squares.sci to doetbx_simple_lin_reg.sci
@@ -33,7 +33,7 @@ scidoe (v0.2)
  * Created scidoe_regressprint.
 
 
-scidoe (v0.1)
+scidoe (v0.1 - 6th of August 2012)
  * Added scidoe_ccdesign.sci
  * Added scidoe_lhsdesign.sci
  * Fixed Bug #834: The help of scidoe_multilinreg was unclear about stats and fullstats
