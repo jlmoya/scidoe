@@ -1,4 +1,4 @@
-// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2012-2013 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou 
 // Copyright (C) 2009 - Yann Collette
 //
@@ -137,7 +137,7 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     //     294.  
     // ];
     // B = scidoe_regress(Y,[ones(X),X])
-    // expected = [4.8222564  1.9671389]
+    // expected = [4.8222564;1.9671389];
     // // Visually check the result:
     // scf();
     // plot(X,Y,"bo");
@@ -149,8 +149,7 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     // // Compute a 95% confidence interval.
     // // Visually check the results. 
     // // Visually check the residuals. 
-    // // Reference :
-    // // http://en.wikipedia.org/wiki/Simple_linear_regression
+    // // Reference : [2]
     // Height = [
     // 1.47	1.50	1.52	1.55	1.57	..
     // 1.60	1.63	1.65	1.68	1.70	..
@@ -180,7 +179,7 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     // legend(["Data","Linear Fit"]);
     // xtitle("Linear Regression","Height","Mass");
     // // Compute the residuals
-    // [B,bint,r] = scidoe_regress(Mass,X);
+    // [B,bint,r] = scidoe_regress(Mass,[ones(Height),Height]);
     // // Visually see the residuals
     // scf();
     // plot(Height,r,"bo");
@@ -188,10 +187,9 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     // // A quadratic fit would be better:
     // // we see a quadratic pattern in the residuals. 
     //
-    // // Source :
-    // // http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
-    // // Longley.dat contains 1 Response Variable y, 6 Predictor Variables x 
-    // // and 16 Observations.
+    // // Longley.dat contains 1 Response Variable y, 
+    // // 6 Predictor Variables x and 16 Observations.
+    // // Source : [4]
     // X = [
     // 83.0 234289 2356 1590 107608 1947
     // 88.5 259426 2325 1456 108632 1948
@@ -237,7 +235,7 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     // // The number of observations
     // N = 100;
     // // The exact coefficients
-    // Bexact = [2;3;4]
+    // Bexact = [2000;3;4]
     // // The input 1
     // X1min = 50;
     // X1max = 150;
@@ -268,14 +266,15 @@ function [B,bint,r,rint,stats,fullstats] = scidoe_regress(varargin)
     // xtitle("Linear Regression","Data","Linear Fit");
     //
     // Authors
-    // Copyright (C) 2012 - Michael Baudin
+    // Copyright (C) 2012-2013 - Michael Baudin
     // Copyright (C) 2012 - Maria Christopoulou 
     // Copyright (C) 2009 - Yann Collette
     //
     // Bibliography
-    // "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
-    // http://en.wikipedia.org/wiki/Linear_regression
-    // Octave's regress, William Poetra Yoga Hadisoeseno
+    // [1] "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
+    // [2] http://en.wikipedia.org/wiki/Linear_regression
+    // [3] Octave's regress, William Poetra Yoga Hadisoeseno
+    // [4] http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
 
     // Check number of input arguments
     [lhs,rhs] = argn();

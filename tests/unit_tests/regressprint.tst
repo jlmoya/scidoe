@@ -1,4 +1,4 @@
-// Copyright (C) 2012 - Michael Baudin
+// Copyright (C) 2012-2013 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou 
 //
 // This file must be used under the terms of the CeCILL.
@@ -56,5 +56,5 @@ Y = [
 70551
 ];
 
-[B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,X);
+[B,bint,r,rint,stats,fullstats] = scidoe_regress(Y,[ones(Y),X]);
 scidoe_regressprint(fullstats);

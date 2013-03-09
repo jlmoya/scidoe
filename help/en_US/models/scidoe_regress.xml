@@ -72,42 +72,52 @@ y = B(1)*x1 + B(2)*x2 +...+ B(n)*xn.
    </para>
    <para>
 The fields in <literal>fullstats</literal> are :
-   </para>
-   <para>
+<itemizedlist>
+<listitem> <para>
 fullstats.RegressionSS: the sum of squares of the regression
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.RegressionDof: the number of degrees of freedom of the regression
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.RegressionMean: the mean of the sum of squares of the regression
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.ResidualSS: the sum of squares of the residuals
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.ResidualDof: the number of degrees of freedom of the residuals
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.ResidualMean: the mean of the sum of squares of the residuals
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.F: the F statistics
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.pval : the p-value corresponding to the F statistics
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.Bstddev: a (n+1)-by-1 matrix of doubles, the standard deviation of B
-   </para>
-   <para>
+</para> </listitem>
+<listitem> <para>
 fullstats.R2: the R-squared statistics
+</para> </listitem>
+</itemizedlist>
    </para>
    <para>
 The residual r is :
+<screen>
+r == y-X*B
+</screen>
    </para>
    <para>
-r == y-X*B
+Assuming that X and y are column vectors,
+the simplest way to perform a simple linear regression
+is to use the statement
+<screen>
+B = scidoe_regress(y,[ones(X),X])
+</screen>
    </para>
    <para>
 The statistics fullstats.R2 is in the range [0,1].
@@ -131,6 +141,11 @@ the null hypothesis.
 In other words, if the P-value is small,
 therefore one of the parameters B(i) is linearly related
 to the response.
+   </para>
+   <para>
+Caution! If we are interested in F-statistics and
+its p-value, then the X input argument should contain a
+column of 1s.
    </para>
    <para>
 </para>
@@ -165,7 +180,7 @@ Y = [
 294.
 ];
 B = scidoe_regress(Y,[ones(X),X])
-expected = [4.8222564  1.9671389]
+expected = [4.8222564;1.9671389];
 // Visually check the result:
 scf();
 plot(X,Y,"bo");
@@ -177,8 +192,7 @@ xtitle("Linear Regression","X","Y");
 // Compute a 95% confidence interval.
 // Visually check the results.
 // Visually check the residuals.
-// Reference :
-// http://en.wikipedia.org/wiki/Simple_linear_regression
+// Reference : [2]
 Height = [
 1.47    1.50    1.52    1.55    1.57    ..
 1.60    1.63    1.65    1.68    1.70    ..
@@ -208,7 +222,7 @@ plot(Height,L,"r-")
 legend(["Data","Linear Fit"]);
 xtitle("Linear Regression","Height","Mass");
 // Compute the residuals
-[B,bint,r] = scidoe_regress(Mass,X);
+[B,bint,r] = scidoe_regress(Mass,[ones(Height),Height]);
 // Visually see the residuals
 scf();
 plot(Height,r,"bo");
@@ -216,10 +230,9 @@ xtitle("Linear Regression","Height","Residuals");
 // A quadratic fit would be better:
 // we see a quadratic pattern in the residuals.
 
-// Source :
-// http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
-// Longley.dat contains 1 Response Variable y, 6 Predictor Variables x
-// and 16 Observations.
+// Longley.dat contains 1 Response Variable y,
+// 6 Predictor Variables x and 16 Observations.
+// Source : [4]
 X = [
 83.0 234289 2356 1590 107608 1947
 88.5 259426 2325 1456 108632 1948
@@ -301,7 +314,7 @@ xtitle("Linear Regression","Data","Linear Fit");
 <refsection>
    <title>Authors</title>
    <simplelist type="vert">
-   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012-2013 - Michael Baudin</member>
    <member>Copyright (C) 2012 - Maria Christopoulou</member>
    <member>Copyright (C) 2009 - Yann Collette</member>
    </simplelist>
@@ -309,8 +322,9 @@ xtitle("Linear Regression","Data","Linear Fit");
 
 <refsection>
    <title>Bibliography</title>
-   <para>"Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004</para>
-   <para>http://en.wikipedia.org/wiki/Linear_regression</para>
-   <para>Octave's regress, William Poetra Yoga Hadisoeseno</para>
+   <para>[1] "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004</para>
+   <para>[2] http://en.wikipedia.org/wiki/Linear_regression</para>
+   <para>[3] Octave's regress, William Poetra Yoga Hadisoeseno</para>
+   <para>[4] http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat</para>
 </refsection>
 </refentry>

@@ -19,14 +19,13 @@ function scidoe_regressprint(fullstats)
     // This function prints the statistics of a linear model with 
     // n independent variables x1, x2, ..., xn 
     // which best fit the data in the least squares sense. 
-	// The <literal>fullstats</literal> data structure is the output of the 
-	// scidoe_regress or scidoe_multilinreg functions.
+    // The <literal>fullstats</literal> data structure is the output of the 
+    // scidoe_regress or scidoe_multilinreg functions.
     //
     // Examples
-    // // We use dataset provided by NIST in
-    // // http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
     // // Longley.dat contains 1 Response Variable y, 6 Predictor Variables x 
     // // and 16 Observations.
+    // // Source : [4]
     // X = [
     // 83.0 234289 2356 1590 107608 1947
     // 88.5 259426 2325 1456 108632 1948
@@ -63,16 +62,17 @@ function scidoe_regressprint(fullstats)
     // 69331
     // 70551
     // ];
-    // [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,X);
-	// scidoe_regressprint(fullstats)
+    // [B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,[ones(Y),X]);
+    // scidoe_regressprint(fullstats)
     //
     // Authors
     // Copyright (C) 2012 - Michael Baudin
     //
     // Bibliography
-    // "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
-    // http://en.wikipedia.org/wiki/Linear_regression
-    // Octave's regress, William Poetra Yoga Hadisoeseno
+    // [1] "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004
+    // [2] http://en.wikipedia.org/wiki/Linear_regression
+    // [3] Octave's regress, William Poetra Yoga Hadisoeseno
+    // [4] http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
 
     // Check number of input arguments
     [lhs,rhs] = argn();
@@ -87,28 +87,28 @@ function scidoe_regressprint(fullstats)
     // Check content : nothing to do
     //
     // Proceed...
-        fmtmax = max(format())
-        fmtstr = msprintf("%ds",fmtmax)
-        fmttmplate = msprintf("%%%s %%%s %%%s %%%s %%%s",..
-        fmtstr,fmtstr,fmtstr,fmtstr,fmtstr)
-        mprintf("Analysis of Variance Table\n");
-        fmt = "%-12s"+fmttmplate+"\n"
-        mprintf(fmt,..
-        "Source","Degrees of","Sums of","Mean","F","P");
-        mprintf(fmt,..
-        "Of Var.","Freedom","Squares","Squares","Stat.","Value");
-        mprintf(fmt,..
-        "Regression",..
-        string(fullstats.RegressionSS),..
-        string(fullstats.RegressionDof),..
-        string(fullstats.RegressionMean),..
-        string(fullstats.F),..
-        string(fullstats.pval));
-        mprintf(fmt,..
-        "Residual",..
-        string(fullstats.ResidualSS),..
-        string(fullstats.ResidualDof),..
-        string(fullstats.ResidualMean),..
-        "", ..
-        "");
+    fmtmax = max(format())
+    fmtstr = msprintf("%ds",fmtmax)
+    fmttmplate = msprintf("%%%s %%%s %%%s %%%s %%%s",..
+    fmtstr,fmtstr,fmtstr,fmtstr,fmtstr)
+    mprintf("Analysis of Variance Table\n");
+    fmt = "%-12s"+fmttmplate+"\n"
+    mprintf(fmt,..
+    "Source","Degrees of","Sums of","Mean","F","P");
+    mprintf(fmt,..
+    "Of Var.","Freedom","Squares","Squares","Stat.","Value");
+    mprintf(fmt,..
+    "Regression",..
+    string(fullstats.RegressionSS),..
+    string(fullstats.RegressionDof),..
+    string(fullstats.RegressionMean),..
+    string(fullstats.F),..
+    string(fullstats.pval));
+    mprintf(fmt,..
+    "Residual",..
+    string(fullstats.ResidualSS),..
+    string(fullstats.ResidualDof),..
+    string(fullstats.ResidualMean),..
+    "", ..
+    "");
 endfunction

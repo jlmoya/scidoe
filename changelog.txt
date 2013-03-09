@@ -20,9 +20,17 @@ B = scidoe_simplelinreg(X,Y)
 
 with 
 
-B = scidoe_simplelinreg(Y,[ones(X),X])
+B = scidoe_regress(Y,[ones(X),X])
 
 assuming that X and Y are column vectors.
+ * Removed scidoe_multilinreg. 
+   To update your code, please replace:
+   
+B = scidoe_multilinreg(Y,X)
+
+with 
+
+B = scidoe_regress(Y,[ones(Y),X])
 
 scidoe (v0.2 - 15th of February 2013)
  * added doetbx_rsquared.sci
