@@ -104,6 +104,13 @@ end
 </refsection>
 
 <refsection>
+   <title>See also</title>
+   <simplelist type="inline">
+   <member><link linkend="scidoe_plotcube">scidoe_plotcube</link></member>
+   </simplelist>
+</refsection>
+
+<refsection>
    <title>Authors</title>
    <simplelist type="vert">
    <member>Copyright (C) 2012 - Michael Baudin</member>

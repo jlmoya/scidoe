@@ -12,14 +12,22 @@
           xmlns:svg="http://www.w3.org/2000/svg"
           xmlns:ns3="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
           xmlns:db="http://docbook.org/ns/docbook">
 
-
   <refnamediv>
-    <refname>scidoe_fracfact</refname><refpurpose>Fractional Factorial Design</refpurpose>
+    <refname>scidoe_fracfact</refname>
+    <refpurpose>Fractional Factorial Design</refpurpose>
   </refnamediv>
 
 
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   H = scidoe_fracfact(gen)
+   
+   </synopsis>
+</refsynopsisdiv>
 
 <refsection>
    <title>Parameters</title>
@@ -35,18 +43,40 @@
    <title>Description</title>
    <para>
 The function computes a fractional factorial design.
-Fractional factorial designs are used instead of full factorial designs, because they need fewer runs.
+Fractional factorial designs are used instead of full factorial
+designs, because they need fewer runs.
    </para>
    <para>
-In "gen" we define the main factors of the experiment and the factors whose levels are the products of the main factors.
-If gen = "a b ab", then "a" and "b" are the main factors, while the 3rd factor is the product of the first two.
+In "gen" we define the main factors of the experiment and the
+factors whose levels are the products of the main factors.
+For example, if
+<screen>
+gen = "a b ab"
+</screen>
+then "a" and "b" are the main factors, while
+the 3rd factor is the product of the first two.
 If we input uppecase letters in gen, we get the same result.
 We can also use the operators "+" and "-" in gen.
-If gen = "a b -ab", then the 3rd factor is the opposite of the product of "a" and "b".
    </para>
    <para>
-The output matrix includes a two level full factorial design, built by the main factors of gen, and the products of the main factors.
-The columns of H follow the sequence of "gen". If gen = "a b ab c", then columns H(:,1), H(:,2) and H(4,:) include the two level full factorial design and H(:,3) includes the products of the main factors.
+For example, if
+<screen>
+gen = "a b -ab"
+</screen>
+then the 3rd factor is the opposite of the
+product of "a" and "b".
+   </para>
+   <para>
+The output matrix includes a two level full factorial design,
+built by the main factors of gen, and the products of the main factors.
+The columns of H follow the sequence of "gen".
+For example, if
+<screen>
+gen = "a b ab c"
+</screen>
+then columns H(:,1), H(:,2) and H(4,:)
+include the two level full factorial design and H(:,3) includes
+the products of the main factors.
    </para>
    <para>
 </para>
@@ -55,7 +85,8 @@ The columns of H follow the sequence of "gen". If gen = "a b ab c", then columns
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
-// Fractional factorial design, where the 3rd factors is the product of the first two
+// Fractional factorial design, where the 3rd factors
+// is the product of the first two
 H = scidoe_fracfact("a b ab")
 // The same with uppercase letters
 H = scidoe_fracfact("A B AB")
@@ -75,6 +106,7 @@ H = scidoe_fracfact("a b -ab c +abc")
    <title>Authors</title>
    <simplelist type="vert">
    <member>Copyright (C) 2012 - Maria Christopoulou</member>
+   <member>Copyright (C) 2013 - Michael Baudin</member>
    </simplelist>
 </refsection>
 </refentry>

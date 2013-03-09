@@ -10,7 +10,7 @@
 function H = scidoe_fracfact(gen)
     // Fractional Factorial Design
     //
-    // Calling Sequences
+    // Calling Sequence
     //    H = scidoe_fracfact(gen)
     //
     // Parameters
@@ -18,17 +18,38 @@ function H = scidoe_fracfact(gen)
     //    H : a m-by-n matrix of doubles, the fractional factorial design. m is 2^k, where k is the number of letters in gen, and n is the total number of entries in "gen" 
     //
     // Description
-    //    The function computes a fractional factorial design.
-    //    Fractional factorial designs are used instead of full factorial designs, because they need fewer runs.
+    // The function computes a fractional factorial design.
+    // Fractional factorial designs are used instead of full factorial 
+    // designs, because they need fewer runs.
     //
-    //    In "gen" we define the main factors of the experiment and the factors whose levels are the products of the main factors.
-    //    If gen = "a b ab", then "a" and "b" are the main factors, while the 3rd factor is the product of the first two.
-    //    If we input uppecase letters in gen, we get the same result.
-    //    We can also use the operators "+" and "-" in gen.
-    //    If gen = "a b -ab", then the 3rd factor is the opposite of the product of "a" and "b".
-    //    
-    //    The output matrix includes a two level full factorial design, built by the main factors of gen, and the products of the main factors.
-    //    The columns of H follow the sequence of "gen". If gen = "a b ab c", then columns H(:,1), H(:,2) and H(4,:) include the two level full factorial design and H(:,3) includes the products of the main factors.
+    // In "gen" we define the main factors of the experiment and the 
+    // factors whose levels are the products of the main factors.
+    // For example, if 
+    // <screen>
+    // gen = "a b ab"
+    // </screen>
+    // then "a" and "b" are the main factors, while 
+    // the 3rd factor is the product of the first two.
+    // If we input uppecase letters in gen, we get the same result.
+    // We can also use the operators "+" and "-" in gen.
+    //
+    // For example, if 
+    // <screen>
+    // gen = "a b -ab"
+    // </screen>
+    // then the 3rd factor is the opposite of the 
+    // product of "a" and "b".
+    // 
+    // The output matrix includes a two level full factorial design, 
+    // built by the main factors of gen, and the products of the main factors.
+    // The columns of H follow the sequence of "gen". 
+    // For example, if 
+    // <screen>
+    // gen = "a b ab c"
+    // </screen>
+    // then columns H(:,1), H(:,2) and H(4,:) 
+    // include the two level full factorial design and H(:,3) includes 
+    // the products of the main factors.
     //
     // Examples
     // // Fractional factorial design, where the 3rd factors 

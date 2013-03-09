@@ -14,11 +14,10 @@ mprintf("Working dir = %s\n",cwd);
 mprintf("Updating models\n");
 funarray = [
   "scidoe_multilinreg"
-  "scidoe_simplelinreg"
   "scidoe_regress"
   "scidoe_regressprint"
-  "scidoe_yates"
   "scidoe_ryates"
+  "scidoe_yates"
   ];
 helpdir = fullfile(cwd,"models");
 macrosdir = fullfile(cwd ,"..","..","macros");
@@ -28,11 +27,13 @@ helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t
 //
 mprintf("Updating support\n");
 funarray = [
+  "scidoe_compare"
+  "scidoe_pdist"
   "scidoe_plotcube"
   "scidoe_plotlhs"
   "scidoe_sort"
-  "scidoe_compare"
   "scidoe_sortdesign"
+  "scidoe_squareform"
   "scidoe_string"
   ];
 helpdir = fullfile(cwd,"support");
@@ -43,11 +44,13 @@ helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t
 //
 mprintf("Updating designs\n");
 funarray = [
-  "scidoe_ff2n"
-  "scidoe_fullfact"
   "scidoe_bbdesign"
   "scidoe_ccdesign"
+  "scidoe_ff2n"
+  "scidoe_fracfact"
+  "scidoe_fullfact"
   "scidoe_lhsdesign"
+  "scidoe_star"
   ];
 helpdir = fullfile(cwd,"designs");
 macrosdir = fullfile(cwd ,"..","..","macros");

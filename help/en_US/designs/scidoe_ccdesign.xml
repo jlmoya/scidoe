@@ -25,7 +25,7 @@
    <title>Calling Sequence</title>
    <synopsis>
    H = scidoe_ccdesign(nbvar)
-   H = scidoe_ccdesign(nbvar,"Name1","Parameter1","Name2","Parameter2")
+   H = scidoe_ccdesign(nbvar,"Name",value,...)
    
    </synopsis>
 </refsynopsisdiv>
@@ -36,38 +36,120 @@
    <varlistentry><term>nbvar :</term>
       <listitem><para> a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiment</para></listitem></varlistentry>
    <varlistentry><term>Name :</term>
-      <listitem><para> a 1-by-n matrix of strings. The options are "type", "alpha" and "center".</para></listitem></varlistentry>
-   <varlistentry><term>Parameter :</term>
-      <listitem><para> a 1-by-n matrix of strings, describing the design.</para></listitem></varlistentry>
+      <listitem><para> a 1-by-1 matrix of strings. The options are "type", "alpha" and "center".</para></listitem></varlistentry>
+   <varlistentry><term>value :</term>
+      <listitem><para> the value</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
 <refsection>
    <title>Description</title>
    <para>
+This function produces a Central Composite Design (CCD) of experiments.
+A CCD is composed by :
+<itemizedlist>
+<listitem>
+<para>
+a factorial block design,
+</para>
+</listitem>
+<listitem>
+<para>
+a block of axial (star) points and
+</para>
+</listitem>
+<listitem>
+<para>
+a matrix of center points (zeros).
+</para>
+</listitem>
+</itemizedlist>
    </para>
    <para>
-The function produces a Central Composite Design of experiments.
-A CCD is composed by a factorial block design, a block of axial (star) points and a matrix of center points (zeros)
+The available options are the following.
+<itemizedlist>
+<listitem>
+<para>
+"type" : "circumscribed" (default), "inscribed" or "faced".
+</para>
+</listitem>
+<listitem>
+<para>
+"alpha" : "orthogonal" (default) or "rotatable".
+</para>
+</listitem>
+<listitem>
+<para>
+"center" : a 1-by-2 row vector of doubles, the number of center points in each block of the design.
+</para>
+</listitem>
+</itemizedlist>
    </para>
    <para>
-The CCD can be specified, as described in "Parameters".
-The default design is "circumscribed" and "orthogonal".
    </para>
    <para>
-Circumscribed and Inscribed can be rotatable designs, but Faced cannot. For Faced CCD, alpha =1.
-If "type" is specified, while "alpha" is not, then default value is "orthogonal".
-If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
-If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
+The "circumscribed" and "inscribed" can be rotatable designs,
+but "faced" cannot. For "faced" CCD, alpha =1.
+If "type" is specified, while "alpha" is not, then default value
+is "orthogonal".
    </para>
    <para>
-The user can specify the number of center points in each block of the design (factorial and axial).
-If "Parameter" is [2 3], then there are 2 center points in the factorial block and 3 points in the axial points block.
+If the design is "orthogonal",
+<screen>
+alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))),
+</screen>
+where
+<itemizedlist>
+<listitem>
+<para>
+nc : the number of factorial points,
+</para>
+</listitem>
+<listitem>
+<para>
+nco : the number of center points added to the factorial design,
+</para>
+</listitem>
+<listitem>
+<para>
+na : the number of axial points,
+</para>
+</listitem>
+<listitem>
+<para>
+nao : the number of center points added to the axial points.
+</para>
+</listitem>
+</itemizedlist>
+   </para>
+   <para>
+If the design is "rotatable",
+<screen>
+alpha = nc^1/4,
+</screen>
+where nc=2^nbvar are the factorial points.
+   </para>
+   <para>
+If the design is "faced", then alpha=1.
+   </para>
+   <para>
+The user can specify the number of center points in each block of the
+design (factorial and axial).
+If "Parameter" is [2 3], then there are 2 center points in the
+factorial block and 3 points in the axial points block.
 Default value is [4 4] (a total of 8 center points in the CCD).
    </para>
    <para>
 There is no strict order in the input of the above options.
-scidoe_ccdesign(2,"type","inscribed","center",[2 3]) will output the same as scidoe_ccdesign(2,"center",[2 3],"type","inscribed")
+For example,
+<screen>
+scidoe_ccdesign(2,"type","inscribed","center",[2 3])
+</screen>
+will output
+the same as
+<screen>
+scidoe_ccdesign(2,"center",[2 3],"type","inscribed")
+</screen>
    </para>
    <para>
 </para>

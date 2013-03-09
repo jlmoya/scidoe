@@ -137,6 +137,9 @@ function H = scidoe_lhsdesign(varargin)
     // scidoe_plotlhs(H2)
     // xtitle(t2,"X1","X2")
     //
+    // See also
+    // scidoe_plotlhs
+    //
     // Bibliography
     // McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
     // http://en.wikipedia.org/wiki/Latin_hypercube_sampling

@@ -13,34 +13,110 @@ function H = scidoe_ccdesign(varargin) // In progress
     //
     // Calling Sequence
     //     H = scidoe_ccdesign(nbvar)
-    //     H = scidoe_ccdesign(nbvar,"Name1","Parameter1","Name2","Parameter2")
+    //     H = scidoe_ccdesign(nbvar,"Name",value,...)
     //
     // Parameters
     //     nbvar : a 1-by-1 matrix of doubles, positive integer, the number of variables of the experiment
-    //     Name : a 1-by-n matrix of strings. The options are "type", "alpha" and "center".
-    //     Parameter : a 1-by-n matrix of strings, describing the design.
-    //                 If Name=="type" then "Parameter" can be "circumscribed" (Default), "inscribed" or "faced"
-    //                 If Name=="alpha", then "Parameter" can be either "orthogonal" (Default) or "rotatable"
-    //                 If Name=="center", then "Parameter" is a 1-by-2 row vector of doubles, the number of center points in each block of the design
+    //     Name : a 1-by-1 matrix of strings. The options are "type", "alpha" and "center".
+    //     value : the value
     // Description
-    //     
-    //     The function produces a Central Composite Design of experiments.
-    //     A CCD is composed by a factorial block design, a block of axial (star) points and a matrix of center points (zeros)
-    //     
-    //     The CCD can be specified, as described in "Parameters".
-    //     The default design is "circumscribed" and "orthogonal".
+    // This function produces a Central Composite Design (CCD) of experiments.
+    // A CCD is composed by :
+    // <itemizedlist>
+    //   <listitem>
+    //     <para>
+    //       a factorial block design, 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       a block of axial (star) points and 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       a matrix of center points (zeros).
+    //     </para>
+    //   </listitem>
+    // </itemizedlist>
     //
-    //     Circumscribed and Inscribed can be rotatable designs, but Faced cannot. For Faced CCD, alpha =1.
-     //    If "type" is specified, while "alpha" is not, then default value is "orthogonal".
-    //     If the design is orthogonal, alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), nc the factorial points, nco the center points added to the factorial design, na the axial points, nao the center points added to the axial points.
-    //     If the design is rotatable, alpha = nc^1/4, where nc=2^nbvar are the factorial points.
+    // The available options are the following.
+    // <itemizedlist>
+    //   <listitem>
+    //     <para>
+    //       "type" : "circumscribed" (default), "inscribed" or "faced". 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       "alpha" : "orthogonal" (default) or "rotatable".
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       "center" : a 1-by-2 row vector of doubles, the number of center points in each block of the design.
+    //     </para>
+    //   </listitem>
+    // </itemizedlist>
     //
-    //     The user can specify the number of center points in each block of the design (factorial and axial).
-    //     If "Parameter" is [2 3], then there are 2 center points in the factorial block and 3 points in the axial points block.
-    //     Default value is [4 4] (a total of 8 center points in the CCD).
     //
-    //     There is no strict order in the input of the above options.
-    //     scidoe_ccdesign(2,"type","inscribed","center",[2 3]) will output the same as scidoe_ccdesign(2,"center",[2 3],"type","inscribed")
+    // The "circumscribed" and "inscribed" can be rotatable designs, 
+    // but "faced" cannot. For "faced" CCD, alpha =1.
+    // If "type" is specified, while "alpha" is not, then default value 
+    // is "orthogonal".
+    //
+    // If the design is "orthogonal", 
+    // <screen>
+    // alpha = sqrt(nbvar*(1+(nao/na))/(1+(nco/nc))), 
+    // </screen>
+    // where 
+    // <itemizedlist>
+    //   <listitem>
+    //     <para>
+    //       nc : the number of factorial points, 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       nco : the number of center points added to the factorial design, 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       na : the number of axial points, 
+    //     </para>
+    //   </listitem>
+    //   <listitem>
+    //     <para>
+    //       nao : the number of center points added to the axial points.
+    //     </para>
+    //   </listitem>
+    // </itemizedlist>
+    //
+    // If the design is "rotatable", 
+    // <screen>
+    // alpha = nc^1/4, 
+    // </screen>
+    // where nc=2^nbvar are the factorial points.
+    //
+    // If the design is "faced", then alpha=1.
+    //
+    // The user can specify the number of center points in each block of the 
+    // design (factorial and axial).
+    // If "Parameter" is [2 3], then there are 2 center points in the 
+    // factorial block and 3 points in the axial points block.
+    // Default value is [4 4] (a total of 8 center points in the CCD).
+    //
+    // There is no strict order in the input of the above options.
+    // For example, 
+    // <screen>
+    // scidoe_ccdesign(2,"type","inscribed","center",[2 3]) 
+    // </screen>
+    // will output 
+    // the same as 
+    // <screen>
+    // scidoe_ccdesign(2,"center",[2 3],"type","inscribed")
+    // </screen>
     //
     // Examples
     // // Circumscribed orthogonal design
@@ -82,46 +158,46 @@ function H = scidoe_ccdesign(varargin) // In progress
     default.type = "circumscribed"
     default.alpha = "orthogonal"
     default.center = [4 4];
+    //
     options = apifun_keyvaluepairs(default,varargin(2:$))
-    
+    //
     typevalue = options.type
+    alphavalue = options.alpha
+    centervalue = options.center
+    //
     apifun_checktype("scidoe_ccdesign",typevalue,"typekey",3,"string")
     apifun_checkoption("scidoe_ccdesign",typevalue,"typekey",3,["circumscribed" "inscribed" "faced"])
-    
-    alphavalue = options.alpha
     apifun_checktype("scidoe_ccdesign",alphavalue,"alphakey",5,"string")
     apifun_checkoption("scidoe_ccdesign",alphavalue,"alphakey",5,["orthogonal" "rotatable"])
-
-    centervalue = options.center
     apifun_checktype("scidoe_ccdesign",centervalue,"centerkey",7,"constant")
 
     // Orthogonal Design
     if (alphavalue == "orthogonal") then
-                    [H2,a] = scidoe_star(nbvar,"alpha","orthogonal","center",centervalue);
+        [H2,a] = scidoe_star(nbvar,"alpha","orthogonal","center",centervalue);
     end        
     //
     // Rotatable Design
-     if (alphavalue == "rotatable") then
-                    [H2,a] = scidoe_star(nbvar,"alpha","rotatable")
+    if (alphavalue == "rotatable") then
+        [H2,a] = scidoe_star(nbvar,"alpha","rotatable")
     end 
     //
     //
     // Inscribed CCD
     if (typevalue == "inscribed") then
-            H1 = 2*scidoe_ff2n(nbvar)-1;
-            H1 = H1./a; // Scale down the factorial points
-            H2 = scidoe_star(nbvar)
+        H1 = 2*scidoe_ff2n(nbvar)-1;
+        H1 = H1./a; // Scale down the factorial points
+        H2 = scidoe_star(nbvar)
     end
     //
     // Faced CCD
     if (typevalue == "faced") then
-           H2 = scidoe_star(nbvar); // Value of alpha is always 1 in Faced ccd
-           H1 = 2*scidoe_ff2n(nbvar)-1;
+        H2 = scidoe_star(nbvar); // Value of alpha is always 1 in Faced ccd
+        H1 = 2*scidoe_ff2n(nbvar)-1;
     end
     //
     // Circumscribed Design
     if (typevalue == "circumscribed") then
-           H1 = 2*scidoe_ff2n(nbvar)-1;
+        H1 = 2*scidoe_ff2n(nbvar)-1;
     end
     //
     // Center points

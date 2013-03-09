@@ -19,77 +19,80 @@ function B = scidoe_fullfact(levels)
     //
     // Description
     // Computes a full factorial design with prescribed number of 
-	// levels for each factor. 
-	// In other words, for each factor j, the number of levels is 
-	// levels(j), for j=1,2,...,n.
+    // levels for each factor. 
+    // In other words, for each factor j, the number of levels is 
+    // levels(j), for j=1,2,...,n.
     //
     // Examples
     // // Create a full factorial design with :
-	// // 2 levels for the first factor
-	// // 3 levels for the second factor
+    // // 2 levels for the first factor
+    // // 3 levels for the second factor
     // levels=[2 3]
-	// B=scidoe_fullfact(levels)
-	// // Scale this design into [0,1]
-	// m=size(B,"r")
-	// C = (B-1)./(levels(ones(m,1),:)-1)
-	// // Scale this design into [-1,1]
-	// D=2*C-1
-	// // Plot this design
-	// scf();
-	// scidoe_plotcube(2);
-	// plot(D(:,1),D(:,2),"bo");
-	// xtitle("Full Factorial Design","X1","X2")
+    // B=scidoe_fullfact(levels)
+    // // Scale this design into [0,1]
+    // m=size(B,"r")
+    // C = (B-1)./(levels(ones(m,1),:)-1)
+    // // Scale this design into [-1,1]
+    // D=2*C-1
+    // // Plot this design
+    // scf();
+    // scidoe_plotcube(2);
+    // plot(D(:,1),D(:,2),"bo");
+    // xtitle("Full Factorial Design","X1","X2")
     //
     // // Create a full factorial design with :
-	// // 2 levels for the first factor
-	// // 3 levels for the second factor
-	// // 4 levels for the third factor
-	// levels = [2 3 4]
+    // // 2 levels for the first factor
+    // // 3 levels for the second factor
+    // // 4 levels for the third factor
+    // levels = [2 3 4]
     // B=scidoe_fullfact(levels)
-	// // Scale this design into [0,1]
-	// m=size(B,"r")
-	// C = (B-1)./(levels(ones(m,1),:)-1)
-	// // Scale this design into [-1,1]
-	// D=2*C-1
-	// // Plot this design
-	// h = scf();
-	// param3d(D(:,1),D(:,2),D(:,3))
-	// h.children.children.mark_mode="on";
-	// h.children.children.line_mode="off";
-	// h.children.children.mark_size=1;
-	// scidoe_plotcube(3)
-	// xtitle("Full Factorial Design","X1","X2","X3")
-	//
-	// // Print the number of experiments
-	// // Use 3 levels for each parameter
-	// for n = 1 : 10
-	//   levels = 3*ones(n,1);
-	//   B=scidoe_fullfact(levels);
-	//   m = size(B,"r");
-	//   mprintf("n=%d, Num. Experiments=%d\n",..
-	//      n,m)
-	// end
+    // // Scale this design into [0,1]
+    // m=size(B,"r")
+    // C = (B-1)./(levels(ones(m,1),:)-1)
+    // // Scale this design into [-1,1]
+    // D=2*C-1
+    // // Plot this design
+    // h = scf();
+    // param3d(D(:,1),D(:,2),D(:,3))
+    // h.children.children.mark_mode="on";
+    // h.children.children.line_mode="off";
+    // h.children.children.mark_size=1;
+    // scidoe_plotcube(3)
+    // xtitle("Full Factorial Design","X1","X2","X3")
+    //
+    // // Print the number of experiments
+    // // Use 3 levels for each parameter
+    // for n = 1 : 10
+    //   levels = 3*ones(n,1);
+    //   B=scidoe_fullfact(levels);
+    //   m = size(B,"r");
+    //   mprintf("n=%d, Num. Experiments=%d\n",..
+    //      n,m)
+    // end
+    //
+    // See also
+    // scidoe_plotcube
     //
     // Authors
-	// Copyright (C) 2012 - Michael Baudin
-	// Copyright (C) 2012 - Maria Christopoulou 
+    // Copyright (C) 2012 - Michael Baudin
+    // Copyright (C) 2012 - Maria Christopoulou 
 
     // Check number of input arguments
     [lhs,rhs] = argn();
     apifun_checkrhs("scidoe_fullfact",rhs,1);
     apifun_checklhs("scidoe_fullfact",lhs,1);
-	//
+    //
     // Check type
     apifun_checktype("scidoe_fullfact",levels,"levels",1,["constant"]);
-	//
+    //
     // Check size
     apifun_checkvector("scidoe_fullfact",levels,"levels",1);
-	//
+    //
     // Check content
     apifun_checkflint("scidoe_fullfact",levels,"levels",1);
     apifun_checkgreq("scidoe_fullfact",levels,"levels",1,1);
-	//
-	// Proceed...
+    //
+    // Proceed...
     args = list();
     for i = 1:size(levels,"*")
         args($+1)=(1:levels(i));
