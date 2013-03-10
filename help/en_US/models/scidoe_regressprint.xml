@@ -53,10 +53,9 @@ scidoe_regress or scidoe_multilinreg functions.
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
-// We use dataset provided by NIST in
-// http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat
 // Longley.dat contains 1 Response Variable y, 6 Predictor Variables x
 // and 16 Observations.
+// Source : [4]
 X = [
 83.0 234289 2356 1590 107608 1947
 88.5 259426 2325 1456 108632 1948
@@ -93,7 +92,7 @@ Y = [
 69331
 70551
 ];
-[B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,X);
+[B,bint,r,rint,stats,fullstats] = scidoe_multilinreg(Y,[ones(Y),X]);
 scidoe_regressprint(fullstats)
 
    ]]></programlisting>
@@ -108,8 +107,9 @@ scidoe_regressprint(fullstats)
 
 <refsection>
    <title>Bibliography</title>
-   <para>"Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004</para>
-   <para>http://en.wikipedia.org/wiki/Linear_regression</para>
-   <para>Octave's regress, William Poetra Yoga Hadisoeseno</para>
+   <para>[1] "Introduction to probability and statistics for engineers and scientists.", Third Edition, Sheldon Ross, Elsevier Academic Press, 2004</para>
+   <para>[2] http://en.wikipedia.org/wiki/Linear_regression</para>
+   <para>[3] Octave's regress, William Poetra Yoga Hadisoeseno</para>
+   <para>[4] http://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Longley.dat</para>
 </refsection>
 </refentry>

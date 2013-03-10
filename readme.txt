@@ -23,11 +23,9 @@ Designs
 
 Models
 
- * scidoe_multilinreg — Multivariate linear regression
  * scidoe_regress — Multiple linear regression
  * scidoe_regressprint — Print linear regression
  * scidoe_ryates — Reverse Yates algorithm to give estimated responses
- * scidoe_simplelinreg — Univariate linear regression
  * scidoe_yates — Calculates main and interaction effects using Yate's algorithm.
 
 Support
@@ -38,6 +36,7 @@ Support
  * scidoe_plotlhs — Plot a 2D LHS design
  * scidoe_sort — A flexible sorting function.
  * scidoe_sortdesign — Sort the experiments of a design of experiments
+ * scidoe_squareform — Format distance matrix
  * scidoe_string — Sort the experiments of a design of experiments
 
 Dependencies

@@ -50,7 +50,7 @@ function scidoelib = scidoe_load()
     // add demos
     // =============================================================================
 
-    if ( %t ) then
+    if ( %f ) then
         if or(getscilabmode() == ["NW";"STD"]) then
             mprintf("\tLoad demos\n");
             demoscript = TOOLBOX_NAME + ".dem.gateway.sce"

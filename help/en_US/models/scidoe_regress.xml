@@ -278,7 +278,7 @@ grand("setsd",0);
 // The number of observations
 N = 100;
 // The exact coefficients
-Bexact = [2;3;4]
+Bexact = [2000;3;4]
 // The input 1
 X1min = 50;
 X1max = 150;
