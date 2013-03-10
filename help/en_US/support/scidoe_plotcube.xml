@@ -17,7 +17,7 @@
 
   <refnamediv>
     <refname>scidoe_plotcube</refname>
-    <refpurpose>Plots a d dimensions cube in [-1,1].</refpurpose>
+    <refpurpose>Plots a d dimensions cube.</refpurpose>
   </refnamediv>
 
 
@@ -25,6 +25,7 @@
    <title>Calling Sequence</title>
    <synopsis>
    scidoe_plotcube(d)
+   scidoe_plotcube(d,xrange)
    
    </synopsis>
 </refsynopsisdiv>
@@ -34,13 +35,20 @@
    <variablelist>
    <varlistentry><term>d :</term>
       <listitem><para> a 1-by-1 matrix of doubles, the number of dimensions of the cube. The available values are d=2 or d=3.</para></listitem></varlistentry>
+   <varlistentry><term>xrange :</term>
+      <listitem><para> a 1-by-2 or 2-by-1 matrix of doubles, the x range (default xrange=[-1,1]). xrange(2)&gt;=xrange(1)</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
 <refsection>
    <title>Description</title>
    <para>
-Plots a d dimensions cube in [-1,1].
+<literal>scidoe_plotcube(d)</literal> plots a d
+dimensions cube in [-1,1]^d (default).
+   </para>
+   <para>
+<literal>scidoe_plotcube(d,xrange)</literal> plots a d
+dimensions cube in [xrange(1),xrange(2)]^d.
    </para>
    <para>
 </para>
@@ -49,13 +57,21 @@ Plots a d dimensions cube in [-1,1].
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
-// Plot a 2D cube:
+// Plot a 2D cube in [-1,1]^2
 scf();
 scidoe_plotcube(2)
 
-// Plot a 3D cube:
+// Plot a 3D cube in [-1,1]^3
 scf();
 scidoe_plotcube(3)
+
+// Plot a 2D cube in [0,1]^2
+scf();
+scidoe_plotcube(2,[0,1])
+
+// Plot a 3D cube in [0,1]^3
+scf();
+scidoe_plotcube(3,[0,1])
 
    ]]></programlisting>
 </refsection>
@@ -63,7 +79,7 @@ scidoe_plotcube(3)
 <refsection>
    <title>Authors</title>
    <simplelist type="vert">
-   <member>Copyright (C) 2012 - Michael Baudin</member>
+   <member>Copyright (C) 2012-2013 - Michael Baudin</member>
    <member>Copyright (C) 2012 - Maria Christopoulou</member>
    </simplelist>
 </refsection>

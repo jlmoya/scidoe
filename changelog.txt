@@ -32,6 +32,9 @@ with
 
 B = scidoe_regress(Y,[ones(Y),X])
 
+ * Extended scidoe_plotcube to manage general range [xmin,xmax].
+ * Extended scidoe_plotlhs to manage 3D LHS.
+
 scidoe (v0.2 - 15th of February 2013)
  * added doetbx_rsquared.sci
  * added doetbx_least_squares.sci

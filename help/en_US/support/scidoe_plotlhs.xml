@@ -17,7 +17,7 @@
 
   <refnamediv>
     <refname>scidoe_plotlhs</refname>
-    <refpurpose>Plot a 2D LHS design</refpurpose>
+    <refpurpose>Plot a LHS design</refpurpose>
   </refnamediv>
 
 
@@ -33,14 +33,14 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>H :</term>
-      <listitem><para> a n-by-2 matrix of doubles, the LHS sampling</para></listitem></varlistentry>
+      <listitem><para> a n-by-2 or n-by-3 matrix of doubles, the LHS sampling</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
 <refsection>
    <title>Description</title>
    <para>
-Plots a 2D Latin Hypercube Sampling.
+Plots a 2D or 3D Latin Hypercube Sampling.
    </para>
    <para>
 </para>
@@ -49,7 +49,14 @@ Plots a 2D Latin Hypercube Sampling.
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
+// 2D
 H = scidoe_lhsdesign(2,5);
+scf();
+scidoe_plotlhs(H)
+xtitle("LHS design","X1","X2")
+
+// 3D
+H = scidoe_lhsdesign(3,5);
 scf();
 scidoe_plotlhs(H)
 xtitle("LHS design","X1","X2")

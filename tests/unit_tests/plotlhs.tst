@@ -7,4 +7,9 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 H = scidoe_lhsdesign(2,5);
+scf();
 scidoe_plotlhs(H)
+//
+H = scidoe_lhsdesign(3,5);
+scf();
+scidoe_plotlhs(H);
