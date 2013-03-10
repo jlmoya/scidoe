@@ -24,6 +24,8 @@ function scidoe_plotlhs(H)
     // scf();
     // scidoe_plotlhs(H)
     // xtitle("LHS design","X1","X2")
+    // // Add labels:
+    // xstring(H(:,1),H(:,2),string(1:5));
     // 
     // // 3D
     // H = scidoe_lhsdesign(3,5);
