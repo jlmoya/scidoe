@@ -20,9 +20,10 @@ B = scidoe_simplelinreg(X,Y)
 
 with 
 
-B = scidoe_regress(Y,[ones(X),X])
+B = regres(Y,[ones(X),X])
 
-assuming that X and Y are column vectors.
+assuming that X and Y are column vectors. 
+   The regres function is in the next Stixbox release.
  * Removed scidoe_multilinreg. 
    To update your code, please replace:
    
@@ -30,11 +31,35 @@ B = scidoe_multilinreg(Y,X)
 
 with 
 
-B = scidoe_regress(Y,[ones(Y),X])
+B = regres(Y,[ones(Y),X])
+   The regres function is in the next Stixbox release.
 
  * Extended scidoe_plotcube to manage general range [xmin,xmax].
  * Extended scidoe_plotlhs to manage 3D LHS.
+ * Removed scidoe_regress and scidoe_regressprint.
+   To update your code, please replace 
+   
+scidoe_regress(...)
 
+   with 
+   
+regres(...)
+
+   and replace 
+   
+scidoe_regressprint(...)
+
+   with 
+   
+regresprint(...)
+
+    This was done because the linear regression 
+	function is better in Stixbox, since this is 
+	not the main purpose of scidoe: linear regression 
+	is a general purpose tool, which is not restricted to 
+	design of experiments.
+    The regres and functions are in the next Stixbox release.
+	
 scidoe (v0.2 - 15th of February 2013)
  * added doetbx_rsquared.sci
  * added doetbx_least_squares.sci

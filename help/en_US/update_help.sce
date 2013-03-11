@@ -13,8 +13,6 @@ mprintf("Working dir = %s\n",cwd);
 //
 mprintf("Updating models\n");
 funarray = [
-  "scidoe_regress"
-  "scidoe_regressprint"
   "scidoe_ryates"
   "scidoe_yates"
   ];
