@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ *
+ * Copyright (C) 2013 - Michael Baudin
+ *
+ * Reminder:
+ * &lt;	less than (i.e. <)
+ * &#8804;	less-than or equal to (i.e. <=)
+ * &#8805;	greater-than or equal to (i.e. >=)
+ *
+-->
+<refentry
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:db="http://docbook.org/ns/docbook"
+  version="5.0-subset Scilab"
+  xml:lang="fr"
+  xml:id="scidoe_designs">
+
+  <refnamediv>
+    <refname>Scidoe designs</refname>
+
+    <refpurpose>An overview of the designs.</refpurpose>
+  </refnamediv>
+
+  <refsection>
+    <title>Purpose</title>
+
+    <para>
+      The goal of this document is to present the designs 
+	  which are available in this toolbox.
+    </para>
+
+  </refsection>
+
+  <refsection>
+    <title>Central Composite</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x = scidoe_ccdesign(2)
+scf();
+plot(x(:,1),x(:,2),"bo")
+xtitle("Central Composite Design","X1","X2")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/ccdesign2d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+  
+  <refsection>
+    <title>Box-Benkhen Design</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+// Create a Box-Benkhen Design with three
+// variables one repetition of center:
+H = scidoe_bbdesign(3)
+// Plot the design
+h = scf();
+param3d(H(:,1),H(:,2),H(:,3))
+h.children.children.mark_mode="on";
+h.children.children.line_mode="off";
+h.children.children.mark_size=1;
+scidoe_plotcube(3)
+xtitle("Box-Benkhen Design","X1","X2","X3")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/bbdesign3d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+  
+  <refsection>
+    <title>Full Factorial Design</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+// Create a full factorial design with :
+// 2 levels for the first factor
+// 2 levels for the second factor
+B=scidoe_ff2n(2)
+// Scale into [-1,1]
+C=2*B-1;
+// Plot this design
+scf();
+scidoe_plotcube(2);
+plot(C(:,1),C(:,2),"bo");
+xtitle("Full Factorial Design","X1","X2")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/ff2n2d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+	<programlisting role="example">
+      <![CDATA[ 
+// For three factors
+B=scidoe_ff2n(3)
+// Scale into [-1,1]
+C=2*B-1;
+h = scf();
+param3d(C(:,1),C(:,2),C(:,3))
+h.children.children.mark_mode="on";
+h.children.children.line_mode="off";
+h.children.children.mark_size=1;
+scidoe_plotcube(3)
+xtitle("Full Factorial Design","X1","X2","X3")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/ff2n3d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+  
+  <refsection>
+    <title>Fractional Factorial Design</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+H = scidoe_fracfact("a b ab")
+h = scf();
+param3d(H(:,1),H(:,2),H(:,3))
+h.children.children.mark_mode="on";
+h.children.children.line_mode="off";
+h.children.children.mark_size=1;
+scidoe_plotcube(3)
+xtitle("Fractional Factorial Design","X1","X2","X3")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/fracfact3d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+  
+  <refsection>
+    <title>Latin Hypercube Sampling Design</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+H = scidoe_lhsdesign(2,5)
+scf();
+scidoe_plotlhs(H)
+xtitle("LHS design","X1","X2")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/lhsdesign2d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+
+  <refsection>
+    <title>Star Design</title>
+
+    <programlisting role="example">
+      <![CDATA[ 
+H = scidoe_star(2)
+h = scf();
+plot(H(:,1),H(:,2),"bo")
+scidoe_plotcube(2)
+xtitle("Star Design","X1","X2","X3")
+ ]]>
+    </programlisting>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/star2d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+  </refsection>
+</refentry>

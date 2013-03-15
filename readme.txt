@@ -23,8 +23,6 @@ Designs
 
 Models
 
- * scidoe_regress — Multiple linear regression
- * scidoe_regressprint — Print linear regression
  * scidoe_ryates — Reverse Yates algorithm to give estimated responses
  * scidoe_yates — Calculates main and interaction effects using Yate's algorithm.
 
@@ -33,7 +31,7 @@ Support
  * scidoe_compare — The default comparison function used in the sort-merge.
  * scidoe_pdist — Pairwise point distances of a matrix
  * scidoe_plotcube — Plots a d dimensions cube in [-1,1].
- * scidoe_plotlhs — Plot a 2D LHS design
+ * scidoe_plotlhs — Plot a LHS design
  * scidoe_sort — A flexible sorting function.
  * scidoe_sortdesign — Sort the experiments of a design of experiments
  * scidoe_squareform — Format distance matrix

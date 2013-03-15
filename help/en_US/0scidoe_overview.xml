@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ *
+ * Copyright (C) 2013 - Michael Baudin
+ *
+ * Reminder:
+ * &lt;	less than (i.e. <)
+ * &#8804;	less-than or equal to (i.e. <=)
+ * &#8805;	greater-than or equal to (i.e. >=)
+ *
+-->
+<refentry
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:db="http://docbook.org/ns/docbook"
+  version="5.0-subset Scilab"
+  xml:lang="fr"
+  xml:id="scidoe_overview">
+
+  <refnamediv>
+    <refname>Scidoe Overview</refname>
+
+    <refpurpose>An overview of the Scidoe toolbox.</refpurpose>
+  </refnamediv>
+
+  <refsection>
+    <title>Purpose</title>
+
+    <para>
+      The goal of this toolbox is to provide design of experiments (DOE) 
+      techniques, along with functions for model building.
+      The provided functions are designed to be compatible with Matlab.
+    </para>
+
+    <para>
+      The toolbox is based on macros, which are vectorized 
+	  for performances.
+    </para>
+
+  </refsection>
+
+  <refsection>
+    <title>Quick start</title>
+
+    <para>
+      In this tutorial example, we combine the DOE features of 
+	  the Scidoe toolbox with the regression features in the Stixbox 
+	  toolbox. 
+	  More precisely, we consider a back-box function 
+	  <literal>myfunction</literal> with 2 inputs and 1 output and try to 
+	  create a response surface which approximates this function. 
+	  We consider here a Central Composite Design (CCD) of experiments, 
+	  computed with the <literal>scidoe_ccdesign</literal> 
+	  function. 
+	  Then we evaluate the function at the design points and 
+	  use the <literal>regres</literal> function in order to 
+	  fit a nonlinear model.
+    </para>
+
+	<para>
+      We begin by creating the design of experiments with the 
+	  <literal>scidoe_ccdesign</literal> function. 
+	  This function produces points in the [-1,1] multidimensional 
+	  interval. 
+	  A CCD is composed of a factorial block design, 
+	  a block of axial (star) points and a matrix of center points (zeros). 
+	  In general, this design is appropriate for physical experiments 
+	  where a measure at a particular input point does not produce 
+	  the same output, because there are measure errors. 
+	  Hence, this design is associated with several points at the center 
+	  of the domain.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x = scidoe_ccdesign(2)
+ ]]>
+    </programlisting>
+
+    <para>
+      The previous script produces the following output.
+    </para>
+
+	<screen>
+-->x = scidoe_ccdesign(2)
+ x  =
+  - 1.         - 1.         
+  - 1.           1.         
+    1.         - 1.         
+    1.           1.         
+    0.           0.         
+    0.           0.         
+    0.           0.         
+    0.           0.         
+  - 1.4142136    0.         
+    1.4142136    0.         
+    0.         - 1.4142136  
+    0.           1.4142136  
+    0.           0.         
+    0.           0.         
+    0.           0.         
+    0.           0.         
+    </screen>
+
+    <para>
+      The number of experiments corresponds to the number of 
+	  rows : there are 16 experiments in this design.
+    </para>
+
+	<screen>
+-->nbexp=size(x,"r")
+ nbexp  =
+    16.  
+    </screen>
+
+    <para>
+      In order to see what points have been selected, we create a 
+	  plot with the following statements.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+scf();
+plot(x(:,1),x(:,2),"bo")
+xtitle("Central Composite Design","X1","X2")
+ ]]>
+    </programlisting>
+
+    <para>
+      The previous script produces the following output.
+    </para>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/ccdesign2d.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+    <para>
+      In this design, there are 8 points at the center of the domain and 
+	  we might as well get only one point. 
+	  This can be done with the "center" option, which specifies the number of 
+	  central points. 
+	  The following statement produces only one central point in the factorial 
+	  design (the "1") and zero central point in the axial design (the "0"). 
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x = scidoe_ccdesign(2,"center",[1 0])
+ ]]>
+    </programlisting>
+
+    <para>
+      With these settings, the number of experiments reduces to 9.
+    </para>
+
+	<screen>
+-->x = scidoe_ccdesign(2,"center",[1 0])
+ x  =
+  - 1.         - 1.         
+  - 1.           1.         
+    1.         - 1.         
+    1.           1.         
+    0.           0.         
+  - 1.2649111    0.         
+    1.2649111    0.         
+    0.         - 1.2649111  
+    0.           1.2649111  
+-->nbexp=size(x,"r")
+ nbexp  =
+    9.  
+	</screen>
+
+	<para>
+      We then define our "black-box" function. 
+      This function involves a constant, two terms linear in x(1) and 
+      x(2) and a nonlinear term x(1)*x(2). 
+	  The function is vectorized, so that we can evaluate the whole 
+	  DOE in just one statement. 
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function y=myfunction(x)
+    y=2+3*x(:,1)-4*x(:,2)+5*x(:,1).*x(:,2)
+endfunction
+y=myfunction(x);
+ ]]>
+    </programlisting>
+
+	<para>
+      We add some amount of random noise by adding to the output 
+	  random normal outcomes with mean zero and standard deviation 0.1.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+noise=0.1;
+y=y+distfun_normrnd(0,noise,nbexp,1);
+ ]]>
+    </programlisting>
+
+	<para>
+      We now have a column matrix of randomized function values. 
+    </para>
+
+	<screen>
+-->y
+ y  =
+    8.0614563  
+  - 9.8526572  
+    4.1690109  
+    5.9797968  
+    1.8529469  
+  - 1.8283189  
+    5.9630483  
+    7.0722875  
+  - 3.0547834  
+	</screen>
+
+	<para>
+      The matrix y contains data which may have been either measured, 
+	  or computed by the means of a complicated, external, software, 
+	  such as a 3D finite element simulation, for example. 
+	  In other words, although the current example is simple and 
+	  analytic, it can be applied to much more complicated situations 
+	  where the function to approximate is unknown. 
+    </para>
+
+	<para>
+      Then we create the regression model, by using the 
+	  <literal>regres</literal> function. 
+      We are searching for the parameters B of the model:
+    </para>
+	<screen>
+y=B(1)+B(2)*x(1)+B(3)*x(2)+B(4)*x(1)*x(2)
+	</screen>
+	<para>
+	  This model is linear in the parameter B. 
+	  The <literal>regres</literal> function solves a linear least squares 
+	  problems so that the squared differences between the 
+	  model and the data are minimized. 
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+B = regres(y,[ones(y),x,x(:,1).*x(:,2)])
+ ]]>
+    </programlisting>
+
+	<para>
+	  The previous script produces:
+    </para>
+
+	<screen>
+-->B = regres(y,[ones(y),x,x(:,1).*x(:,2)])
+ B  =
+    2.0403097  
+    3.0271382  
+  - 4.0157183  
+    4.9312249  
+	</screen>
+
+	<para>
+      We see that the estimated coefficients are close to the exact 
+	  ones. 
+	  In fact, if we do not introduce a random noise, then the 
+	  computation is been almost exact in the sense that the 
+	  coefficients are extremely close to the exact ones. 
+	  We now define the function <literal>mymodel</literal> 
+	  which uses the coefficients B to compute the 
+	  output of the regression model <literal>y2</literal>. 
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function y=mymodel(x,B)
+    y=B(1)+B(2)*x(:,1)+B(3)*x(:,2)+B(4)*x(:,1).*x(:,2)
+endfunction
+y2=mymodel(x,B);
+ ]]>
+    </programlisting>
+
+    <para>
+      In order to see how the outputs from the model fit the 
+	  outputs from the blackbox, we make the following graphics, 
+	  where we plot the data versus the model outputs. 
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+scf();
+plot(y,y2,"bo")
+plot(y,y,"r-")
+xtitle("Data vs Model","Y Data","Y=Model(X)")
+ ]]>
+    </programlisting>
+
+    <para>
+      The previous script produces the following output.
+    </para>
+
+	<para>
+		<inlinemediaobject>
+		<imageobject>
+			<imagedata
+			fileref ="figures/modelvsdata.png"
+			align ="center"
+			valign ="middle"
+			/>
+		</imageobject>
+		</inlinemediaobject>
+	</para>
+
+	</refsection>
+  
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type="vert">
+	  <member>Copyright (C) 2012 - 2013 - Michael Baudin</member>
+      <member>Copyright (C) 2012 - Maria Christopoulou</member>
+      <member>Copyright (C) 2009 - Yann Collette</member>
+      <member>Copyright (C) 2001 - Per A. Brodtkorb</member>
+    </simplelist>
+  </refsection>
+
+</refentry>

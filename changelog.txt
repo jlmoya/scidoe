@@ -59,6 +59,8 @@ regresprint(...)
 	is a general purpose tool, which is not restricted to 
 	design of experiments.
     The regres and functions are in the next Stixbox release.
+ * Added a Quick Start.
+ * Added a help page of the designs, with graphics included.
 	
 scidoe (v0.2 - 15th of February 2013)
  * added doetbx_rsquared.sci
