@@ -25,6 +25,8 @@
    <title>Calling Sequence</title>
    <synopsis>
    scidoe_plotlhs(H)
+   scidoe_plotlhs(H,plotcuts)
+   scidoe_plotlhs(H,plotcuts,plotcircles)
    
    </synopsis>
 </refsynopsisdiv>
@@ -34,6 +36,10 @@
    <variablelist>
    <varlistentry><term>H :</term>
       <listitem><para> a n-by-2 or n-by-3 matrix of doubles, the LHS sampling</para></listitem></varlistentry>
+   <varlistentry><term>plotcuts :</term>
+      <listitem><para> a 1-by-1 matrix of booleans, set to true to plot the horizontal and vertical cuts (default=%t)</para></listitem></varlistentry>
+   <varlistentry><term>plotcircles :</term>
+      <listitem><para> a 1-by-1 matrix of booleans, set to true to plot the greatest circles without crossing (default=%f). This works only 2D.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -41,6 +47,9 @@
    <title>Description</title>
    <para>
 Plots a 2D or 3D Latin Hypercube Sampling.
+   </para>
+   <para>
+Add
    </para>
    <para>
 </para>
@@ -56,6 +65,12 @@ scidoe_plotlhs(H)
 xtitle("LHS design","X1","X2")
 // Add labels:
 xstring(H(:,1),H(:,2),string(1:5));
+
+// 2D with circles
+H = scidoe_lhsdesign(2,5);
+scf();
+scidoe_plotlhs(H,%f,%t)
+xtitle("LHS design","X1","X2")
 
 // 3D
 H = scidoe_lhsdesign(3,5);

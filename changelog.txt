@@ -1,5 +1,11 @@
 Design of Experiments Toolbox Changelog
 
+scidoe (not released yet)
+ * scidoe_plotlhs : fixed a bug for 3D LHS designs.
+   The number of experiments was wrongly set to 5.
+ * scidoe_plotlhs : added the plot of the circles, if 
+   asked.
+
 scidoe (v0.3)
  * Fixed Bug #1028: 
    http://forge.scilab.org/index.php/p/scidoe/issues/1028/

@@ -13,3 +13,8 @@ scidoe_plotlhs(H)
 H = scidoe_lhsdesign(3,5);
 scf();
 scidoe_plotlhs(H);
+//
+// 2D with circles
+H = scidoe_lhsdesign(2,5);
+scf();
+scidoe_plotlhs(H,%f,%t);
