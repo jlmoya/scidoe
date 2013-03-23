@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ *
+ * Copyright (C) 2013 - Michael Baudin
+ *
+ * Reminder:
+ * &lt;	less than (i.e. <)
+ * &#8804;	less-than or equal to (i.e. <=)
+ * &#8805;	greater-than or equal to (i.e. >=)
+ *
+-->
+<refentry
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:db="http://docbook.org/ns/docbook"
+  version="5.0-subset Scilab"
+  xml:lang="fr"
+  xml:id="scidoe_lhs">
+
+  <refnamediv>
+    <refname>LHS designs</refname>
+
+    <refpurpose>Properties of LHS designs.</refpurpose>
+  </refnamediv>
+
+  <refsection>
+    <title>Purpose</title>
+
+    <para>
+      The goal of this document is to present the  properties of
+      Latin Hypercube Sampling (LHS) designs.
+    </para>
+
+  </refsection>
+
+  <refsection>
+    <title>Estimating the mean of a univariate random variable</title>
+
+    <para>
+      Consider X=(X1,X2,...,Xs) a multivariate random variable
+      of dimension s with probability distribution function F.
+    </para>
+    <para>
+      Consider the random variable Y=h(X), where h is a function.
+      Assume that h is monotonic with respect to each input variable.
+    </para>
+    <para>
+      Suppose that N is an integer and assume that Xi are independent and 
+	  identically distributed outcomes, for i=1,2,...,N, and consider
+    </para>
+    <para>
+      <latex>
+        Y_i=h(X_i).
+      </latex>
+    </para>
+    <para>
+      We estimate the expectation of Y by its empirical mean:
+    </para>
+    <para>
+      <latex>
+        \overline{Y}=\frac{1}{N} \sum_{i=1}^N Y_i.
+      </latex>
+    </para>
+    <para>
+      The Monte-Carlo method is based on creating the samples Xi as independent
+      outcomes from the distribution F.
+      Instead, assume that the samples Xi are distributed from a
+      Latin Hypercube Sampling.
+      In [1], McKay et al. shows that the LHS sampling improves the empirical
+      mean of Y.
+      More precisely, McKay et al. proves that the variance of the empirical
+      estimator for a LHS design is smaller than the variance of the
+      empirical mean from a simple random sampling (i.e. Monte-Carlo).
+    </para>
+
+    <para>
+      We reproduce below the experiment in [2], where the author 
+	  estimates the mean of a log-normal random variable. 
+	  Although there is no guaranty about this, 
+	  we also estimate the variance.
+	  We see that the LHS design improves over the simple random sampling.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+M=27.4
+V=16
+mu = log(M) - 0.5 * log(1+V./(M.^2))
+sigma = sqrt(log(1+V./(M.^2)))
+// In the report: mu=3.3
+// sigma^2=0.0211
+sigma^2
+// Check:
+[M,V] = distfun_lognstat ( mu , sigma )
+
+// See "Table 2 : Difference of mean and variance"
+i=1;
+Nmatrix=2^(1:16)';
+mprintf("SRS \n")
+for N=Nmatrix'
+    U=distfun_unifrnd(0.,1.,N,1);
+    x=distfun_logninv(U,mu,sigma);
+    SRSEmpiricalMean(i)=mean(x);
+    SRSEmpiricalVar(i)=variance(x);
+    SRSErrorMean(i)=abs(SRSEmpiricalMean(i)-M);
+    SRSErrorVar(i)=abs(SRSEmpiricalVar(i)-V);
+    i=i+1;
+end
+
+// See "Table 2 : Difference of mean and variance"
+mprintf("LHS \n")
+i=1;
+for N=Nmatrix'
+    U=scidoe_lhsdesign(1,N);
+    x=distfun_logninv(U,mu,sigma);
+    LHSEmpiricalMean(i)=mean(x);
+    LHSEmpiricalVar(i)=variance(x);
+    LHSErrorMean(i)=abs(LHSEmpiricalMean(i)-M);
+    LHSErrorVar(i)=abs(LHSEmpiricalVar(i)-V);
+    i=i+1;
+end
+
+scf();
+plot(Nmatrix,SRSEmpiricalMean,"r-o")
+plot(Nmatrix,LHSEmpiricalMean,"b-x")
+plot(Nmatrix,M,"k-")
+xtitle("Convergence of Empirical Mean",..
+  "N","Empirical Mean");
+legend(["Simple Random Sampling","Latin Hypercube Sampling"]);
+a=gca();
+a.log_flags="lnn";
+
+scf();
+plot(Nmatrix,SRSEmpiricalVar,"r-o")
+plot(Nmatrix,LHSEmpiricalVar,"b-x")
+plot(Nmatrix,V,"k-")
+xtitle("Convergence of Empirical Variance",..
+  "N","Empirical Mean");
+legend(["Simple Random Sampling","Latin Hypercube Sampling"]);
+a=gca();
+a.log_flags="lnn";
+
+scf();
+plot(Nmatrix,SRSErrorMean,"r-o")
+plot(Nmatrix,LHSErrorMean,"b-x")
+xtitle("Convergence of Empirical Mean",..
+  "N","Absolute Error on Empirical Mean");
+legend(["Simple Random Sampling","Latin Hypercube Sampling"]);
+a=gca();
+a.log_flags="lln";
+
+scf();
+plot(Nmatrix,SRSErrorVar,"r-o")
+plot(Nmatrix,LHSErrorVar,"b-x")
+xtitle("Convergence of Empirical Variance",..
+  "N","Absolute Error on Empirical Variance");
+legend(["Simple Random Sampling","Latin Hypercube Sampling"]);
+a=gca();
+a.log_flags="lln";
+ ]]>
+    </programlisting>
+
+	<para>
+	The previous script produces the following figures.
+	</para>
+	
+    <para>
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata
+          fileref ="figures/logn-lhs-1.png"
+          align ="center"
+          valign ="middle"
+			/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+
+    <para>
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata
+          fileref ="figures/logn-lhs-2.png"
+          align ="center"
+          valign ="middle"
+			/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+
+    <para>
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata
+          fileref ="figures/logn-lhs-3.png"
+          align ="center"
+          valign ="middle"
+			/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+
+    <para>
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata
+          fileref ="figures/logn-lhs-4.png"
+          align ="center"
+          valign ="middle"
+			/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+
+  </refsection>
+
+  <refsection>
+    <title>Number of LHS</title>
+	
+	<para>
+	In this section, we count the number of LHS designs. 
+	The number of different LHS is :
+	</para>
+	<para>
+	<latex>
+	(n!)^{s-1)
+	</latex>
+	</para>
+	<para>
+	This is because the number of permutation of n numbers is n!. 
+	Moreover, there are s dimensions, which leads to the power s of n!. 
+	But the ordering of the points in the s-dimensional space does not 
+	matter. 
+	Hence, we can arbitrarily set the first dimension to the vector 
+	(1,2,...,n). 
+	This reduces the number of different LHS to the power s-1 of n!.
+	</para>
+	<para>
+	The following script computes the number of different LHS.
+	</para>
+    <programlisting role="example">
+      <![CDATA[ 
+p=[];
+i=1;
+for n=[2 3 4 5 6 7 8 9 10 20 30 40 50]
+    for s=[2 3 4 5]
+        p(i,s-1)=factorial(n)^(s-1);
+    end
+    i=i+1;
+end
+disp(p)
+ ]]>
+    </programlisting>
+	<screen>
+	n        s=2          s=3          s=4          s=5
+    2.       2.           4.           8.           16.        
+    3.       6.           36.          216.         1296.      
+    4.       24.          576.         13824.       331776.    
+    5.       120.         14400.       1728000.     2.074D+08  
+    6.       720.         518400.      3.732D+08    2.687D+11  
+    7.       5040.        25401600.    1.280D+11    6.452D+14  
+    8.       40320.       1.626D+09    6.555D+13    2.643D+18  
+    9.       362880.      1.317D+11    4.778D+16    1.734D+22  
+    10.      3628800.     1.317D+13    4.778D+19    1.734D+26  
+    20.      2.433D+18    5.919D+36    1.440D+55    3.503D+73  
+    30.      2.653D+32    7.036D+64    1.866D+97    4.95D+129  
+    40.      8.159D+47    6.657D+95    5.43D+143    4.43D+191  
+    50.      3.041D+64    9.25D+128    2.81D+193    8.55D+257  
+	</screen>
+
+    <programlisting role="example">
+      <![CDATA[ 
+p=[];
+i=1;
+for n=[2 3 4 5 6 7 8 9 10 20 40 60 80 100 200 400 800 1000]
+    for s=2:10
+        logfac=specfun_factoriallog(n);
+        p(i,s-1)=round((s-1)*logfac/log(10));
+    end
+    i=i+1;
+end
+disp(p)
+ ]]>
+    </programlisting>
+	<para>
+	The following script computes base-10 logarithm of the number of different LHS. 
+	For example, there are 10^74 different LHS of 20 points in dimension 5.
+	</para>
+	<screen>
+	n      s=2    s=3   s=4   s=5    s=6    s=7    s=8    s=9    s=10
+    2      0      1     1     1      2      2      2      2      3      
+    3      1      2     2     3      4      5      5      6      7      
+    4      1      3     4     6      7      8      10     11     12     
+    5      2      4     6     8      10     12     15     17     19     
+    6      3      6     9     11     14     17     20     23     26     
+    7      4      7     11    15     19     22     26     30     33     
+    8      5      9     14    18     23     28     32     37     41     
+    9      6      11    17    22     28     33     39     44     50     
+    10     7      13    20    26     33     39     46     52     59     
+    20     18     37    55    74     92     110    129    147    165    
+    40     48     96    144   192    240    287    335    383    431    
+    60     82     164   246   328    410    492    573    655    737    
+    80     119    238   357   475    594    713    832    951    1070   
+    100    158    316   474   632    790    948    1106   1264   1422   
+    200    375    750   1125  1500   1874   2249   2624   2999   3374   
+    400    869    1738  2606  3475   4344   5213   6082   6950   7819   
+    800    1977   3954  5931  7908   9884   11861  13838  15815  17792  
+    1000   2568   5135  7703  10270  12838  15406  17973  20541  23108  
+	</screen>
+
+  <refsection>
+    <title>References</title>
+
+    <para>
+      [1] McKay, M.D.; Beckman, R.J.; Conover, W.J. (May 1979).
+      "A Comparison of Three Methods for Selecting Values of Input Variables
+      in the Analysis of Output from a Computer Code".
+      Technometrics (American Statistical Association) 21 (2): 239-245.
+    </para>
+
+    <para>
+      [2] Sample size requirement for Monte-Carlo simulations
+      using Latin Hypercube Sampling, Anna Matala, 2008,
+      Helsinki University of Technology,
+      Department of Engineering Physics and Mathematics,
+      Systems Analysis Laboratory
+    </para>
+  </refsection>
+</refentry>
