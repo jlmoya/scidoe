@@ -364,7 +364,7 @@ function [dmin,occ]=histoLHS(s,n)
     dmin=[];
     idmax=size(idims,"c");
     for id=1:idmax
-        if (modulo(id,100)==0) then
+        if (modulo(id,1000)==0) then
             mprintf("Comb. #%d/%d\n",id,idmax)
         end
         H = zeros(n,s);
@@ -394,7 +394,7 @@ disp([dmin^2,occ])
       <para>
         The previous script produces :
       </para>
-      <programlisting role="example">
+      <screen>
         <![CDATA[ 
 -->[dmin,occ]=histoLHS(2,4)
  occ  =
@@ -407,7 +407,7 @@ disp([dmin^2,occ])
     2.    22.  
     5.    2.   
  ]]>
-      </programlisting>
+      </screen>
       <para>
         In other words, there are 22 LHS with square distance 2,
         and 2 LHS with square distance 5.

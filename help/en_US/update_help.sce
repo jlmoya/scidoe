@@ -25,7 +25,6 @@ helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t
 mprintf("Updating support\n");
 funarray = [
   "scidoe_compare"
-  "scidoe_pdist"
   "scidoe_plotcube"
   "scidoe_plotlhs"
   "scidoe_sort"
@@ -35,6 +34,16 @@ funarray = [
   ];
 helpdir = fullfile(cwd,"support");
 macrosdir = fullfile(cwd ,"..","..","macros");
+demosdir = [];
+modulename = "scidoe";
+helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t );
+//
+mprintf("Updating support\n");
+funarray = [
+  "scidoe_pdist"
+  ];
+helpdir = fullfile(cwd,"support");
+macrosdir = fullfile(cwd ,"pseudomacros");
 demosdir = [];
 modulename = "scidoe";
 helptbx_helpupdate ( funarray , helpdir , macrosdir , demosdir , modulename , %t );

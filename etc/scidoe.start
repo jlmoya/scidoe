@@ -28,7 +28,7 @@ function scidoelib = scidoe_load()
     // load gateways
     // =============================================================================
 
-    if ( %f ) then
+    if ( %t ) then
         mprintf("\tLoad gateways\n");
         ilib_verbose(0);
         exec( pathconvert(root_tlbx+"/sci_gateway/loader_gateway.sce",%f));

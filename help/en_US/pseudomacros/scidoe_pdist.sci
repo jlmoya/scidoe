@@ -15,17 +15,17 @@ function D = scidoe_pdist(X)
     //    D = scidoe_pdist(X)
     //
     // Parameters
-    //    X : a m-by-n matrix of doubles, the input vector, where m is the number of points and n is the number of dimensions
-    //    D : a 1-by-b matrix of doubles, the distance vector, where b = m*(m-1)/2
+    //    X : a n-by-s matrix of doubles, the input vector, where n is the number of points and s is the number of dimensions
+    //    D : a 1-by-b matrix of doubles, the distance vector, where b = n*(n-1)/2
     //
     // Description
     // This function computes all the pairwise point distances of a matrix.
     // The number of combinations of the points in each variable (column) 
-    // is equal to the binomial coefficient b=m*(m-1)/2.
+    // is equal to the binomial coefficient b=n*(n-1)/2.
     //    
     // The resulted matrix contains all pairwise point distances, 
-    // arranged in the order (2,1), (3,1), ..., (m,1), (3,2), ..., (m,2), 
-    // ..., (m,m–1).
+    // arranged in the order (2,1), (3,1), ..., (n,1), (3,2), ..., (n,2), 
+    // ..., (n,m–1).
     //
     //    If input matrix X includes only one sample point, 
     // then an empty matrix is returned.
@@ -57,31 +57,5 @@ function D = scidoe_pdist(X)
     // Copyright (C) 2013 - Michael Baudin
 
 
-    [lhs, rhs]=argn()
-    apifun_checkrhs("scidoe_pdist",rhs,1)
-    apifun_checklhs("scidoe_pdist",lhs,1)
-    //
-    // Check Input Type
-    apifun_checktype("scidoe_pdist",X,"X",1,"constant")
-    //
-    [m,n]=size(X);
-    // If X includes one sample point, the empty matrix is returned
-    if (m<2) then
-        D = [];
-        return
-    end
-    //
-    // if (m >= 2)
-    // Binomial Coefficient
-    b = (m*(m-1))/2; 
-    d = zeros(n,b);
-    for i=1:n
-        // Generate all combinations
-        c = specfun_subset(X(:,i),2,"c") 
-        // Compute the distance between all pairs 
-        // of points in each variable
-        d(i,:) = ((c(1,:)-c(2,:)).^2)    
-    end
-    D = sqrt(sum(d,1));
 
 endfunction
