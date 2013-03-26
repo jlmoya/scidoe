@@ -5,6 +5,7 @@ scidoe (not released yet)
    The number of experiments was wrongly set to 5.
  * scidoe_plotlhs : added the plot of the circles, if 
    asked.
+ * scidoe_pdist : implemented C source code and gateway.
 
 scidoe (v0.3)
  * Fixed Bug #1028: 
