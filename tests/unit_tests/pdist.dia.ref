@@ -1,3 +1,4 @@
+// Copyright (C) 2013 - Michael Baudin
 // Copyright (C) 2012 - Maria Christopoulou
 //
 // This file must be used under the terms of the CeCILL.
@@ -7,30 +8,45 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt␊
 // <-- JVM NOT MANDATORY -->
 function checkPdist(X,D)
+    m=size(X,"r")
     k=1;
-    for i=1:size(X,"r")
-        for j=1:size(X,"c")
-            if (i==i) then
+    for j=1:m
+        for i=j+1:m
+            if (i==j) then
                 continue
             end
             dij=norm(X(i,:)-X(j,:));
+            mprintf("%s: Checking [%d,%d]...\n",..
+            "checkPdist",i,j)
             assert_checkalmostequal(D(k),dij);
             k=k+1;
         end
     end
+    mprintf("%s: OK\n","checkPdist")
 endfunction
 // Results confirmed from licensed Matlab version R2011b
 X = [
-    0.3185689    0.684731   
-    0.7688531    0.3089766  
-    0.5430379    0.5694503  
-    0.9205527    0.1715891  
-    0.1097627    0.9247127
-    ];
+0.3185689    0.684731   
+0.7688531    0.3089766  
+0.5430379    0.5694503  
+0.9205527    0.1715891  
+0.1097627    0.9247127
+];
 D = scidoe_pdist(X);
 Dexpected = [0.5865 0.2523 0.7910 0.3181 0.3447 0.2047 0.9020 0.5485 0.5603 1.1066];
 assert_checkalmostequal(D,Dexpected,1.0e-3);
 checkPdist(X,D);
+checkPdist: Checking [2,1]...
+checkPdist: Checking [3,1]...
+checkPdist: Checking [4,1]...
+checkPdist: Checking [5,1]...
+checkPdist: Checking [3,2]...
+checkPdist: Checking [4,2]...
+checkPdist: Checking [5,2]...
+checkPdist: Checking [4,3]...
+checkPdist: Checking [5,3]...
+checkPdist: Checking [5,4]...
+checkPdist: OK
 //
 X  =[
     0.7388326    0.3958625    0.7399886    0.2840223    0.9180394  
@@ -40,6 +56,8 @@ D = scidoe_pdist(X);
 Dexpected = 1.0787;
 assert_checkalmostequal(D,Dexpected,1.0e-3);
 checkPdist(X,D);
+checkPdist: Checking [2,1]...
+checkPdist: OK
 //
 // Check if empty matrix is generated when we have only one sample point
 X = [0.3682415    0.8326198    0.9571552];
@@ -47,6 +65,7 @@ D = scidoe_pdist(X);
 Dexpected = [];
 assert_checkequal(D,Dexpected);
 checkPdist(X,D);
+checkPdist: OK
 //
 // In dimension 3
 X = [
@@ -58,3 +77,14 @@ X = [
 ];
 D = scidoe_pdist(X);
 checkPdist(X,D);
+checkPdist: Checking [2,1]...
+checkPdist: Checking [3,1]...
+checkPdist: Checking [4,1]...
+checkPdist: Checking [5,1]...
+checkPdist: Checking [3,2]...
+checkPdist: Checking [4,2]...
+checkPdist: Checking [5,2]...
+checkPdist: Checking [4,3]...
+checkPdist: Checking [5,3]...
+checkPdist: Checking [5,4]...
+checkPdist: OK
