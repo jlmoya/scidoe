@@ -86,7 +86,7 @@ function H = scidoe_lhsdesign(varargin)
     // xtitle("Correlation LHS design","X1","X2")
     //
     // // Compute a maximin LHS design, with 100 iterations
-    // H = scidoe_lhsdesign(2,5,"criterion","maximin""iterations",100)
+    // H = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",100)
     // // d is larger when k increases
     // d=min(scidoe_pdist(H))
     // scf();
