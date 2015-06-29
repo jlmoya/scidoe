@@ -220,7 +220,7 @@ H = scidoe_star(2)
 h = scf();
 plot(H(:,1),H(:,2),"bo")
 scidoe_plotcube(2)
-xtitle("Star Design","X1","X2","X3")
+xtitle("Star Design","X1","X2")
  ]]>
     </programlisting>
 
