@@ -90,26 +90,26 @@ the known bibliography.
    <programlisting role="example"><![CDATA[
 // Create a Box-Benkhen Design with three
 // variables one repetition of center:
-H = scidoe_bbdesign(3)
+H = scidoe_bbdesign(3);
 // Plot the design
 h = scf();
-param3d(H(:,1),H(:,2),H(:,3))
-h.children.children.mark_mode="on";
-h.children.children.line_mode="off";
-h.children.children.mark_size=1;
-scidoe_plotcube(3)
-xtitle("Box-Benkhen Design","X1","X2","X3")
+param3d(H(:, 1), H(:, 2), H(:, 3));
+h.children.children.mark_mode = "on";
+h.children.children.line_mode = "off";
+h.children.children.mark_size = 1;
+scidoe_plotcube(3);
+xtitle("Box-Benkhen Design", "X1", "X2", "X3");
 
 // With three variables and the
 // center repeated two times:
-H = scidoe_bbdesign(3,2)
+H = scidoe_bbdesign(3, "center", 2);
 
 // Print the number of experiments
 for nbvar = 3 : 10
-H = scidoe_bbdesign(nbvar);
-m = size(H,"r");
-mprintf("nbvar=%d, Num. Experiments=%d\n",..
-nbvar,m)
+    H = scidoe_bbdesign(nbvar);
+    m = size(H,"r");
+    mprintf("nbvar=%d, Num. Experiments=%d\n", ..
+            nbvar, m);
 end
 
    ]]></programlisting>
