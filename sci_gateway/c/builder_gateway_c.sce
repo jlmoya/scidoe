@@ -18,12 +18,13 @@ function distfun_builderGatewayC()
 
     if ( getos() == "Windows" ) then
         include1 = "..\..\src\c";
-        cflags = "-DWIN32 "+..
-		" -I"""+include1+"""";
+        cflags = "-DWIN32 " ..
+               + " -I""" + include1 + """";
     else
         include1 = gateway_path;
-        include2 = gateway_path+"../../src/c";
-        cflags = "-I"""+include1+"""";
+        include2 = gateway_path + "../../src/c";
+        cflags = "-I""" + include1 + """ " ..
+               + "-I""" + include2 + """";
     end
     // Caution : the order matters !
     libs = [
