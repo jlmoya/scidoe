@@ -14,22 +14,22 @@ function H = scidoe_lhsdesign(varargin)
     // Latin Hypercube Sampling
     //
     // Calling Sequence
-    //    H = scidoe_lhsdesign(s,n)
-    //    H = scidoe_lhsdesign(...,"criterion","center")
-    //    H = scidoe_lhsdesign(...,"criterion","maximin")
-    //    H = scidoe_lhsdesign(...,"criterion","correlation")
-    //    H = scidoe_lhsdesign(...,"criterion","centermaximin")
-    //    H = scidoe_lhsdesign(...,"iterations",k)
+    //    H = scidoe_lhsdesign(s, n)
+    //    H = scidoe_lhsdesign(s, n, "criterion", "center")
+    //    H = scidoe_lhsdesign(s, n, "criterion", "maximin")
+    //    H = scidoe_lhsdesign(s, n, "criterion", "correlation")
+    //    H = scidoe_lhsdesign(s, n, "criterion", "centermaximin")
+    //    H = scidoe_lhsdesign(s, n, "iterations", k)
     //
     // Parameters
     //    s : a 1-by-1 matrix of doubles, integer value, s>=1, the number of variables
     //    n : a 1-by-1 matrix of doubles, integer value, n>=1, the number of points
     //    k : a 1-by-1 matrix of doubles, integer value, k>=1, the number of iterations in the maximin algorithm
     //    H : a n-by-s matrix of doubles, the LHS sampling
-    //    
+    //
     // Description
     //    Computes a Latin Hypercube Sampling
-    //    
+    //
     //    <itemizedlist>
     //    <listitem>
     //    <para>
@@ -78,7 +78,7 @@ function H = scidoe_lhsdesign(varargin)
     // scf();
     // scidoe_plotlhs(H)
     // xtitle("Maximin LHS design","X1","X2")
-    // 
+    //
     // // Compute a correlation LHS design
     // H = scidoe_lhsdesign(2,5,"criterion","correlation");
     // scf();
@@ -97,9 +97,9 @@ function H = scidoe_lhsdesign(varargin)
     // H= scidoe_lhsdesign(2,5,"criterion","centermaximin","iterations",10);
     // scf();
     // scidoe_plotlhs(H)
-    // 
+    //
     // // See Maximin LHS designs when k increases.
-    // // The 5 points seems to go away from the center, 
+    // // The 5 points seems to go away from the center,
     // // which increases the minimum distance between the points.
     // grand("setsd",0);
     // H1 = scidoe_lhsdesign(2,5,"criterion","maximin","iterations",2);
@@ -141,7 +141,10 @@ function H = scidoe_lhsdesign(varargin)
     // scidoe_plotlhs
     //
     // Bibliography
-    // McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979). "A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code" Technometrics (American Statistical Association) 21 (2): 239–245.
+    // McKay, M.D. Beckman, R.J. Conover, W.J. (May 1979).
+    // "A Comparison of Three Methods for Selecting Values of Input Variables
+    //  in the Analysis of Output from a Computer Code"
+    // Technometrics (American Statistical Association) 21 (2): 239–245.
     // http://en.wikipedia.org/wiki/Latin_hypercube_sampling
     // http://www.mathworks.com/help/toolbox/stats/lhsdesign.html
     //
@@ -170,7 +173,7 @@ function H = scidoe_lhsdesign(varargin)
     //
     // Check content
     apifun_checkflint("scidoe_lhsdesign",s,"s",1)
-    apifun_checkflint("scidoe_lhsdesign",n,"n",2)    
+    apifun_checkflint("scidoe_lhsdesign",n,"n",2)
     apifun_checkgreq("scidoe_lhsdesign",s,"s",1,1)
     apifun_checkgreq("scidoe_lhsdesign",n,"n",2,1)
     //
@@ -221,6 +224,7 @@ function H = scidoe_lhsdesign(varargin)
         end
     end
 endfunction
+
 function H = scidoe_lhsdesignClassic(s,n)
     // A classical LHS design
     cut = linspace ( 0 , 1 , n + 1 )'
@@ -239,6 +243,7 @@ function H = scidoe_lhsdesignClassic(s,n)
         H ( 1 : n , j ) = rdpoints ( order , j )
     end
 endfunction
+
 function H = scidoe_lhsdesignCenter(s,n)
     // A centered LHS design
     cut = linspace(0,1,n+1)';
