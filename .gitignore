@@ -10,7 +10,13 @@ macros/lib
 macros/names
 jar/
 loader.sce
+unloader.sce
 cleaner.sce
+sci_gateway/c/libscidoegateway*.cpp
+sci_gateway/c/libscidoegateway*.h
+sci_gateway/c/libscidoegateway*.hxx
+sci_gateway/cleaner_gateway.sce
+sci_gateway/loader_gateway.sce
 Debug
 Release
 help/en_US/scilab_en_US_help
