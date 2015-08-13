@@ -18,7 +18,7 @@
 
 // From Scilab:
 #include "api_scilab.h"
-#include "stack-c.h"
+
 #include "Scierror.h"
 #include "localization.h"
 
@@ -65,7 +65,7 @@
 
 */
 /*--------------------------------------------------------------------------*/
-int sci_scidoe_pdist(char* fname,unsigned long l)
+int sci_scidoe_pdist(char* fname, void* pvApiCtx)
 {
 
 	int readFlag;
@@ -104,7 +104,7 @@ int sci_scidoe_pdist(char* fname,unsigned long l)
 	// Create LHS : D
 	rowsD = 1;
 	colsD = rowsX*(rowsX-1)/2;
-	iAllocMatrixOfDouble ( Rhs + 1 , rowsD , colsD , &lrD );
+	allocMatrixOfDouble (pvApiCtx , Rhs + 1 , rowsD , colsD , &lrD );
 	LhsVar(1) = Rhs+1;
 	// Fill D
 	scidoe_pdist(colsX, rowsX, lrX, lrD);

@@ -16,6 +16,6 @@
 #ifndef __SCI_GW_SCIDOE_H__
 #define __SCI_GW_SCIDOE_H__
 
-int sci_scidoe_pdist(char* fname,unsigned long l);
+int sci_scidoe_pdist(char* fname, void* pvApiCtx);
 
 #endif /* __SCI_GW_SCIDOE_H__ */
