@@ -13,29 +13,29 @@ Features
 
 Designs
 
- * scidoe_bbdesign — Box-Benhken design of experiments
- * scidoe_ccdesign — A Central Composite Design of Experiments
- * scidoe_ff2n — Full factorial design with 2 levels
- * scidoe_fracfact — Fractional Factorial Design
- * scidoe_fullfact — Full factorial design
- * scidoe_lhsdesign — Latin Hypercube Sampling
- * scidoe_star — Produces a star point design of experiments
+ * scidoe_bbdesign â€” Box-Benhken design of experiments
+ * scidoe_ccdesign â€” A Central Composite Design of Experiments
+ * scidoe_ff2n â€” Full factorial design with 2 levels
+ * scidoe_fracfact â€” Fractional Factorial Design
+ * scidoe_fullfact â€” Full factorial design
+ * scidoe_lhsdesign â€” Latin Hypercube Sampling
+ * scidoe_star â€” Produces a star point design of experiments
 
 Models
 
- * scidoe_ryates — Reverse Yates algorithm to give estimated responses
- * scidoe_yates — Calculates main and interaction effects using Yate's algorithm.
+ * scidoe_ryates â€” Reverse Yates algorithm to give estimated responses
+ * scidoe_yates â€” Calculates main and interaction effects using Yate's algorithm.
 
 Support
 
- * scidoe_compare — The default comparison function used in the sort-merge.
- * scidoe_pdist — Pairwise point distances of a matrix
- * scidoe_plotcube — Plots a d dimensions cube in [-1,1].
- * scidoe_plotlhs — Plot a LHS design
- * scidoe_sort — A flexible sorting function.
- * scidoe_sortdesign — Sort the experiments of a design of experiments
- * scidoe_squareform — Format distance matrix
- * scidoe_string — Sort the experiments of a design of experiments
+ * scidoe_compare â€” The default comparison function used in the sort-merge.
+ * scidoe_pdist â€” Pairwise point distances of a matrix
+ * scidoe_plotcube â€” Plots a d dimensions cube in [-1,1].
+ * scidoe_plotlhs â€” Plot a LHS design
+ * scidoe_sort â€” A flexible sorting function.
+ * scidoe_sortdesign â€” Sort the experiments of a design of experiments
+ * scidoe_squareform â€” Format distance matrix
+ * scidoe_string â€” Sort the experiments of a design of experiments
 
 Dependencies
 ------------
